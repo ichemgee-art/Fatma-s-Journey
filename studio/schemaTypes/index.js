@@ -11,9 +11,9 @@ const categories = [
 export const portfolioMedia = defineType({
  name:'portfolioMedia',title:'Gallery media',type:'object',
  fields:[
-  defineField({name:'kind',title:'Media kind',type:'string',options:{list:[{title:'Image',value:'image'},{title:'Video file',value:'video'},{title:'External video link',value:'external'}]},initialValue:'image',validation:r=>r.required()}),
+  defineField({name:'kind',title:'Media kind',type:'string',options:{list:[{title:'Image',value:'image'},{title:'Video file',value:'video'},{title:'Audio file',value:'audio'},{title:'External video link',value:'external'}]},initialValue:'image',validation:r=>r.required()}),
   defineField({name:'image',title:'Image',type:'image',options:{hotspot:true},hidden:({parent})=>parent?.kind!=='image'}),
-  defineField({name:'file',title:'Video file (MP4 / WEBM)',type:'file',options:{accept:'video/*'},hidden:({parent})=>parent?.kind!=='video'}),
+  defineField({name:'file',title:'Video / audio file',type:'file',options:{accept:'video/*,audio/*'},hidden:({parent})=>!['video','audio'].includes(parent?.kind)}),
   defineField({name:'url',title:'YouTube, Vimeo or HTTPS media URL',type:'url',hidden:({parent})=>parent?.kind!=='external'}),
   defineField({name:'poster',title:'Video poster image',type:'image',hidden:({parent})=>parent?.kind==='image'}),
   defineField({name:'caption',title:'Caption / accessible description',type:'string'}),
