@@ -8,7 +8,7 @@ const categories = [
   {title:'Reels', value:'reels'},
   {title:'Photography', value:'photo'},
 ]
-const mediaItem = defineType({
+export const portfolioMedia = defineType({
  name:'portfolioMedia',title:'Gallery media',type:'object',
  fields:[
   defineField({name:'kind',title:'Media kind',type:'string',options:{list:[{title:'Image',value:'image'},{title:'Video file',value:'video'},{title:'External video link',value:'external'}]},initialValue:'image',validation:r=>r.required()}),
