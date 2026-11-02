@@ -1,0 +1,17 @@
+{
+  "name": "fatma-portfolio-studio",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "sanity dev",
+    "build": "sanity build",
+    "deploy": "sanity deploy"
+  },
+  "dependencies": {
+    "sanity": "^4.10.0",
+    "@sanity/vision": "^4.10.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  }
+}
