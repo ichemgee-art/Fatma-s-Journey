@@ -33,7 +33,9 @@
   media.replaceChildren();const items=current.media||[],m=items[index];
   if(m&&url(m.url)){
    const figure=node('figure','media-stage'),u=url(m.url);
-   if(m.provider==='drive'){
+   if(m.type==='pdf'){
+    figure.classList.add('pdf-stage');figure.append(window.createPDFPreview(m,current.title,url(current.cover),true));
+   }else if(m.provider==='drive'){
     const frame=node('iframe');frame.src=u;frame.title=current.title;frame.allow='fullscreen; picture-in-picture';frame.setAttribute('allowfullscreen','');frame.className=['document','pdf'].includes(m.type)?'document-preview':'drive-preview';figure.append(frame);
    }else if(m.type==='image'){
     const img=node('img');img.src=u;img.alt=m.title||current.title;img.className='portfolio-image';
@@ -45,8 +47,6 @@
     const src=embed(u);
     if(src){const frame=node('iframe');frame.src=src;frame.title=current.title;frame.allow='fullscreen; picture-in-picture';frame.setAttribute('allowfullscreen','');figure.append(frame);}
     else{const video=node('video');video.controls=true;video.preload='metadata';video.playsInline=true;video.src=u;if(url(m.poster||current.cover))video.poster=m.poster||current.cover;figure.append(video);}
-   }else if(m.type==='pdf'){
-    const frame=node('iframe');frame.src=u;frame.title=current.title+' — '+t('readDocument');frame.className='document-preview';figure.append(frame);
    }
    if(['document','pdf'].includes(m.type)){const link=node('a','media-action',m.type==='pdf'?t('openPDF'):t('openDocument'));link.href=pSource();link.target='_blank';link.rel='noopener noreferrer';figure.append(link);}
    media.append(figure);

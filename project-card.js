@@ -5,10 +5,11 @@
   const t=window.portfolioI18n.t,type=p.media?.[0]?.type||p.type||'image';
   const card=node('a','cms-card is-'+type);card.href='/details/?id='+encodeURIComponent(p.id);card.setAttribute('aria-label',t('view')+' '+p.title);
   const visual=node('div','cms-cover'),cover=safe(p.cover);
-  if(cover){const image=node('img');image.src=cover;image.alt='';image.loading='lazy';image.decoding='async';visual.append(image);image.addEventListener('error',()=>{image.remove();visual.classList.add('no-cover');},{once:true});}
+  if(type==='pdf'&&window.createPDFPreview)visual.append(window.createPDFPreview(p.media[0],p.title,cover));
+  else if(cover){const image=node('img');image.src=cover;image.alt='';image.loading='lazy';image.decoding='async';visual.append(image);image.addEventListener('error',()=>{image.remove();visual.classList.add('no-cover');},{once:true});}
   if(type==='audio'){
    const waveform=node('div','card-wave');waveform.setAttribute('aria-hidden','true');for(const h of [18,35,51,28,62,40,75,49,30,60,43,21,39,56,25]){const bar=node('i');bar.style.setProperty('--bar',h+'%');waveform.append(bar);}visual.append(waveform);
-  }else{visual.append(node('span','card-art-symbol',({image:'◈',video:'▷',pdf:'PDF',document:'Aa'})[type]||'✦'));}
+  }else if(type!=='pdf'){visual.append(node('span','card-art-symbol',({image:'◈',video:'▷',document:'Aa'})[type]||'✦'));}
   visual.append(node('span','card-format',t(({image:'imageFormat',video:'videoFormat',audio:'audioFormat',pdf:'pdfFormat',document:'documentFormat'})[type]||'detailsLabel')));
   visual.append(node('span','card-open','↗'));card.append(visual);
   const body=node('div','cms-card-body');body.append(node('span','cms-category',window.portfolioI18n.group(p.group)||t(p.category)));
