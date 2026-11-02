@@ -32,6 +32,7 @@ footer{display:flex;justify-content:space-between;align-items:center;border-top:
 @media(max-width:980px){.cms-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:700px){.cms-section{padding:74px 0 15px}.cms-grid{grid-template-columns:1fr}.cms-modal{padding:10px}.cms-shell{max-height:96vh;padding:20px}.cms-media{grid-template-columns:1fr}.cms-cover{height:220px}}
 
 </style>
+<link rel="stylesheet" href="/portfolio.css">
 </head>
 <body>
 <div class="page" id="home">
@@ -40,43 +41,30 @@ footer{display:flex;justify-content:space-between;align-items:center;border-top:
 <section class="hero" aria-labelledby="hero-title"><div class="hero-art"><div class="photo"><img alt="Creative video production workspace with camera equipment" src="https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" loading="eager"><span class="photo-tag">Creative stories, thoughtfully made.</span></div><div class="orb" aria-hidden="true"></div><div class="ring" aria-hidden="true"></div><div class="float-note"><span class="mini">✦</span><span>Content • Voice • Visuals<b>Ideas with impact</b></span></div></div>
 <div class="hero-copy"><div class="eyebrow">Creative content portfolio / 2026</div><div class="rule"></div><h1 id="hero-title">Ideas into <span>Impact.</span></h1><p>Content Strategy · Voice Over · Dubbing · AI · Video</p><div class="actions"><a class="primary" href="#projects">Explore My Work <span class="button-arrow">↗</span></a><a class="secondary" href="#contact">↗ &nbsp;Let’s collaborate</a></div></div></section>
 <div class="skills" aria-label="Creative disciplines">
-<a class="skill" href="#work" data-go="plans"><svg viewBox="0 0 32 32"><rect x="5" y="5" width="22" height="22" rx="3"/><path d="M9 11h14M9 16h14M9 21h8"/></svg><span>Content Plans</span></a>
-<a class="skill" href="#work" data-go="voice"><svg viewBox="0 0 32 32"><rect x="12" y="4" width="8" height="17" rx="4"/><path d="M8 16a8 8 0 0 0 16 0M16 24v5M11 29h10"/></svg><span>Voice Over</span></a>
-<a class="skill" href="#work" data-go="dubbing"><svg viewBox="0 0 32 32"><path d="M4 12v8M8 7v18M12 11v10M16 4v24M20 9v14M24 6v20M28 12v8"/></svg><span>Dubbing</span></a>
-<a class="skill" href="#work" data-go="ai"><svg viewBox="0 0 32 32"><path d="M16 2l3.5 10.5L30 16l-10.5 3.5L16 30l-3.5-10.5L2 16l10.5-3.5z"/></svg><span>AI Content</span></a>
-<a class="skill" href="#work" data-go="reels"><svg viewBox="0 0 32 32"><rect x="4" y="5" width="24" height="22" rx="4"/><path d="M4 12h24M11 5l5 7M20 5l5 7M13 16l8 4-8 4z"/></svg><span>Reels</span></a>
-<a class="skill" href="#work" data-go="photo"><svg viewBox="0 0 32 32"><path d="M5 10h6l3-4h8l3 4h2v17H5z"/><circle cx="16" cy="18" r="5"/></svg><span>Photography</span></a>
+<a class="skill" href="#projects" data-go="content"><svg viewBox="0 0 32 32"><rect x="5" y="5" width="22" height="22" rx="3"/><path d="M9 11h14M9 16h14M9 21h8"/></svg><span>Content Creation</span></a>
+<a class="skill" href="#projects" data-go="voice"><svg viewBox="0 0 32 32"><rect x="12" y="4" width="8" height="17" rx="4"/><path d="M8 16a8 8 0 0 0 16 0M16 24v5M11 29h10"/></svg><span>Voice Over</span></a>
+<a class="skill" href="#projects" data-go="dubbing"><svg viewBox="0 0 32 32"><path d="M4 12v8M8 7v18M12 11v10M16 4v24M20 9v14M24 6v20M28 12v8"/></svg><span>Dubbing</span></a>
+<a class="skill" href="#projects" data-go="ai"><svg viewBox="0 0 32 32"><path d="M16 2l3.5 10.5L30 16l-10.5 3.5L16 30l-3.5-10.5L2 16l10.5-3.5z"/></svg><span>AI Content</span></a>
+<a class="skill" href="#projects" data-go="video"><svg viewBox="0 0 32 32"><rect x="4" y="5" width="24" height="22" rx="4"/><path d="M4 12h24M11 5l5 7M20 5l5 7M13 16l8 4-8 4z"/></svg><span>Videos</span></a>
+<a class="skill" href="#projects" data-go="photo"><svg viewBox="0 0 32 32"><path d="M5 10h6l3-4h8l3 4h2v17H5z"/><circle cx="16" cy="18" r="5"/></svg><span>Photography</span></a>
 </div>
 
 <section class="cms-section" id="projects" aria-labelledby="cms-heading">
-  <div class="section-head"><div><span class="section-kicker">Explore the portfolio</span><h2 id="cms-heading">Projects &amp; stories<span style="color:#8932b8">.</span></h2></div><p class="section-intro">A living portfolio — published projects are updated from the content studio.</p></div>
+  <div class="section-head"><div><span class="section-kicker">Explore the portfolio</span><h2 id="cms-heading">Projects &amp; stories<span style="color:#8932b8">.</span></h2></div><p class="section-intro">Content, photography, voice, video, dubbing and AI — each story in its own space.</p></div>
   <div class="cms-controls" id="cmsControls" aria-label="Filter live projects" hidden></div>
+  <div class="cms-controls cms-groups" id="cmsGroups" aria-label="Filter sections" hidden></div>
   <div class="cms-grid" id="cmsGrid" hidden></div>
   <p class="cms-status" id="cmsStatus" role="status" aria-live="polite">Loading published projects…</p>
 </section>
 
-<section id="mediaArchive" class="cms-section" hidden aria-labelledby="archiveHeading">
-  <div class="section-head"><div><span class="section-kicker">From the Sanity library</span><h2 id="archiveHeading">More photos &amp; videos<span style="color:#8932b8">.</span></h2></div><p class="section-intro">Media uploaded to Sanity that is not yet attached to a published project.</p></div>
-  <div id="mediaArchiveGrid" class="cms-grid"></div>
-</section>
-<section class="works" id="work"><div class="section-head"><div><span class="section-kicker">What I create</span><h2>Selected creative tracks<span style="color:#8630b9">.</span></h2></div><p class="section-intro">From the first idea to the final frame — explore the creative disciplines that shape the work.</p></div>
-<div class="filters" aria-label="Filter creative tracks"><button class="filter" data-filter="all" aria-pressed="true">All work</button><button class="filter" data-filter="plans" aria-pressed="false">Content Plans</button><button class="filter" data-filter="voice" aria-pressed="false">Voice Over</button><button class="filter" data-filter="dubbing" aria-pressed="false">Dubbing</button><button class="filter" data-filter="ai" aria-pressed="false">AI Content</button><button class="filter" data-filter="reels" aria-pressed="false">Reels</button><button class="filter" data-filter="photo" aria-pressed="false">Photography</button></div>
-<div class="work-grid" id="workGrid">
-<button class="work-card" data-type="plans" data-title="Content Plans"><div class="work-art a1"><span>01 / PLAN</span></div><div class="work-body"><span class="tag">Strategy & planning</span><strong>Content Plans</strong><p>Editorial direction, creative calendars and story-first thinking.</p><div class="work-bottom"><span>Explore discipline</span><span class="play">↗</span></div></div></button>
-<button class="work-card" data-type="voice" data-title="Voice Over"><div class="work-art a2"><span class="waveform" aria-hidden="true"><i style="--h:33px"></i><i style="--h:65px"></i><i style="--h:95px"></i><i style="--h:50px"></i><i style="--h:115px"></i><i style="--h:74px"></i><i style="--h:40px"></i><i style="--h:88px"></i><i style="--h:51px"></i><i style="--h:26px"></i></span></div><div class="work-body"><span class="tag">Narration & emotion</span><strong>Voice Over</strong><p>Giving stories their own voice, rhythm and personality.</p><div class="work-bottom"><span>Explore discipline</span><span class="play">↗</span></div></div></button>
-<button class="work-card" data-type="dubbing" data-title="Dubbing"><div class="work-art a3"><span>VOICE ↗</span></div><div class="work-body"><span class="tag">Character & performance</span><strong>Dubbing</strong><p>Connecting characters and ideas through expressive delivery.</p><div class="work-bottom"><span>Explore discipline</span><span class="play">↗</span></div></div></button>
-<button class="work-card" data-type="ai" data-title="AI Content"><div class="work-art a4"><span>✳ AI ✳</span></div><div class="work-body"><span class="tag">Creative technology</span><strong>AI Content</strong><p>New visual possibilities, guided by a human creative point of view.</p><div class="work-bottom"><span>Explore discipline</span><span class="play">↗</span></div></div></button>
-<button class="work-card" data-type="reels" data-title="Reels"><div class="work-art a5"><span>▷ 9:16</span></div><div class="work-body"><span class="tag">Short-form storytelling</span><strong>Reels</strong><p>Fast, focused content built to capture attention with purpose.</p><div class="work-bottom"><span>Explore discipline</span><span class="play">↗</span></div></div></button>
-<button class="work-card" data-type="photo" data-title="Photography"><div class="work-art a6"><span>◉ FRAME</span></div><div class="work-body"><span class="tag">Visual direction</span><strong>Photography</strong><p>Thoughtful composition, lighting and moments worth keeping.</p><div class="work-bottom"><span>Explore discipline</span><span class="play">↗</span></div></div></button>
-</div><p style="font-size:12px;color:#776c83;margin-top:23px">Note: The category artwork is illustrative. Original project samples can be added when provided.</p></section>
+
+
 </main></div>
 <section class="about" id="about"><div class="container about-layout"><div><span class="section-kicker">Behind the creative</span><h2>Every good story starts with <em>an idea.</em></h2></div><div class="about-copy"><p>Hi, I’m Fatma. This is a space for creative content — from planning the message to shaping the voice and visual experience. The goal is simple: turn ideas into something people connect with.</p><p>Explore the disciplines above and see how strategy, sound, and imagery come together.</p><div class="steps"><span><b>01</b>Think</span><span><b>02</b>Create</span><span><b>03</b>Connect</span></div></div></div></section>
-<div class="container"><section class="contact" id="contact"><div class="contact-panel"><span class="section-kicker">Let's create something meaningful</span><h2>Have an idea? Let's make it <span style="color:#d4aafa">matter.</span></h2><p>Interested in collaborating on content strategy, narration, video or creative AI? This space is ready for Fatma’s professional contact details.</p><button class="primary" id="copyLink">Copy portfolio link ↗</button><div class="contact-note">Contact email and social links will be added when confirmed.</div></div></section><footer><div><b>fatma.</b> &nbsp; Creative Content Portfolio · 2026</div><div class="footer-links"><a href="#home">Back to top ↑</a><a href="#work">Work</a><a href="#about">About</a></div></footer></div>
+<div class="container"><section class="contact" id="contact"><div class="contact-panel"><span class="section-kicker">Let's create something meaningful</span><h2>Have an idea? Let's make it <span style="color:#d4aafa">matter.</span></h2><p>Interested in collaborating on content strategy, narration, video or creative AI? This space is ready for Fatma’s professional contact details.</p><button class="primary" id="copyLink">Copy portfolio link ↗</button><div class="contact-note">Contact email and social links will be added when confirmed.</div></div></section><footer><div><b>fatma.</b> &nbsp; Creative Content Portfolio · 2026</div><div class="footer-links"><a href="#home">Back to top ↑</a><a href="#projects">Work</a><a href="#about">About</a></div></footer></div>
 </div>
-<div class="dialog" id="dialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle" aria-hidden="true"><div class="dialog-inner"><button class="close" id="closeDialog" aria-label="Close">×</button><span class="section-kicker">Creative discipline</span><h3 id="dialogTitle"></h3><p id="dialogBody">This section is ready for Fatma's real projects, previews, and links. No sample work has been attributed without a verified source.</p><a class="secondary" href="#contact" id="dialogContact">View contact section ↗</a></div></div><div class="toast" id="toast" role="status" aria-live="polite"></div>
-<script>
-(function(){const nav=document.getElementById('nav'),menu=document.getElementById('menu'),buttons=[...document.querySelectorAll('[data-filter]')],cards=[...document.querySelectorAll('.work-card')],dialog=document.getElementById('dialog');let lastFocus=null;function filter(type){buttons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.filter===type)));cards.forEach(c=>c.hidden=type!=='all'&&c.dataset.type!==type)}buttons.forEach(b=>b.addEventListener('click',()=>filter(b.dataset.filter)));document.querySelectorAll('[data-go]').forEach(a=>a.addEventListener('click',()=>filter(a.dataset.go)));menu.addEventListener('click',()=>{let open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(open))});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menu.setAttribute('aria-expanded','false')}));function close(){dialog.classList.remove('open');dialog.setAttribute('aria-hidden','true');document.body.style.overflow='';if(lastFocus)lastFocus.focus()}cards.forEach(c=>c.addEventListener('click',()=>{lastFocus=c;document.getElementById('dialogTitle').textContent=c.dataset.title;dialog.classList.add('open');dialog.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';document.getElementById('closeDialog').focus()}));document.getElementById('closeDialog').addEventListener('click',close);document.getElementById('dialogContact').addEventListener('click',close);dialog.addEventListener('click',e=>{if(e.target===dialog)close()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&dialog.classList.contains('open'))close()});let timer;function toast(msg){let t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>t.classList.remove('show'),3000)}document.getElementById('copyLink').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(location.href.split('#')[0]);toast('Portfolio link copied!')}catch(e){toast('Copy the website address from your browser.')}})})();
-</script>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
 
 <div id="cmsModal" class="cms-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="cmsModalTitle">
  <div class="cms-shell"><button class="cms-close" id="cmsClose" aria-label="Close project details">×</button>
@@ -85,97 +73,6 @@ footer{display:flex;justify-content:space-between;align-items:center;border-top:
  </div>
 </div>
 
-<script>
-(()=>{
- const labels={plans:'Content Plans',voice:'Voice Over',dubbing:'Dubbing',ai:'AI Content',reels:'Reels',photo:'Photography'};
- const grid=document.getElementById('cmsGrid'),status=document.getElementById('cmsStatus'),controls=document.getElementById('cmsControls');
- const modal=document.getElementById('cmsModal'),title=document.getElementById('cmsModalTitle'),cat=document.getElementById('cmsModalCategory'),details=document.getElementById('cmsModalDetails'),media=document.getElementById('cmsModalMedia');
- let list=[],active='all',focusBefore=null;
- function node(tag,cls,value){const e=document.createElement(tag);if(cls)e.className=cls;if(value!==undefined)e.textContent=value;return e;}
- function linkable(url){try{let u=new URL(url);return u.protocol==='https:'?u.href:''}catch{return ''}}
- function makeFilter(key,label){const b=node('button','',label);b.type='button';b.setAttribute('aria-pressed',String(active===key));b.addEventListener('click',()=>{active=key;draw()});return b}
- function draw(){
-  const shown=active==='all'?list:list.filter(p=>p.category===active);
-  controls.replaceChildren();controls.append(makeFilter('all','All projects'));
-  for(const key of Object.keys(labels)){if(list.some(p=>p.category===key))controls.append(makeFilter(key,labels[key]))}
-  grid.replaceChildren();
-  for(const p of shown){
-   const card=node('button','cms-card');card.type='button';card.setAttribute('aria-label','View project: '+p.title);
-   const cover=node('div','cms-cover');
-   if(linkable(p.cover)){const img=node('img');img.src=p.cover;img.alt=p.title;img.loading='lazy';img.decoding='async';cover.append(img)}
-   else{const placeholder=node('div','cms-cover-placeholder','✦');cover.append(placeholder)}
-   cover.append(node('span','cms-icon','↗'));card.append(cover);
-   const body=node('div','cms-card-body');body.append(node('span','cms-category',labels[p.category]||'Creative project'));
-   body.append(node('h3','',p.title));if(p.summary)body.append(node('p','',p.summary));
-   const footer=node('div','cms-card-footer');footer.append(node('span','',p.year||'Discover more'));footer.append(node('span','',(p.media?.length||0)+' media →'));
-   body.append(footer);card.append(body);
-   card.addEventListener('click',()=>open(p,card));grid.append(card);
-  }
-  status.hidden=shown.length>0; if(!shown.length)status.textContent=active==='all'?'No published projects yet. New work will appear here when published in Sanity.':'No published projects in this category yet.';
- }
- function iframeSource(u){
-  try{const x=new URL(u),h=x.hostname.toLowerCase();
-   if(h==='youtu.be')return 'https://www.youtube-nocookie.com/embed/'+encodeURIComponent(x.pathname.slice(1));
-   if(h==='youtube.com'||h==='www.youtube.com'||h==='m.youtube.com'){const id=x.searchParams.get('v')||(x.pathname.startsWith('/shorts/')?x.pathname.split('/')[2]:'');if(id&&/^[\w-]{6,}$/.test(id))return 'https://www.youtube-nocookie.com/embed/'+id}
-   if(h==='vimeo.com'||h==='www.vimeo.com'){const id=x.pathname.split('/').filter(Boolean)[0];if(/^\d+$/.test(id))return 'https://player.vimeo.com/video/'+id}
-  }catch{}return ''
- }
- function open(p,origin){
-  focusBefore=origin;title.textContent=p.title;cat.textContent=labels[p.category]||'Creative project';
-  details.textContent=[p.summary,p.role?'Role: '+p.role:'',p.client?'Client: '+p.client:'',p.year?'Year: '+p.year:''].filter(Boolean).join('\n');
-  media.replaceChildren();let items=(p.media||[]).filter(x=>linkable(x.url));
-  for(const m of items){
-   const figure=node('figure'),u=linkable(m.url);
-   if(m.type==='audio'){
-    const audio=node('audio');audio.controls=true;audio.preload='none';audio.src=u;audio.style.width='100%';audio.style.padding='30px 12px';figure.append(audio)
-   }else if(m.type==='video'){
-    const embed=iframeSource(u);
-    if(embed){const f=node('iframe');f.src=embed;f.title=m.title||'Project video';f.loading='lazy';f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';f.setAttribute('allowfullscreen','');figure.append(f)}
-    else if(/\.(mp4|webm|ogg|m4v)(\?|#|$)/i.test(u)){const video=node('video');video.controls=true;video.preload='metadata';video.playsInline=true;video.src=u;if(linkable(m.poster))video.poster=m.poster;figure.append(video)}
-    else {const a=node('a','',m.title||'Open video');a.href=u;a.target='_blank';a.rel='noopener noreferrer';figure.append(a)}
-   }else{
-    const img=node('img');img.src=u;img.alt=m.title||p.title;img.loading='lazy';const a=node('a');a.href=u;a.target='_blank';a.rel='noopener noreferrer';a.append(img);figure.append(a)
-   }
-   if(m.title)figure.append(node('figcaption','',m.title));media.append(figure);
-  }
-  if(!items.length)media.append(node('p','cms-empty-media','Media for this project will appear here when it is added in Sanity.'));
-  modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';document.getElementById('cmsClose').focus()
- }
- function close(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');media.replaceChildren();document.body.style.overflow='';focusBefore?.focus()}
- document.getElementById('cmsClose').addEventListener('click',close);
- modal.addEventListener('click',e=>{if(e.target===modal)close()});
- document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))close()});
- document.querySelectorAll('[data-go]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();active=a.dataset.go;draw();document.getElementById('projects').scrollIntoView({behavior:'smooth'})}));
- fetch('/api/projects',{headers:{Accept:'application/json'}}).then(async r=>{if(!r.ok)throw Error('Sanity unavailable');return r.json()}).then(data=>{
-  list=Array.isArray(data.projects)?data.projects.filter(p=>p&&p.title):[];
-  const settings=data.settings||{};
-  if(linkable(settings.heroImage)){const hero=document.querySelector('.hero-art .photo img');if(hero)hero.src=settings.heroImage;}
-  if(settings.headline){const h=document.querySelector('.hero h1');if(h){h.textContent=settings.headline;}}
-  if(settings.tagline){const t=document.querySelector('.hero-copy p');if(t)t.textContent=settings.tagline}
-  if(settings.about){const about=document.querySelector('.about-copy p');if(about)about.textContent=settings.about}
-  if(settings.contactEmail&&/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(settings.contactEmail)){
-   const b=document.querySelector('.contact-panel #copyLink');if(b){b.textContent='Email Fatma ↗';b.onclick=()=>{window.location.href='mailto:'+settings.contactEmail};b.id='contactMail';}
-   const note=document.querySelector('.contact-note');if(note)note.textContent=settings.contactEmail;
-  }
-  if(list.length){grid.hidden=false;controls.hidden=false}
-  const extraMedia=Array.isArray(data.mediaLibrary)?data.mediaLibrary.filter(m=>linkable(m.url)):[];
-  if(extraMedia.length){
-   const archive=document.getElementById('mediaArchive'),ag=document.getElementById('mediaArchiveGrid');
-   archive.hidden=false;ag.replaceChildren();
-   for(const [i,m] of extraMedia.entries()){
-    const card=node('button','cms-card');card.type='button';const cover=node('div','cms-cover');
-    if(m.type==='image'){const img=node('img');img.loading='lazy';img.decoding='async';img.src=m.url;img.alt=m.title||'Portfolio media';cover.append(img)}
-    else{cover.append(node('div','cms-cover-placeholder','▶'))}
-    card.append(cover);
-    const b=node('div','cms-card-body');b.append(node('span','cms-category',m.type==='video'?'Video':m.type==='audio'?'Audio':'Photography'));
-    b.append(node('h3','',m.title||('Media '+(i+1))));
-    b.append(node('div','cms-card-footer','View media ↗'));card.append(b);
-    card.addEventListener('click',()=>open({title:m.title||'Portfolio media',category:m.type==='image'?'photo':'reels',media:[m]},card));
-    ag.append(card);
-   }
-  }
-  draw();
- }).catch(()=>{status.hidden=false;status.textContent='The project gallery is temporarily unavailable. Please check back soon.';});
-})();
-</script>
+
+<script src="/portfolio.js" defer></script>
 </body></html>
