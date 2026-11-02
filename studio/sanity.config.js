@@ -9,5 +9,5 @@ export default defineConfig({
   projectId: 'q3zqgei4',
   dataset: 'production',
   plugins: [structureTool(), visionTool()],
-  schema: {types: [portfolioProject, legacyProject, siteSettings]},
+  schema: {types: [portfolioProject, legacyProject, portfolioMedia, siteSettings]},
 })
