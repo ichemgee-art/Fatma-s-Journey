@@ -1,13 +1,14 @@
 (()=>{
  const t=key=>window.portfolioI18n.t(key),number=n=>new Intl.NumberFormat(window.portfolioI18n.language==='ar'?'ar-EG':'en').format(n);
  const media=document.getElementById('detailMedia'),status=document.getElementById('detailStatus'),article=document.getElementById('detailArticle');
- let current=null,index=0,related=[];
+ let source=null,current=null,index=0,related=[];
  function node(tag,cls,value){const e=document.createElement(tag);if(cls)e.className=cls;if(value!==undefined)e.textContent=value;return e;}
  function url(v){try{const u=new URL(v);return u.protocol==='https:'?u.href:'';}catch{return '';}}
  function button(label,pressed,action){const b=node('button','',label);b.type='button';b.setAttribute('aria-pressed',String(pressed));b.addEventListener('click',action);return b;}
  function toast(text){const e=document.getElementById('toast');e.textContent=text;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2400);}
  function render(){
   if(!current)return;
+  current=window.portfolioI18n.localizeProject(source||current);
   const category=t(current.category),group=window.portfolioI18n.group(current.group),categoryUrl='/projects/?category='+encodeURIComponent(current.category);
   document.getElementById('detailCategory').textContent=[category,group].filter(Boolean).join(' / ');document.getElementById('detailCategory').href=categoryUrl;
   document.getElementById('backWork').href=categoryUrl;document.getElementById('moreCategory').href=categoryUrl;
@@ -38,7 +39,7 @@
    }else if(m.provider==='drive'){
     const frame=node('iframe');frame.src=u;frame.title=current.title;frame.allow='fullscreen; picture-in-picture';frame.setAttribute('allowfullscreen','');frame.className=['document','pdf'].includes(m.type)?'document-preview':'drive-preview';figure.append(frame);
    }else if(m.type==='image'){
-    const img=node('img');img.src=u;img.alt=m.title||current.title;img.className='portfolio-image';
+    const img=node('img');img.src=u;img.alt=current.title;img.className='portfolio-image';
     const zoom=button(t('enlarge'),false,()=>{const on=figure.classList.toggle('zoomed');zoom.textContent=on?t('fit'):t('enlarge');zoom.setAttribute('aria-pressed',String(on));});zoom.className='media-action';figure.append(img,zoom);
    }else if(m.type==='audio'){
     figure.classList.add('audio-stage');figure.append(node('div','audio-art','♫'),node('p','',current.title));
@@ -63,5 +64,5 @@
  const id=new URLSearchParams(location.search).get('id');
  function failed(message){status.hidden=true;article.hidden=true;document.getElementById('detailError').hidden=false;if(message)document.querySelector('#detailError p').textContent=message;}
  if(!id||!/^[A-Za-z0-9._-]{1,200}$/.test(id)){failed();return;}
- fetch('/api/projects?id='+encodeURIComponent(id),{headers:{Accept:'application/json'}}).then(async r=>{if(r.status===404){failed();return null;}if(!r.ok)throw Error();return r.json();}).then(data=>{if(!data)return;current=data.project;related=Array.isArray(data.related)?data.related:[];if(!current){failed();return;}status.hidden=true;article.hidden=false;render();}).catch(()=>failed(t('readIssue')));
+ fetch('/api/projects?id='+encodeURIComponent(id),{headers:{Accept:'application/json'}}).then(async r=>{if(r.status===404){failed();return null;}if(!r.ok)throw Error();return r.json();}).then(data=>{if(!data)return;source=data.project;current=source;related=Array.isArray(data.related)?data.related:[];if(!current){failed();return;}status.hidden=true;article.hidden=false;render();}).catch(()=>failed(t('readIssue')));
 })();

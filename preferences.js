@@ -21,7 +21,8 @@
   const pageKey={details:'detailsLabel',projects:'work',about:'about',social:'social',contact:'contactNav'}[document.body.dataset.page];document.title=(pageKey?t(pageKey)+' — ':'')+t('pageTitle');document.querySelector('meta[name="description"]').content=t('description');
   applyTheme(theme,false);window.dispatchEvent(new CustomEvent('portfolio:language'));
  }
- window.portfolioI18n={t,get language(){return language;},group(g){const key=({'content plans':'plans','scripts':'scripts','advertising':'advertising','reels':'reels','ai designs':'aiImages','ai images':'aiImages','ai videos':'aiVideos','ai videos / engineering':'aiEngineering','ai songs':'aiMusic','ai music':'aiMusic'})[(g||'').trim().toLowerCase()];return key?t(key):g;}};
+ function localizeProject(project){const result={...project},local=project.translations?.[language]||{};for(const key of ['title','summary','text','client','role'])result[key]=typeof local[key]==='string'&&local[key].trim()?local[key].trim():(project.legacyText?project.legacyText[key]||'':project[key]||'');return result;}
+ window.portfolioI18n={t,localizeProject,get language(){return language;},group(g){const key=({'content plans':'plans','scripts':'scripts','advertising':'advertising','reels':'reels','ai designs':'aiImages','ai images':'aiImages','ai videos':'aiVideos','ai videos / engineering':'aiEngineering','ai songs':'aiMusic','ai music':'aiMusic'})[(g||'').trim().toLowerCase()];return key?t(key):g;}};
  document.getElementById('languageToggle').addEventListener('click',()=>applyLanguage(language==='en'?'ar':'en'));
  document.getElementById('themeToggle').addEventListener('click',()=>applyTheme(theme==='light'?'dark':'light'));
  const menu=document.getElementById('menu'),nav=document.getElementById('nav');

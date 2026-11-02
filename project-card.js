@@ -2,6 +2,7 @@
  const node=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e;};
  const safe=v=>{try{const u=new URL(v);return u.protocol==='https:'?u.href:'';}catch{return '';}};
  window.portfolioCard=p=>{
+  p=window.portfolioI18n.localizeProject(p);
   const t=window.portfolioI18n.t,type=p.media?.[0]?.type||p.type||'image';
   const card=node('a','cms-card is-'+type+(p.category==='voice'?' is-voice':'')+(p.customCover?' has-custom-cover':''));card.href='/details/?id='+encodeURIComponent(p.id);card.setAttribute('aria-label',t('view')+' '+p.title);
   const visual=node('div','cms-cover'),cover=safe(p.cover);
