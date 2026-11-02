@@ -1,6 +1,7 @@
 import {defineField, defineType} from 'sanity'
 import {categories, sections, categoryTitle, groupTitle} from '../sections.js'
 import {validateMedia,validateGroup} from '../validation.js'
+import {WorkFileInput} from '../components/WorkFileInput.js'
 
 const fileTypes = [
  {title:'صورة',value:'image'},{title:'فيديو',value:'video'},{title:'ملف صوتي',value:'audio'},
@@ -22,7 +23,7 @@ export const work = defineType({
   defineField({name:'category',type:'string',title:'القسم الرئيسي',description:'يُختار تلقائيًا عندما تضيف العمل من أحد الأقسام. يمكنك تغييره لنقل العمل.',options:{list:categories,layout:'dropdown'},validation:r=>r.required().error('اختَر القسم الذي سيظهر فيه العمل.')}), 
   defineField({name:'group',type:'string',title:'القسم الفرعي — اختياري',description:'يُختار تلقائيًا من القائمة الجانبية. لو غيّرت القسم الرئيسي، غيّر هذا الاختيار أو امسحه.',options:{list:groups},hidden:({document,value})=>['photo','dubbing'].includes(document?.category)&&!value,validation:r=>r.custom((value,context)=>validateGroup(value,context.document)).warning()}),
   defineField({name:'type',type:'string',title:'نوع الملف — اختياري',description:'يختاره القالب تلقائيًا. الموقع يتعرف أيضًا على نوع الملف المرفوع. للسكريبت المكتوب بدون ملف اختَر «نص أو مستند Word».',options:{list:fileTypes,layout:'radio'}}),
-  defineField({name:'media',type:'file',title:'ارفع ملف العمل هنا',description:'اضغط Upload لاختيار الملف وانتظر اكتمال الرفع. يمكن نشر سكريبت بدون ملف بكتابته في النص الكامل، ويمكن استخدام صورة الغلاف نفسها لعمل من نوع صورة.',validation:r=>r.custom((value,context)=>validateMedia(value,context.document))}),
+  defineField({name:'media',type:'file',title:'ارفع ملف العمل هنا',components:{input:WorkFileInput},description:'اضغط «اختيار ملف ورفعه» وانتظر ظهور «الملف مرفوع». للسكريبت المكتوب يمكنك الاكتفاء بخانة النص الكامل.',validation:r=>r.custom((value,context)=>validateMedia(value,context.document))}),
   defineField({name:'cover',type:'image',title:'صورة الغلاف — اختياري',description:'الصورة التي تظهر على كارت الفيديو أو الصوت أو المستند. للصور العادية سيستخدم الموقع الصورة المرفوعة تلقائيًا.',options:{hotspot:true}}),
   defineField({name:'text',type:'text',title:'النص الكامل أو السكريبت — اختياري',rows:12,description:'اكتب أو الصق السكريبت هنا ليظهر داخل نافذة تفاصيل العمل. هذه الخانة مختلفة عن الوصف المختصر. يمكن نشر سكريبت مكتوب هنا بدون ملف.'}),
   defineField({name:'client',type:'string',title:'اسم العميل أو العلامة التجارية',fieldset:'details'}),
