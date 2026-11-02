@@ -1,4 +1,5 @@
 /* Editorial cards, generous touch targets and real document covers. */
+.portrait-caption{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:12px;line-height:1.9;letter-spacing:.2px;margin-top:24px;max-width:100%}.portrait-caption:before{content:'';height:1px;width:26px;background:var(--violet);flex-shrink:0}
 .cms-card{border-radius:26px;padding:8px;background:var(--cream-2);border:1px solid var(--line);box-shadow:0 8px 30px #28194708;gap:0}
 .cms-cover{border-radius:20px;height:260px;background-color:#e5d3ec}
 .cms-cover:after{z-index:2;background:linear-gradient(0deg,#21142d40,transparent 65%);inset:0}
