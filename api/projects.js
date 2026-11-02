@@ -11,7 +11,7 @@ const query = [
 '"media":media[]{_type,kind,"url":coalesce(asset->url,image.asset->url,file.asset->url,url,videoUrl,externalUrl),"poster":poster.asset->url,caption,title},',
 '"videos":videos[]{_type,"url":coalesce(asset->url,file.asset->url,url,videoUrl,externalUrl),"poster":poster.asset->url,title},',
 '"files":files[]{"url":coalesce(asset->url,file.asset->url,url),title},',
-'"videoUrl":coalesce(videoUrl,video.url,video.file.asset->url,video.asset->url)',
+'"videoUrl":coalesce(videoUrl,video.url,video.file.asset->url,video.asset->url),"audio":audio[]{"url":coalesce(asset->url,file.asset->url,url),title}',
 '}, "assets": *[_type in ["sanity.imageAsset","sanity.fileAsset"]] | order(_createdAt desc)[0...150]{_id,_type,url,originalFilename,mimeType}, "settings": *[_type in ["siteSettings","portfolioSettings"]][0]{name,headline,tagline,about,contactEmail,"heroImage":heroImage.asset->url,"socials":socials[]{label,url}} }'
 ].join('');
 function txt(v) {
@@ -39,11 +39,11 @@ function media(v,hint) {
  const link=url(x.url||x.externalUrl||x.videoUrl);
  if(!link)return null;
  const k=x.kind||x._type||hint||'';
- const video=/video|file/i.test(k)||/\.(mp4|webm|mov|m4v)(\?|$)/i.test(link)||/(youtube\.com|youtu\.be|vimeo\.com)/.test(new URL(link).hostname);
- return {url:link,type:video?'video':'image',title:txt(x.caption||x.alt||x.title).slice(0,200),poster:url(x.poster)};
+ const audio=/audio/i.test(k)||/\.(mp3|wav|m4a|aac|ogg)(\?|$)/i.test(link);const video=!audio&&(/video|file/i.test(k)||/\.(mp4|webm|mov|m4v)(\?|$)/i.test(link)||/(youtube\.com|youtu\.be|vimeo\.com)/.test(new URL(link).hostname));
+ return {url:link,type:audio?'audio':video?'video':'image',title:txt(x.caption||x.alt||x.title).slice(0,200),poster:url(x.poster)};
 }
 function format(p) {
- const sources=[[p.coverUrl,'image'],[p.images,'image'],[p.gallery,''],[p.media,''],[p.videos,'video'],[p.files,'video'],[p.videoUrl,'video']];
+ const sources=[[p.coverUrl,'image'],[p.images,'image'],[p.gallery,''],[p.media,''],[p.videos,'video'],[p.files,'video'],[p.videoUrl,'video'],[p.audio,'audio']];
  const items=[];
  for(const [s,h] of sources){for(const v of Array.isArray(s)?s:[s]){const m=media(v,h);if(m&&!items.some(i=>i.url===m.url))items.push(m);}}
  return {id:txt(p._id),slug:txt(p.slug),title:txt(p.title||p.name).slice(0,200),category:category(p.category||p.categories||p.service),summary:txt(p.summary||p.excerpt||p.description).slice(0,500),client:txt(p.client).slice(0,120),role:txt(p.role).slice(0,120),year:txt(p.year).slice(0,8),featured:p.featured===true,cover:items.find(i=>i.type==='image')?.url||'',media:items.slice(0,50)};
