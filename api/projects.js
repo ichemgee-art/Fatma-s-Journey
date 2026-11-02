@@ -3,7 +3,7 @@ const categories = ['content','photo','voice','video','dubbing','ai'];
 const projectId = process.env.SANITY_PROJECT_ID || 'q3zqgei4';
 const dataset = process.env.SANITY_DATASET || 'production';
 const projection = '_type,kind,title,caption,alt,"url":coalesce(asset->url,image.asset->url,file.asset->url,url,externalUrl,videoUrl),"mimeType":coalesce(asset->mimeType,file.asset->mimeType),"poster":poster.asset->url';
-const query = '{"projects":*[_type in ["work","portfolioProject","project","portfolioItem","caseStudy"] && !(_id in path("drafts.**"))] | order(coalesce(order,priority,999) asc,_id asc){_id,_type,title,name,category,group,type,hidden,order,summary,description,text,client,role,year,"coverUrl":coalesce(cover.asset->url,coverImage.asset->url,image.asset->url),"singleMedia":select(_type=="work"=>media{'+projection+'}),"media":select(_type!="work"=>media[]{'+projection+'}),"gallery":gallery[]{'+projection+'},"images":images[]{'+projection+'},"files":files[]{'+projection+'},"audio":audio[]{'+projection+'},"videos":videos[]{'+projection+'},videoUrl},"settings":*[_type in ["siteSettings","portfolioSettings"]][0]{name,headline,tagline,about,contactEmail,"heroImage":heroImage.asset->url,socials[]{label,url}}}';
+const query = '{"projects":*[_type in ["work","portfolioProject","project","portfolioItem","caseStudy"] && !(_id in path("drafts.**"))] | order(coalesce(order,priority,999) asc,_createdAt desc,_id asc){_id,_type,title,name,category,group,type,hidden,order,summary,description,text,client,role,year,"coverUrl":coalesce(cover.asset->url,coverImage.asset->url,image.asset->url),"singleMedia":select(_type=="work"=>media{'+projection+'}),"media":select(_type!="work"=>media[]{'+projection+'}),"gallery":gallery[]{'+projection+'},"images":images[]{'+projection+'},"files":files[]{'+projection+'},"audio":audio[]{'+projection+'},"videos":videos[]{'+projection+'},videoUrl},"settings":*[_type in ["siteSettings","portfolioSettings"]][0]{name,headline,tagline,about,contactEmail,"heroImage":heroImage.asset->url,socials[]{label,url}}}';
 function text(v){return typeof v==='string'?v.trim():'';}
 function safeUrl(v){try{const u=new URL(v);return u.protocol==='https:'?u.href:'';}catch{return '';}}
 function category(v){const aliases={plans:'content',reels:'video',photography:'photo'};return categories.includes(v)?v:aliases[v]||'';}
@@ -19,7 +19,7 @@ function normalize(p){
   for(const x of Array.isArray(values)?values:[values]){const m=media(x,hint);if(m&&!items.some(i=>i.url===m.url))items.push(m);}
  }
  if(!items.length&&p.coverUrl)items.push(media({url:p.coverUrl},'image'));
- return {id:p._id,title:text(p.title||p.name),category:category(p.category),group:text(p.group),summary:text(p.summary||p.description),text:text(p.text),client:text(p.client),role:text(p.role),year:text(p.year),cover:safeUrl(p.coverUrl)||items.find(m=>m?.type==='image')?.url||'',media:items.filter(Boolean),hidden:p.hidden===true};
+ return {id:p._id,title:text(p.title||p.name),type:text(p.type),category:category(p.category),group:text(p.group),summary:text(p.summary||p.description),text:text(p.text),client:text(p.client),role:text(p.role),year:text(p.year),cover:safeUrl(p.coverUrl)||items.find(m=>m?.type==='image')?.url||'',media:items.filter(Boolean),hidden:p.hidden===true};
 }
 function fromDrive(f){
  return {id:'drive-'+f.id,driveId:f.id,title:f.title,category:f.category,group:f.group,summary:'',text:'',sourceUrl:f.sourceUrl,
@@ -33,11 +33,11 @@ function assemble(raw={}){
   const p=byId.get(f.sanityId);if(p)used.add(p._id);
   if(p?.hidden===true)continue;
   const fallback=fromDrive(f),live=p?normalize(p):null;
-  projects.push(live?{...fallback,...live,category:live.category||f.category,group:live.group||f.group,cover:live.cover||fallback.cover,media:live.media.length?live.media:fallback.media}:fallback);
+  projects.push(live?{...fallback,...live,category:live.category||f.category,group:live.group,cover:live.cover||fallback.cover,media:live.media.length?live.media:fallback.media}:fallback);
  }
- for(const p of docs){if(!used.has(p._id)&&p.hidden!==true){const n=normalize(p);if(n.title&&n.category)projects.push(n);}}
+ const added=[];for(const p of docs){if(!used.has(p._id)&&p.hidden!==true){const n=normalize(p);if(n.title&&n.category)added.push(n);}}
  const s=raw.settings||{};
- return {projects,count:projects.length,mediaLibrary:[],settings:{name:text(s.name),headline:text(s.headline),tagline:text(s.tagline),about:text(s.about),heroImage:safeUrl(s.heroImage),contactEmail:/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(s.contactEmail||'')?s.contactEmail:'',socials:s.socials||[]}};
+ return {projects:[...added,...projects],count:added.length+projects.length,mediaLibrary:[],settings:{name:text(s.name),headline:text(s.headline),tagline:text(s.tagline),about:text(s.about),heroImage:safeUrl(s.heroImage),contactEmail:/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(s.contactEmail||'')?s.contactEmail:'',socials:s.socials||[]}};
 }
 async function handler(req,res){
  if(req.method!=='GET'){res.setHeader('Allow','GET');return res.status(405).json({error:'Method not allowed'});}

@@ -41,7 +41,7 @@
  }
  function card(p){
   const b=node('button','cms-card');b.type='button';b.setAttribute('aria-label',t('view')+' '+p.title);
-  const cover=node('div','cms-cover'),type=p.media?.[0]?.type||'image';
+  const cover=node('div','cms-cover'),type=p.media?.[0]?.type||p.type||'image';
   if(url(p.cover)){const img=node('img');img.src=p.cover;img.alt='';img.loading='lazy';img.decoding='async';img.addEventListener('error',()=>{img.remove();cover.classList.add('no-cover');},{once:true});cover.append(img);}
   const symbol={audio:'♫',video:'▶',pdf:'PDF',document:'Aa',image:'↗'}[type]||'↗';
   cover.append(node('span','cms-type-icon',symbol));b.append(cover);
