@@ -29,8 +29,8 @@ function AssetInput({value,onChange,readOnly,elementProps},kind) {
  }
  const buttonStyle={border:'1px solid #8e79b9',borderRadius:8,padding:'11px 16px',background:'#34264c',color:'#fff',cursor:'pointer',font:'inherit',minHeight:44}
  return React.createElement('div',{dir:'rtl',style:{border:'1px solid #55505f',borderRadius:10,padding:18,lineHeight:1.9}},
-  image&&React.createElement('p',{style:{fontSize:13,margin:'0 0 14px',lineHeight:1.9}},'غلاف الكارت لكل أنواع الأعمال. المقاس المقترح 1600 × 1200 بكسل، بنسبة 4:3. ضعي العنصر المهم في المنتصف، مع مسافة حول الكلام. JPG أو PNG أو WebP؛ بحد أقصى 10 ميجابايت.'),
-  image&&asset?.url&&React.createElement('img',{src:asset.url+'?w=640&h=480&fit=crop&auto=format',alt:'معاينة غلاف الكارت',style:{display:'block',width:'100%',maxWidth:480,aspectRatio:'4/3',objectFit:'cover',borderRadius:10,marginBottom:16}}),
+  image&&React.createElement('p',{style:{fontSize:13,margin:'0 0 14px',lineHeight:1.9}},'غلاف الكارت لكل أنواع الأعمال. المقاس المقترح 1600 × 900 بكسل، بنسبة 16:9. ضعي العنصر المهم في المنتصف، مع مسافة حول الكلام. JPG أو PNG أو WebP؛ بحد أقصى 10 ميجابايت.'),
+  image&&asset?.url&&React.createElement('img',{src:asset.url+'?w=640&h=480&fit=crop&auto=format',alt:'معاينة غلاف الكارت',style:{display:'block',width:'100%',maxWidth:480,aspectRatio:'16/9',objectFit:'cover',borderRadius:10,marginBottom:16}}),
   image&&asset?.metadata?.dimensions&&React.createElement('p',{style:{fontSize:12,margin:'0 0 14px'}},'مقاس الصورة الحالية: '+asset.metadata.dimensions.width+' × '+asset.metadata.dimensions.height+' بكسل.'),
   React.createElement('input',{ref:picker,type:'file',accept:image?'image/jpeg,image/png,image/webp':'.pdf,.doc,.docx,image/*,video/*,audio/*',onChange:upload,disabled:busy||readOnly,style:{display:'none'}}),
   React.createElement('button',{...elementProps,type:'button',disabled:busy||readOnly,onClick:()=>picker.current?.click(),style:buttonStyle},busy?'جارٍ الرفع…':reference?image?'استبدال الغلاف':'استبدال الملف':image?'اختيار غلاف ورفعه':'اختيار ملف ورفعه'),
