@@ -8,15 +8,18 @@
  const groups=document.getElementById('cmsGroups'),modal=document.getElementById('cmsModal'),media=document.getElementById('cmsModalMedia');
  const closeButton=document.getElementById('cmsClose');
  let loaded=false,failed=false;
- let list=[],active='all',group='all',limit=12,origin=null,current=null,index=0;
+ let list=[],active=new URLSearchParams(location.search).get('category')||'all',group='all',limit=12,origin=null,current=null,index=0;
+ if(!Object.hasOwn(labels,active))active='all';
  function node(tag,cls,value){const e=document.createElement(tag);if(cls)e.className=cls;if(value!==undefined)e.textContent=value;return e;}
  function url(v){try{const u=new URL(v);return u.protocol==='https:'?u.href:'';}catch{return '';}}
  function groupName(g){return window.portfolioI18n.group(g);}
  function button(label,pressed,action){const b=node('button','',label);b.type='button';b.setAttribute('aria-pressed',String(pressed));b.addEventListener('click',action);return b;}
- function select(category){active=category;group='all';limit=12;draw();}
+ function select(category){active=category;group='all';limit=12;draw();const query=new URL(location.href);if(category==='all')query.searchParams.delete('category');else query.searchParams.set('category',category);history.replaceState(null,'',query);}
  function draw(){
+  const categoryScroll=controls.scrollLeft;
   controls.replaceChildren(button(t('all'),active==='all',()=>select('all')));
   Object.entries(labels).forEach(([key,label])=>controls.append(button(label,active===key,()=>select(key))));
+  controls.scrollLeft=categoryScroll;
   const selected=active==='all'?list:list.filter(p=>p.category===active);
   const names=[...new Set(selected.map(p=>groupName(p.group)).filter(Boolean))];
   groups.replaceChildren();groups.hidden=active==='all'||!names.length;
@@ -101,12 +104,7 @@
    if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
   }
  });
- document.querySelectorAll('[data-go]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();select(a.dataset.go);document.getElementById('projects').scrollIntoView({behavior:'smooth'});}));
  window.addEventListener('portfolio:language',()=>{refreshLabels();group='all';if(loaded)draw();else status.textContent=t(failed?'unavailable':'loading');if(current){document.getElementById('cmsModalCategory').textContent=[labels[current.category],groupName(current.group)].filter(Boolean).join(' / ');stage();}});
- const nav=document.getElementById('nav'),menu=document.getElementById('menu');
- menu.addEventListener('click',()=>{const open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(open));});
- nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menu.setAttribute('aria-expanded','false');}));
- document.getElementById('copyLink').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(location.href.split('#')[0]);const t=document.getElementById('toast');t.textContent=t('copied');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}catch{}});
  fetch('/api/projects',{headers:{Accept:'application/json'}}).then(r=>{if(!r.ok)throw Error();return r.json();}).then(data=>{
   loaded=true;list=(data.projects||[]).filter(p=>labels[p.category]);grid.hidden=false;controls.hidden=false;draw();
  }).catch(()=>{failed=true;status.hidden=false;status.textContent=t('unavailable');});
