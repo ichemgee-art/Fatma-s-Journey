@@ -54,6 +54,11 @@ footer{display:flex;justify-content:space-between;align-items:center;border-top:
   <div class="cms-grid" id="cmsGrid" hidden></div>
   <p class="cms-status" id="cmsStatus" role="status" aria-live="polite">Loading published projects…</p>
 </section>
+
+<section id="mediaArchive" class="cms-section" hidden aria-labelledby="archiveHeading">
+  <div class="section-head"><div><span class="section-kicker">From the Sanity library</span><h2 id="archiveHeading">More photos &amp; videos<span style="color:#8932b8">.</span></h2></div><p class="section-intro">Media uploaded to Sanity that is not yet attached to a published project.</p></div>
+  <div id="mediaArchiveGrid" class="cms-grid"></div>
+</section>
 <section class="works" id="work"><div class="section-head"><div><span class="section-kicker">What I create</span><h2>Selected creative tracks<span style="color:#8630b9">.</span></h2></div><p class="section-intro">From the first idea to the final frame — explore the creative disciplines that shape the work.</p></div>
 <div class="filters" aria-label="Filter creative tracks"><button class="filter" data-filter="all" aria-pressed="true">All work</button><button class="filter" data-filter="plans" aria-pressed="false">Content Plans</button><button class="filter" data-filter="voice" aria-pressed="false">Voice Over</button><button class="filter" data-filter="dubbing" aria-pressed="false">Dubbing</button><button class="filter" data-filter="ai" aria-pressed="false">AI Content</button><button class="filter" data-filter="reels" aria-pressed="false">Reels</button><button class="filter" data-filter="photo" aria-pressed="false">Photography</button></div>
 <div class="work-grid" id="workGrid">
@@ -151,6 +156,22 @@ footer{display:flex;justify-content:space-between;align-items:center;border-top:
    const note=document.querySelector('.contact-note');if(note)note.textContent=settings.contactEmail;
   }
   if(list.length){grid.hidden=false;controls.hidden=false}
+  const extraMedia=Array.isArray(data.mediaLibrary)?data.mediaLibrary.filter(m=>linkable(m.url)):[];
+  if(extraMedia.length){
+   const archive=document.getElementById('mediaArchive'),ag=document.getElementById('mediaArchiveGrid');
+   archive.hidden=false;ag.replaceChildren();
+   for(const [i,m] of extraMedia.entries()){
+    const card=node('button','cms-card');card.type='button';const cover=node('div','cms-cover');
+    if(m.type==='image'){const img=node('img');img.loading='lazy';img.decoding='async';img.src=m.url;img.alt=m.title||'Portfolio media';cover.append(img)}
+    else{cover.append(node('div','cms-cover-placeholder','▶'))}
+    card.append(cover);
+    const b=node('div','cms-card-body');b.append(node('span','cms-category',m.type==='video'?'Video':'Photography'));
+    b.append(node('h3','',m.title||('Media '+(i+1))));
+    b.append(node('div','cms-card-footer','View media ↗'));card.append(b);
+    card.addEventListener('click',()=>open({title:m.title||'Portfolio media',category:m.type==='image'?'photo':'reels',media:[m]},card));
+    ag.append(card);
+   }
+  }
   draw();
  }).catch(()=>{status.hidden=false;status.textContent='The project gallery is temporarily unavailable. Please check back soon.';});
 })();
