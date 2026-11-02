@@ -1,7 +1,7 @@
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
-import {portfolioProject, legacyProject, siteSettings} from './schemaTypes/index.js'
+import {portfolioProject, legacyProject, siteSettings, portfolioMedia} from './schemaTypes/index.js'
 
 export default defineConfig({
   name: 'fatma-portfolio',
