@@ -41,6 +41,18 @@ Open the local Studio URL shown by the CLI. To deploy an authenticated cloud Stu
 The Sanity CLI will prompt to select a hosted studio hostname, e.g. fatma-journey.sanity.studio if available.
 Do not assume that suggested URL exists until deployment confirms it.
 
+### Deploy the Studio from your browser (no CLI needed)
+
+1. In Vercel, click **Add New → Project**, import the same repository **ichemgee-art/Fatma-s-Journey** again.
+2. Name this second Vercel project **fatma-studio**. Do not replace the existing fatma-journey website.
+3. Open **Edit Root Directory**, select **studio** (not \`./\`).
+4. Keep **Application Preset: Other**. The included \`studio/vercel.json\` sets \`npm run build\` and the \`dist\` output directory.
+5. Click **Deploy** and confirm it is READY. Copy its **actual** Vercel domain; do not assume the example domain below exists.
+6. In Sanity Manage → project q3zqgei4 → **API → CORS Origins**, add **https://<your-studio-domain>**, with **Allow credentials** enabled (Studio requires authentication).
+7. Open that Studio domain, sign in with the account authorized on Sanity, and create/publish portfolio documents.
+
+Keep the Studio behind Sanity authentication. If the project is private, set the server-side SANITY_READ_TOKEN in the **fatma-journey** Vercel project's environment settings, not in this Studio's frontend.
+
 ### Add a project
 
 - In Studio, choose **Portfolio project** and click **Create**.
