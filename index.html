@@ -25,14 +25,20 @@ footer{display:flex;justify-content:space-between;align-items:center;border-top:
 @media(max-width:1000px){.hero{grid-template-columns:45% 55%;min-height:490px}.hero-art{height:385px}.hero h1{font-size:60px;letter-spacing:-3px}.hero h1 span{margin-left:28px}.hero p{font-size:16px}.skills{grid-template-columns:repeat(3,1fr)}.work-grid{grid-template-columns:repeat(2,1fr)}.photo{right:8px}.orb{right:-18px}}
 @media(max-width:700px){.container{padding:0 20px}.topbar{height:80px}.brand{font-size:24px}.menu{display:block}.nav{display:none;position:absolute;top:70px;left:15px;right:15px;z-index:20;background:#fffaf9;border:1px solid var(--line);border-radius:21px;box-shadow:var(--shadow);padding:24px;flex-direction:column;gap:20px;align-items:stretch;text-align:center}.nav.open{display:flex}.hero{padding:20px 0 25px;display:flex;flex-direction:column;gap:20px}.hero-copy{order:1;padding:0}.hero-art{order:2;height:340px;width:100%}.hero h1{font-size:clamp(49px,13vw,72px)}.hero h1 span{margin-left:30px}.hero p{font-size:15px;margin-bottom:24px}.hero-art .photo{inset:10px 22px 22px 0;border-radius:25px 110px 25px 25px}.float-note{bottom:0}.orb{width:87px;height:87px;right:0;top:0}.ring{width:115px;height:115px;border-width:15px;right:-18px;bottom:8px}.skills{gap:9px;grid-template-columns:repeat(3,1fr)}.skill{min-height:106px;border-radius:16px}.skill span{font-size:11px;white-space:normal;text-align:center}.section-head{display:block}.works{padding:75px 0 65px}.work-grid{grid-template-columns:1fr}.work-art{height:215px}.about{padding:70px 0}.about-layout{grid-template-columns:1fr;gap:26px}.steps{gap:8px}.contact{padding:70px 0 55px}.contact-panel{padding:55px 15px;border-radius:25px}footer{flex-wrap:wrap}.page:before{width:86vw;height:90vw;right:-40vw;top:-30vw}.page:after{top:1100px;width:85vw;height:40vw;left:-39vw}.dialog-inner{padding:35px 25px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* Live Sanity portfolio section */
+.cms-section{padding:110px 0 40px}.cms-section .section-head{align-items:end}.cms-status{background:#fffaf5;border:1px solid #e9deee;color:#5b5271;border-radius:19px;padding:20px 24px;font-size:14px}.cms-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}.cms-card{display:flex;flex-direction:column;text-align:left;border:1px solid #ffffffd8;border-radius:25px;padding:0;background:#fffaf6;overflow:hidden;box-shadow:0 15px 40px #28194711;transition:transform .2s,box-shadow .2s;color:var(--ink)}.cms-card:hover{transform:translateY(-5px);box-shadow:0 22px 48px #28194723}.cms-cover{position:relative;width:100%;height:220px;overflow:hidden;background:linear-gradient(125deg,#e8c7f4,#8e63bb)}.cms-cover img{width:100%;height:100%;object-fit:cover;transition:transform .4s}.cms-card:hover img{transform:scale(1.045)}.cms-icon{position:absolute;right:16px;bottom:14px;background:#fffaf5;color:#4b256f;padding:10px 13px;border-radius:50%;font-weight:800;box-shadow:0 4px 15px #0003}.cms-cover-placeholder{height:100%;display:grid;place-items:center;color:white;font-weight:800;font-size:42px;letter-spacing:-2px}.cms-card-body{padding:22px 23px 25px;flex:1;display:flex;flex-direction:column;gap:7px}.cms-category{font-size:11px;text-transform:uppercase;letter-spacing:1.4px;font-weight:800;color:#8733b9}.cms-card h3{font-family:Manrope,sans-serif;font-size:22px;letter-spacing:-.9px;line-height:1.25;margin:0}.cms-card p{font-size:13px;color:#6a6376;line-height:1.7;margin:2px 0 0}.cms-card-footer{font-size:12px;font-weight:800;display:flex;justify-content:space-between;gap:12px;margin-top:auto;padding-top:14px;color:#7845a2}.cms-controls{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 23px}.cms-controls button{border:1px solid #ded0df;border-radius:999px;color:#4f4970;background:#fffaf6;padding:9px 15px;font-size:12px;font-weight:800}.cms-controls button[aria-pressed=true]{background:#151a49;color:#fff;border-color:#151a49}.cms-controls[hidden],.cms-grid[hidden],.cms-status[hidden]{display:none}
+.cms-modal{position:fixed;inset:0;z-index:200;background:#0d0e24dd;display:none;align-items:center;justify-content:center;padding:22px;backdrop-filter:blur(9px)}.cms-modal.open{display:flex}.cms-shell{background:#fffaf6;width:min(960px,100%);max-height:92vh;overflow:auto;border-radius:28px;position:relative;padding:35px}.cms-close{position:sticky;top:0;float:right;width:43px;height:43px;border:0;border-radius:50%;color:#281e4d;background:#eee0f5;font-size:26px;z-index:2}.cms-shell h2{margin:6px 0 10px;font-family:Manrope,sans-serif;font-size:clamp(27px,4vw,45px);letter-spacing:-2px;line-height:1.1}.cms-detail{font-size:14px;color:#615b72;white-space:pre-wrap}.cms-media{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin-top:25px}.cms-media figure{margin:0;background:#211f3e;border-radius:16px;overflow:hidden;min-height:160px}.cms-media img,.cms-media video,.cms-media iframe{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;border:0}.cms-media figcaption{padding:9px 13px;color:#f3eaff;background:#26213d;font-size:12px}.cms-media a{display:block;padding:12px 14px;color:#fff;font-weight:700;text-decoration:underline}.cms-empty-media{font-size:13px;color:#665f76;margin-top:20px}
+@media(max-width:980px){.cms-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:700px){.cms-section{padding:74px 0 15px}.cms-grid{grid-template-columns:1fr}.cms-modal{padding:10px}.cms-shell{max-height:96vh;padding:20px}.cms-media{grid-template-columns:1fr}.cms-cover{height:220px}}
+
 </style>
 </head>
 <body>
 <div class="page" id="home">
-<div class="container"><header class="topbar"><a class="brand" href="#home" aria-label="Fatma home"><span class="brand-icon">f</span>fatma<em>.</em></a><button class="menu" id="menu" aria-expanded="false" aria-controls="nav">☰ Menu</button><nav class="nav" id="nav" aria-label="Main navigation"><a href="#home">Home</a><a href="#work">Work</a><a href="#about">About</a><a href="#contact" class="nav-cta">Contact ↗</a></nav></header>
+<div class="container"><header class="topbar"><a class="brand" href="#home" aria-label="Fatma home"><span class="brand-icon">f</span>fatma<em>.</em></a><button class="menu" id="menu" aria-expanded="false" aria-controls="nav">☰ Menu</button><nav class="nav" id="nav" aria-label="Main navigation"><a href="#home">Home</a><a href="#projects">Work</a><a href="#about">About</a><a href="#contact" class="nav-cta">Contact ↗</a></nav></header>
 <main>
 <section class="hero" aria-labelledby="hero-title"><div class="hero-art"><div class="photo"><img alt="Creative video production workspace with camera equipment" src="https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" loading="eager"><span class="photo-tag">Creative stories, thoughtfully made.</span></div><div class="orb" aria-hidden="true"></div><div class="ring" aria-hidden="true"></div><div class="float-note"><span class="mini">✦</span><span>Content • Voice • Visuals<b>Ideas with impact</b></span></div></div>
-<div class="hero-copy"><div class="eyebrow">Creative content portfolio / 2026</div><div class="rule"></div><h1 id="hero-title">Ideas into <span>Impact.</span></h1><p>Content Strategy · Voice Over · Dubbing · AI · Video</p><div class="actions"><a class="primary" href="#work">Explore My Work <span class="button-arrow">↗</span></a><a class="secondary" href="#contact">↗ &nbsp;Let’s collaborate</a></div></div></section>
+<div class="hero-copy"><div class="eyebrow">Creative content portfolio / 2026</div><div class="rule"></div><h1 id="hero-title">Ideas into <span>Impact.</span></h1><p>Content Strategy · Voice Over · Dubbing · AI · Video</p><div class="actions"><a class="primary" href="#projects">Explore My Work <span class="button-arrow">↗</span></a><a class="secondary" href="#contact">↗ &nbsp;Let’s collaborate</a></div></div></section>
 <div class="skills" aria-label="Creative disciplines">
 <a class="skill" href="#work" data-go="plans"><svg viewBox="0 0 32 32"><rect x="5" y="5" width="22" height="22" rx="3"/><path d="M9 11h14M9 16h14M9 21h8"/></svg><span>Content Plans</span></a>
 <a class="skill" href="#work" data-go="voice"><svg viewBox="0 0 32 32"><rect x="12" y="4" width="8" height="17" rx="4"/><path d="M8 16a8 8 0 0 0 16 0M16 24v5M11 29h10"/></svg><span>Voice Over</span></a>
@@ -41,6 +47,13 @@ footer{display:flex;justify-content:space-between;align-items:center;border-top:
 <a class="skill" href="#work" data-go="reels"><svg viewBox="0 0 32 32"><rect x="4" y="5" width="24" height="22" rx="4"/><path d="M4 12h24M11 5l5 7M20 5l5 7M13 16l8 4-8 4z"/></svg><span>Reels</span></a>
 <a class="skill" href="#work" data-go="photo"><svg viewBox="0 0 32 32"><path d="M5 10h6l3-4h8l3 4h2v17H5z"/><circle cx="16" cy="18" r="5"/></svg><span>Photography</span></a>
 </div>
+
+<section class="cms-section" id="projects" aria-labelledby="cms-heading">
+  <div class="section-head"><div><span class="section-kicker">Explore the portfolio</span><h2 id="cms-heading">Projects &amp; stories<span style="color:#8932b8">.</span></h2></div><p class="section-intro">A living portfolio — published projects are updated from the content studio.</p></div>
+  <div class="cms-controls" id="cmsControls" aria-label="Filter live projects" hidden></div>
+  <div class="cms-grid" id="cmsGrid" hidden></div>
+  <p class="cms-status" id="cmsStatus" role="status" aria-live="polite">Loading published projects…</p>
+</section>
 <section class="works" id="work"><div class="section-head"><div><span class="section-kicker">What I create</span><h2>Selected creative tracks<span style="color:#8630b9">.</span></h2></div><p class="section-intro">From the first idea to the final frame — explore the creative disciplines that shape the work.</p></div>
 <div class="filters" aria-label="Filter creative tracks"><button class="filter" data-filter="all" aria-pressed="true">All work</button><button class="filter" data-filter="plans" aria-pressed="false">Content Plans</button><button class="filter" data-filter="voice" aria-pressed="false">Voice Over</button><button class="filter" data-filter="dubbing" aria-pressed="false">Dubbing</button><button class="filter" data-filter="ai" aria-pressed="false">AI Content</button><button class="filter" data-filter="reels" aria-pressed="false">Reels</button><button class="filter" data-filter="photo" aria-pressed="false">Photography</button></div>
 <div class="work-grid" id="workGrid">
@@ -58,5 +71,88 @@ footer{display:flex;justify-content:space-between;align-items:center;border-top:
 <div class="dialog" id="dialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle" aria-hidden="true"><div class="dialog-inner"><button class="close" id="closeDialog" aria-label="Close">×</button><span class="section-kicker">Creative discipline</span><h3 id="dialogTitle"></h3><p id="dialogBody">This section is ready for Fatma's real projects, previews, and links. No sample work has been attributed without a verified source.</p><a class="secondary" href="#contact" id="dialogContact">View contact section ↗</a></div></div><div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
 (function(){const nav=document.getElementById('nav'),menu=document.getElementById('menu'),buttons=[...document.querySelectorAll('[data-filter]')],cards=[...document.querySelectorAll('.work-card')],dialog=document.getElementById('dialog');let lastFocus=null;function filter(type){buttons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.filter===type)));cards.forEach(c=>c.hidden=type!=='all'&&c.dataset.type!==type)}buttons.forEach(b=>b.addEventListener('click',()=>filter(b.dataset.filter)));document.querySelectorAll('[data-go]').forEach(a=>a.addEventListener('click',()=>filter(a.dataset.go)));menu.addEventListener('click',()=>{let open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(open))});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menu.setAttribute('aria-expanded','false')}));function close(){dialog.classList.remove('open');dialog.setAttribute('aria-hidden','true');document.body.style.overflow='';if(lastFocus)lastFocus.focus()}cards.forEach(c=>c.addEventListener('click',()=>{lastFocus=c;document.getElementById('dialogTitle').textContent=c.dataset.title;dialog.classList.add('open');dialog.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';document.getElementById('closeDialog').focus()}));document.getElementById('closeDialog').addEventListener('click',close);document.getElementById('dialogContact').addEventListener('click',close);dialog.addEventListener('click',e=>{if(e.target===dialog)close()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&dialog.classList.contains('open'))close()});let timer;function toast(msg){let t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>t.classList.remove('show'),3000)}document.getElementById('copyLink').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(location.href.split('#')[0]);toast('Portfolio link copied!')}catch(e){toast('Copy the website address from your browser.')}})})();
+</script>
+
+<div id="cmsModal" class="cms-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="cmsModalTitle">
+ <div class="cms-shell"><button class="cms-close" id="cmsClose" aria-label="Close project details">×</button>
+ <span class="section-kicker" id="cmsModalCategory"></span><h2 id="cmsModalTitle"></h2>
+ <p id="cmsModalDetails" class="cms-detail"></p><div id="cmsModalMedia" class="cms-media"></div>
+ </div>
+</div>
+
+<script>
+(()=>{
+ const labels={plans:'Content Plans',voice:'Voice Over',dubbing:'Dubbing',ai:'AI Content',reels:'Reels',photo:'Photography'};
+ const grid=document.getElementById('cmsGrid'),status=document.getElementById('cmsStatus'),controls=document.getElementById('cmsControls');
+ const modal=document.getElementById('cmsModal'),title=document.getElementById('cmsModalTitle'),cat=document.getElementById('cmsModalCategory'),details=document.getElementById('cmsModalDetails'),media=document.getElementById('cmsModalMedia');
+ let list=[],active='all',focusBefore=null;
+ function node(tag,cls,value){const e=document.createElement(tag);if(cls)e.className=cls;if(value!==undefined)e.textContent=value;return e;}
+ function linkable(url){try{let u=new URL(url);return u.protocol==='https:'?u.href:''}catch{return ''}}
+ function makeFilter(key,label){const b=node('button','',label);b.type='button';b.setAttribute('aria-pressed',String(active===key));b.addEventListener('click',()=>{active=key;draw()});return b}
+ function draw(){
+  const shown=active==='all'?list:list.filter(p=>p.category===active);
+  controls.replaceChildren();controls.append(makeFilter('all','All projects'));
+  for(const key of Object.keys(labels)){if(list.some(p=>p.category===key))controls.append(makeFilter(key,labels[key]))}
+  grid.replaceChildren();
+  for(const p of shown){
+   const card=node('button','cms-card');card.type='button';card.setAttribute('aria-label','View project: '+p.title);
+   const cover=node('div','cms-cover');
+   if(linkable(p.cover)){const img=node('img');img.src=p.cover;img.alt=p.title;img.loading='lazy';img.decoding='async';cover.append(img)}
+   else{const placeholder=node('div','cms-cover-placeholder','✦');cover.append(placeholder)}
+   cover.append(node('span','cms-icon','↗'));card.append(cover);
+   const body=node('div','cms-card-body');body.append(node('span','cms-category',labels[p.category]||'Creative project'));
+   body.append(node('h3','',p.title));if(p.summary)body.append(node('p','',p.summary));
+   const footer=node('div','cms-card-footer');footer.append(node('span','',p.year||'Discover more'));footer.append(node('span','',(p.media?.length||0)+' media →'));
+   body.append(footer);card.append(body);
+   card.addEventListener('click',()=>open(p,card));grid.append(card);
+  }
+  status.hidden=shown.length>0; if(!shown.length)status.textContent=active==='all'?'No published projects yet. New work will appear here when published in Sanity.':'No published projects in this category yet.';
+ }
+ function iframeSource(u){
+  try{const x=new URL(u),h=x.hostname.toLowerCase();
+   if(h==='youtu.be')return 'https://www.youtube-nocookie.com/embed/'+encodeURIComponent(x.pathname.slice(1));
+   if(h==='youtube.com'||h==='www.youtube.com'||h==='m.youtube.com'){const id=x.searchParams.get('v')||(x.pathname.startsWith('/shorts/')?x.pathname.split('/')[2]:'');if(id&&/^[\w-]{6,}$/.test(id))return 'https://www.youtube-nocookie.com/embed/'+id}
+   if(h==='vimeo.com'||h==='www.vimeo.com'){const id=x.pathname.split('/').filter(Boolean)[0];if(/^\d+$/.test(id))return 'https://player.vimeo.com/video/'+id}
+  }catch{}return ''
+ }
+ function open(p,origin){
+  focusBefore=origin;title.textContent=p.title;cat.textContent=labels[p.category]||'Creative project';
+  details.textContent=[p.summary,p.role?'Role: '+p.role:'',p.client?'Client: '+p.client:'',p.year?'Year: '+p.year:''].filter(Boolean).join('\n');
+  media.replaceChildren();let items=(p.media||[]).filter(x=>linkable(x.url));
+  for(const m of items){
+   const figure=node('figure'),u=linkable(m.url);
+   if(m.type==='video'){
+    const embed=iframeSource(u);
+    if(embed){const f=node('iframe');f.src=embed;f.title=m.title||'Project video';f.loading='lazy';f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';f.setAttribute('allowfullscreen','');figure.append(f)}
+    else if(/\.(mp4|webm|ogg|m4v)(\?|#|$)/i.test(u)){const video=node('video');video.controls=true;video.preload='metadata';video.playsInline=true;video.src=u;if(linkable(m.poster))video.poster=m.poster;figure.append(video)}
+    else {const a=node('a','',m.title||'Open video');a.href=u;a.target='_blank';a.rel='noopener noreferrer';figure.append(a)}
+   }else{
+    const img=node('img');img.src=u;img.alt=m.title||p.title;img.loading='lazy';const a=node('a');a.href=u;a.target='_blank';a.rel='noopener noreferrer';a.append(img);figure.append(a)
+   }
+   if(m.title)figure.append(node('figcaption','',m.title));media.append(figure);
+  }
+  if(!items.length)media.append(node('p','cms-empty-media','Media for this project will appear here when it is added in Sanity.'));
+  modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';document.getElementById('cmsClose').focus()
+ }
+ function close(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');media.replaceChildren();document.body.style.overflow='';focusBefore?.focus()}
+ document.getElementById('cmsClose').addEventListener('click',close);
+ modal.addEventListener('click',e=>{if(e.target===modal)close()});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))close()});
+ document.querySelectorAll('[data-go]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();active=a.dataset.go;draw();document.getElementById('projects').scrollIntoView({behavior:'smooth'})}));
+ fetch('/api/projects',{headers:{Accept:'application/json'}}).then(async r=>{if(!r.ok)throw Error('Sanity unavailable');return r.json()}).then(data=>{
+  list=Array.isArray(data.projects)?data.projects.filter(p=>p&&p.title):[];
+  const settings=data.settings||{};
+  if(linkable(settings.heroImage)){const hero=document.querySelector('.hero-art .photo img');if(hero)hero.src=settings.heroImage;}
+  if(settings.headline){const h=document.querySelector('.hero h1');if(h){h.textContent=settings.headline;}}
+  if(settings.tagline){const t=document.querySelector('.hero-copy p');if(t)t.textContent=settings.tagline}
+  if(settings.about){const about=document.querySelector('.about-copy p');if(about)about.textContent=settings.about}
+  if(settings.contactEmail&&/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(settings.contactEmail)){
+   const b=document.querySelector('.contact-panel #copyLink');if(b){b.textContent='Email Fatma ↗';b.onclick=()=>{window.location.href='mailto:'+settings.contactEmail};b.id='contactMail';}
+   const note=document.querySelector('.contact-note');if(note)note.textContent=settings.contactEmail;
+  }
+  if(list.length){grid.hidden=false;controls.hidden=false}
+  draw();
+ }).catch(()=>{status.hidden=false;status.textContent='The project gallery is temporarily unavailable. Please check back soon.';});
+})();
 </script>
 </body></html>
