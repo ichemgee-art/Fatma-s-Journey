@@ -54,7 +54,9 @@
   const text=node('div','portfolio-script',current.text||'');text.dir='auto';
   if(m&&url(m.url)){
    const figure=node('figure','media-stage'),u=url(m.url);
-   if(m.type==='image'){
+   if(m.provider==='drive'){
+    const frame=node('iframe');frame.src=u;frame.title=current.title;frame.allow='fullscreen; picture-in-picture';frame.setAttribute('allowfullscreen','');frame.className=['document','pdf'].includes(m.type)?'document-preview':'drive-preview';figure.append(frame);
+   }else if(m.type==='image'){
     const img=node('img');img.src=u;img.alt=m.title||current.title;img.className='portfolio-image';
     const zoom=button('Enlarge image',false,()=>{const on=figure.classList.toggle('zoomed');zoom.textContent=on?'Fit image':'Enlarge image';zoom.setAttribute('aria-pressed',String(on));});zoom.className='media-action';figure.append(img,zoom);
    }else if(m.type==='audio'){
@@ -67,9 +69,10 @@
    }else if(m.type==='pdf'){
     const frame=node('iframe');frame.src=u;frame.title=current.title+' — document';frame.className='document-preview';figure.append(frame);
    }
-   if(['document','pdf'].includes(m.type)){const link=node('a','media-action',m.type==='pdf'?'Open PDF ↗':'Download original document ↗');link.href=u;link.target='_blank';link.rel='noopener noreferrer';figure.append(link);}
+   if(['document','pdf'].includes(m.type)){const link=node('a','media-action',m.type==='pdf'?'Open PDF ↗':'Open original document ↗');link.href=pSource();link.target='_blank';link.rel='noopener noreferrer';figure.append(link);}
    media.append(figure);
-   if(!['document','pdf'].includes(m.type)){const fallback=node('a','media-original','Open original file ↗');fallback.href=u;fallback.target='_blank';fallback.rel='noopener noreferrer';media.append(fallback);}
+   if(!['document','pdf'].includes(m.type)){const fallback=node('a','media-original','Open original file ↗');fallback.href=pSource();fallback.target='_blank';fallback.rel='noopener noreferrer';media.append(fallback);}
+   function pSource(){return m.provider==='drive'?url(current.sourceUrl)||u:u;}
   }
   if(current.text)media.append(text);
   if(!m&&!current.text)media.append(node('p','','This work has no media attached yet.'));

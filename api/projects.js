@@ -1,3 +1,4 @@
+const catalog = require('../data/portfolio-catalog.json');
 const categories = ['content','photo','voice','video','dubbing','ai'];
 const projectId = process.env.SANITY_PROJECT_ID || 'q3zqgei4';
 const dataset = process.env.SANITY_DATASET || 'production';
@@ -20,8 +21,21 @@ function normalize(p){
  if(!items.length&&p.coverUrl)items.push(media({url:p.coverUrl},'image'));
  return {id:p._id,title:text(p.title||p.name),category:category(p.category),group:text(p.group),summary:text(p.summary||p.description),text:text(p.text),client:text(p.client),role:text(p.role),year:text(p.year),cover:safeUrl(p.coverUrl)||items.find(m=>m?.type==='image')?.url||'',media:items.filter(Boolean),hidden:p.hidden===true};
 }
+function fromDrive(f){
+ return {id:'drive-'+f.id,driveId:f.id,title:f.title,category:f.category,group:f.group,summary:'',text:'',sourceUrl:f.sourceUrl,
+ cover:['image','video','pdf'].includes(f.type)?'https://drive.google.com/thumbnail?id='+f.id+'&sz=w640':'',
+ media:[{type:f.type,provider:'drive',driveId:f.id,url:'https://drive.google.com/file/d/'+f.id+'/preview',title:f.title}]};
+}
 function assemble(raw={}){
- const projects=(Array.isArray(raw.projects)?raw.projects:[]).filter(p=>p.hidden!==true).map(normalize).filter(p=>p.title&&p.category);
+ const docs=Array.isArray(raw.projects)?raw.projects:[],byId=new Map(docs.map(p=>[p._id,p]));
+ const used=new Set(),projects=[];
+ for(const f of catalog.files){
+  const p=byId.get(f.sanityId);if(p)used.add(p._id);
+  if(p?.hidden===true)continue;
+  const fallback=fromDrive(f),live=p?normalize(p):null;
+  projects.push(live?{...fallback,...live,category:live.category||f.category,group:live.group||f.group,cover:live.cover||fallback.cover,media:live.media.length?live.media:fallback.media}:fallback);
+ }
+ for(const p of docs){if(!used.has(p._id)&&p.hidden!==true){const n=normalize(p);if(n.title&&n.category)projects.push(n);}}
  const s=raw.settings||{};
  return {projects,count:projects.length,mediaLibrary:[],settings:{name:text(s.name),headline:text(s.headline),tagline:text(s.tagline),about:text(s.about),heroImage:safeUrl(s.heroImage),contactEmail:/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(s.contactEmail||'')?s.contactEmail:'',socials:s.socials||[]}};
 }
