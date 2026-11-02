@@ -2,10 +2,19 @@
  let library;const pending=[],cache=new Map();let active=0;
  const base='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/';
  const load=()=>library||(library=import(base+'pdf.min.mjs').then(pdf=>{pdf.GlobalWorkerOptions.workerSrc=base+'pdf.worker.min.mjs';return pdf;}));
+ async function pdfSource(pdf,source){
+  const asset=new URL(source).pathname.split('/').pop();
+  const chunk=async(begin,end)=>{const response=await fetch('/api/pdf?asset='+encodeURIComponent(asset)+'&start='+begin+'&end='+end);if(!response.ok)throw Error('PDF unavailable');return {data:new Uint8Array(await response.arrayBuffer()),length:Number(response.headers.get('x-pdf-length'))};};
+  const initial=await chunk(0,65535);if(!initial.length)throw Error('Invalid PDF');
+  if(initial.data.length>=initial.length)return {data:initial.data};
+  const transport=new pdf.PDFDataRangeTransport(initial.length,initial.data);let loading;
+  transport.requestDataRange=async(begin,end)=>{try{const data=new Uint8Array(end-begin);for(let offset=begin;offset<end;offset+=1048576){const part=await chunk(offset,Math.min(end,offset+1048576)-1);data.set(part.data,offset-begin);}transport.onDataRange(begin,data);}catch{loading?.destroy();}};
+  return {range:transport,disableAutoFetch:true,disableStream:true,setTask:task=>{loading=task;}};
+ }
  async function pageImage(source,width){
   const key=source+'|'+width;if(cache.has(key))return cache.get(key);
   const task=(async()=>{const pdf=await load();let document;
-   try{document=await pdf.getDocument({url:source,disableAutoFetch:true,disableStream:true,isEvalSupported:false,cMapUrl:'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/cmaps/',cMapPacked:true,standardFontDataUrl:'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/standard_fonts/'}).promise;
+   try{const options=await pdfSource(pdf,source),task=pdf.getDocument({...options,isEvalSupported:false,cMapUrl:'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/cmaps/',cMapPacked:true,standardFontDataUrl:'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/standard_fonts/'});options.setTask?.(task);document=await task.promise;
     const page=await document.getPage(1),original=page.getViewport({scale:1}),viewport=page.getViewport({scale:Math.min(width/original.width,2)}),canvas=window.document.createElement('canvas');
     canvas.width=Math.ceil(viewport.width);canvas.height=Math.ceil(viewport.height);
     await page.render({canvasContext:canvas.getContext('2d'),viewport}).promise;
