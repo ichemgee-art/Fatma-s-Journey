@@ -1,5 +1,6 @@
 (()=>{
  let library;const pending=[],cache=new Map();let active=0;
+ const prepared=new Set(['1asnYxL5Ns6UDgtnENtDEMzILLpRJ0Ryt','1rBCtVQGzhLAVWvYGj7i0KGLOheL_Rhvd','1orkSTjBWfLa9461sFjxhbN5ofPa21gwi']);
  const base='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/';
  const load=()=>library||(library=import(base+'pdf.min.mjs').then(pdf=>{pdf.GlobalWorkerOptions.workerSrc=base+'pdf.worker.min.mjs';return pdf;}));
  async function pdfSource(pdf,source){
@@ -25,6 +26,7 @@
  function run(){while(active<2&&pending.length){const work=pending.shift();if(!work.host.isConnected)continue;active++;work.render().finally(()=>{active--;run();});}}
  const observer='IntersectionObserver'in window?new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){observer.unobserve(entry.target);pending.push(entry.target.pdfWork);run();}},{rootMargin:'120px'}):null;
  window.createPDFPreview=(media,title,cover='',large=false)=>{
+  const local=media.provider==='drive'&&prepared.has(media.driveId)?'/assets/pdf/'+media.driveId+'.jpg':'';if(local)cover=local;
   const host=document.createElement('div');host.className='pdf-first-page';host.setAttribute('role','img');host.setAttribute('aria-label',title);
   const image=document.createElement('img');image.alt='';image.decoding='async';host.append(image);
   const placeholder=document.createElement('span');placeholder.className='pdf-placeholder';placeholder.textContent='PDF';placeholder.setAttribute('aria-hidden','true');host.append(placeholder);
@@ -32,7 +34,8 @@
   const show=source=>new Promise((resolve,reject)=>{image.onload=()=>{host.classList.add('is-ready');resolve();};image.onerror=()=>reject(Error('Preview unavailable'));image.src=source;});
   if(cover)show(cover).catch(()=>{});
   const render=async()=>{try{
-   if(media.provider==='drive'&&/^[\w-]+$/.test(media.driveId||''))await show('https://drive.google.com/thumbnail?id='+encodeURIComponent(media.driveId)+'&sz=w'+(large?1200:640));
+   if(local)await show(local);
+   else if(media.provider==='drive'&&/^[\w-]+$/.test(media.driveId||''))await show('https://drive.google.com/thumbnail?id='+encodeURIComponent(media.driveId)+'&sz=w'+(large?1200:640));
    else if(/^https:\/\/cdn\.sanity\.io\/files\//.test(media.url))await show(await pageImage(media.url,large?1200:600));
   }catch{host.classList.add('preview-unavailable');}};
   host.pdfWork={host,render};if(observer)observer.observe(host);else{pending.push(host.pdfWork);setTimeout(run,0);}return host;
