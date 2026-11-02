@@ -19,7 +19,7 @@ function normalize(p){
   for(const x of Array.isArray(values)?values:[values]){const m=media(x,hint);if(m&&!items.some(i=>i.url===m.url))items.push(m);}
  }
  if(!items.length&&p.coverUrl)items.push(media({url:p.coverUrl},'image'));
- return {id:p._id,title:text(p.title||p.name),type:text(p.type),category:category(p.category),group:text(p.group),summary:text(p.summary||p.description),text:text(p.text),client:text(p.client),role:text(p.role),year:text(p.year),cover:safeUrl(p.coverUrl)||items.find(m=>m?.type==='image')?.url||'',media:items.filter(Boolean),hidden:p.hidden===true};
+ return {id:p._id,title:text(p.title||p.name),type:text(p.type)||(p.text?'document':''),category:category(p.category),group:text(p.group),summary:text(p.summary||p.description),text:text(p.text),client:text(p.client),role:text(p.role),year:text(p.year),cover:safeUrl(p.coverUrl)||items.find(m=>m?.type==='image')?.url||'',media:items.filter(Boolean),hidden:p.hidden===true};
 }
 function fromDrive(f){
  return {id:'drive-'+f.id,driveId:f.id,title:f.title,category:f.category,group:f.group,summary:'',text:'',sourceUrl:f.sourceUrl,
@@ -53,7 +53,14 @@ async function handler(req,res){
  }
  res.setHeader('Cache-Control',sourceStatus==='connected'?'s-maxage=30,stale-while-revalidate=120':'no-store');
  if(sourceStatus!=='connected')return res.status(503).json({error:'The portfolio is temporarily unavailable.'});
- return res.status(200).json({...assemble(raw),sourceStatus});
+ const result=assemble(raw),ids=new URL(req.url||'/','https://portfolio.local').searchParams.getAll('id');
+ if(ids.length){
+  if(ids.length!==1||!/^[A-Za-z0-9._-]{1,200}$/.test(ids[0]))return res.status(400).json({error:'Invalid work ID'});
+  const project=result.projects.find(p=>p.id===ids[0]);
+  if(!project)return res.status(404).json({error:'Work not found'});
+  return res.status(200).json({project,related:result.projects.filter(p=>p.id!==project.id&&p.category===project.category).slice(0,4)});
+ }
+ return res.status(200).json({...result,sourceStatus});
 }
 module.exports=handler;
 module.exports.assemble=assemble;
