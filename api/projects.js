@@ -19,7 +19,7 @@ function normalize(p){
   for(const x of Array.isArray(values)?values:[values]){const m=media(x,hint);if(m&&!items.some(i=>i.url===m.url))items.push(m);}
  }
  if(!items.length&&p.coverUrl)items.push(media({url:p.coverUrl},'image'));
- return {id:p._id,title:text(p.title||p.name),type:text(p.type)||(p.text?'document':''),category:category(p.category),group:text(p.group),summary:text(p.summary||p.description),text:text(p.text),client:text(p.client),role:text(p.role),year:text(p.year),cover:safeUrl(p.coverUrl)||items.find(m=>m?.type==='image')?.url||'',media:items.filter(Boolean),hidden:p.hidden===true};
+ return {id:p._id,title:text(p.title||p.name),type:text(p.type)||(p.text?'document':''),category:category(p.category),group:text(p.group),summary:text(p.summary||p.description),text:text(p.text),client:text(p.client),role:text(p.role),year:text(p.year),customCover:!!safeUrl(p.coverUrl),cover:safeUrl(p.coverUrl)||items.find(m=>m?.type==='image')?.url||'',media:items.filter(Boolean),hidden:p.hidden===true};
 }
 function fromDrive(f){
  return {id:'drive-'+f.id,driveId:f.id,title:f.title,category:f.category,group:f.group,summary:'',text:'',sourceUrl:f.sourceUrl,

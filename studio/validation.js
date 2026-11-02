@@ -7,5 +7,7 @@ export function validateMedia(value,document={}){
 }
 export function validateGroup(value,document={}){
  if(!value)return true
- return sections.some(s=>s.category===document.category&&s.group===value)||'هذا القسم الفرعي لا يناسب القسم الرئيسي. يمكنك تغييره أو مسح الاختيار.'
+ return sections.some(s=>s.category===document.category&&s.group?.trim().toLowerCase()===value.trim().toLowerCase())||'هذا القسم الفرعي لا يناسب القسم الرئيسي. يمكنك تغييره أو مسح الاختيار.'
 }
+export function validateTitle(value){return typeof value==='string'&&value.trim().length>=2||'اكتبي اسمًا واضحًا للعمل، حرفين على الأقل، بدل تركه فارغًا.'}
+export function coverAdvice(dimensions){if(!dimensions)return true;const {width,height}=dimensions;if(width<800||height<600)return 'الصورة صغيرة وقد تظهر غير واضحة. يُفضّل غلاف 1600 × 1200 بكسل.';if(Math.abs(width/height-4/3)>.2)return 'نسبة الصورة مختلفة عن 4:3؛ سيُقص جزء منها على الكارت. خلي العنصر المهم في المنتصف أو اختاري غلاف 1600 × 1200.';return true}

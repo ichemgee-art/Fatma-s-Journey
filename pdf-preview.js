@@ -30,7 +30,6 @@
   const host=document.createElement('div');host.className='pdf-first-page';host.setAttribute('role','img');host.setAttribute('aria-label',title);
   const image=document.createElement('img');image.alt='';image.decoding='async';host.append(image);
   const placeholder=document.createElement('span');placeholder.className='pdf-placeholder';placeholder.textContent='PDF';placeholder.setAttribute('aria-hidden','true');host.append(placeholder);
-  const label=document.createElement('span');label.className='pdf-page-label';label.textContent='01';label.setAttribute('aria-hidden','true');host.append(label);
   const show=source=>new Promise((resolve,reject)=>{image.onload=()=>{host.classList.add('is-ready');resolve();};image.onerror=()=>reject(Error('Preview unavailable'));image.src=source;});
   if(cover)show(cover).catch(()=>{});
   const render=async()=>{try{
