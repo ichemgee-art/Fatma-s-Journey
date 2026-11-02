@@ -12,7 +12,7 @@ const query = [
 '"videos":videos[]{_type,"url":coalesce(asset->url,file.asset->url,url,videoUrl,externalUrl),"poster":poster.asset->url,title},',
 '"files":files[]{"url":coalesce(asset->url,file.asset->url,url),title},',
 '"videoUrl":coalesce(videoUrl,video.url,video.file.asset->url,video.asset->url)',
-'}, "settings": *[_type in ["siteSettings","portfolioSettings"]][0]{name,headline,tagline,about,contactEmail,"heroImage":heroImage.asset->url,"socials":socials[]{label,url}} }'
+'}, "assets": *[_type in ["sanity.imageAsset","sanity.fileAsset"]] | order(_createdAt desc)[0...150]{_id,_type,url,originalFilename,mimeType}, "settings": *[_type in ["siteSettings","portfolioSettings"]][0]{name,headline,tagline,about,contactEmail,"heroImage":heroImage.asset->url,"socials":socials[]{label,url}} }'
 ].join('');
 function txt(v) {
  if (typeof v === 'string') return v.trim();
@@ -38,7 +38,7 @@ function media(v,hint) {
  const x=typeof v==='string'?{url:v}:v||{};
  const link=url(x.url||x.externalUrl||x.videoUrl);
  if(!link)return null;
- const k=x._type||x.kind||hint||'';
+ const k=x.kind||x._type||hint||'';
  const video=/video|file/i.test(k)||/\.(mp4|webm|mov|m4v)(\?|$)/i.test(link)||/(youtube\.com|youtu\.be|vimeo\.com)/.test(new URL(link).hostname);
  return {url:link,type:video?'video':'image',title:txt(x.caption||x.alt||x.title).slice(0,200),poster:url(x.poster)};
 }
@@ -64,9 +64,11 @@ module.exports=async function handler(req,res){
   if(payload.error)throw new Error('Sanity query failed');
   const raw=payload.result||{},settings=raw.settings||{};
   const projects=(Array.isArray(raw.projects)?raw.projects:[]).map(format).filter(p=>p.title);
+  const assigned=new Set(projects.flatMap(p=>p.media.map(m=>m.url.split('?')[0])));
+  const mediaLibrary=(Array.isArray(raw.assets)?raw.assets:[]).filter(a=>a._type==='sanity.imageAsset'||/^video\//.test(a.mimeType||'')||/\.(mp4|webm|mov|m4v)$/i.test(a.originalFilename||'')).map(a=>({url:url(a.url),type:a._type==='sanity.imageAsset'?'image':'video',title:txt(a.originalFilename).slice(0,180)})).filter(a=>a.url&&!assigned.has(a.url.split('?')[0])).slice(0,90);
   const contactEmail=txt(settings.contactEmail);
   res.setHeader('Cache-Control','s-maxage=30,stale-while-revalidate=120');
-  return res.status(200).json({projects,count:projects.length,settings:{name:txt(settings.name),headline:txt(settings.headline),tagline:txt(settings.tagline),about:txt(settings.about),heroImage:url(settings.heroImage),contactEmail:/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(contactEmail)?contactEmail:'',socials:(settings.socials||[]).map(x=>({label:txt(x.label),url:url(x.url)})).filter(x=>x.url)}});
+  return res.status(200).json({projects,count:projects.length,mediaLibrary,settings:{name:txt(settings.name),headline:txt(settings.headline),tagline:txt(settings.tagline),about:txt(settings.about),heroImage:url(settings.heroImage),contactEmail:/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(contactEmail)?contactEmail:'',socials:(settings.socials||[]).map(x=>({label:txt(x.label),url:url(x.url)})).filter(x=>x.url)}});
  }catch(e){
   console.error('Sanity query failed:',e.message);
   res.setHeader('Cache-Control','no-store');
