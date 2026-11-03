@@ -1,4 +1,5 @@
 import {defineField, defineType} from 'sanity'
+import {CertificateFileInput} from '../components/WorkFileInput.js'
 
 const categories = [
   {title:'Content Plans', value:'plans'},
@@ -59,7 +60,7 @@ export const certificate=defineType({
   defineField({name:'titleEn',title:'Certificate title in English',type:'string',validation:r=>r.required().min(1)}),
   defineField({name:'descriptionAr',title:'الوصف بالعربي (اختياري)',type:'text',rows:3}),
   defineField({name:'descriptionEn',title:'English description (optional)',type:'text',rows:3}),
-  defineField({name:'attachment',title:'صورة الشهادة أو PDF',type:'file',options:{accept:'image/*,application/pdf'},validation:r=>r.required().assetRequired()}),
+  defineField({name:'attachment',title:'صورة الشهادة أو PDF',type:'file',options:{accept:'image/*,application/pdf'},components:{input:CertificateFileInput},validation:r=>r.required().assetRequired()}),
  ],
  preview:{select:{title:'titleAr',subtitle:'titleEn'}},
 })

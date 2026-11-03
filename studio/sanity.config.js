@@ -16,5 +16,5 @@ export default defineConfig({
   dataset: 'production',
   plugins: [structureTool({title:'إدارة الأعمال',structure})],
   schema: {types: [work, portfolioProject, legacyProject, portfolioMedia, siteSettings, certificate, socialSettings],templates},
-  document: {newDocumentOptions:prev=>prev.filter(item=>['certificate','siteSettings'].includes(item.templateId)||templates.some(template=>template.id===item.templateId)),actions:(prev,context)=>context.schemaType==='work'?prev.map(action=>action.action==='publish'?withUploadGuard(action):action):prev},
+  document: {newDocumentOptions:prev=>prev.filter(item=>['certificate','siteSettings'].includes(item.templateId)||templates.some(template=>template.id===item.templateId)),actions:(prev,context)=>['work','certificate'].includes(context.schemaType)?prev.map(action=>action.action==='publish'?withUploadGuard(action):action):prev},
 })
