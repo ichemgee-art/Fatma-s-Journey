@@ -21,6 +21,7 @@
   const body=node('div','cms-card-body');body.append(node('span','cms-category',window.portfolioI18n.group(p.group)||t(p.category)));
   const title=node('h3','',p.title);title.dir='auto';body.append(title);
   if(p.summary){const summary=node('p','',p.summary);summary.dir='auto';body.append(summary);}
+  if(p.role){const role=node('p','cms-role');const key=node('span','cms-role-label',t('roleLabel')+': ');role.append(key,document.createTextNode(p.role));role.dir='auto';body.append(role);}
   const footer=node('div','cms-card-footer');footer.append(node('span','',t(({audio:'listen',video:'watch',pdf:'readDocument',document:'readScript',image:'viewPhoto'})[type]||'view')),node('span','card-footer-arrow','↗'));body.append(footer);card.append(body);return card;
  };
 })();
