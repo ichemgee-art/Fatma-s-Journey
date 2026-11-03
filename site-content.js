@@ -102,8 +102,8 @@
      const arrow = element('span', '↗', 'social-arrow');
      arrow.setAttribute('aria-hidden', 'true');
      top.append(icon, arrow);
-     const heading = element('span', platform || new URL(social.url).hostname, 'social-platform');
-     heading.dir = 'ltr';
+     const heading = element('span', platform ? window.portfolioI18n.t('platform' + platform) : new URL(social.url).hostname, 'social-platform');
+     heading.dir = 'auto';
      link.append(top, heading);
      if (social.label) {
       const handle = element('strong', social.label, 'social-handle');
