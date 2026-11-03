@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800;900&display=swap');
+/* Alexandria 2026 — premium Arabic typography and fully considered RTL layouts.
+   Loaded LAST: do not alter English-mode typography. */
+:root{--arabic-display:"Alexandria","Cairo",Tahoma,sans-serif}
+html[lang="ar"]{font-synthesis:none}
+html[lang="ar"] body,
+html[lang="ar"] body *:not(svg):not(svg *):not(code):not(pre){
+ font-family:var(--arabic-display)!important;
+}
+html[lang="ar"] body{direction:rtl;text-align:start;line-height:1.85;font-weight:500}
+html[lang="ar"] :is(h1,h2,h3,h4,h5,h6,.hero-name,.section-kicker,.cms-category,.track-heading h3){
+ font-weight:800!important;letter-spacing:0!important;word-spacing:normal!important;
+ text-wrap:balance;overflow-wrap:break-word;
+}
+html[lang="ar"] :is(p,.about-deck,.cms-summary,.about-story-columns p,.about-process p,.about-disciplines p,.contact-note,.home-final-invite p){
+ line-height:1.98!important;text-wrap:pretty;letter-spacing:0!important;
+}
+html[lang="ar"] :is(button,input,textarea,select,a,.nav,.mobile-nav,.toast){
+ font-weight:650;letter-spacing:0!important;
+}
+html[lang="ar"] .brand-name{font-size:clamp(14px,1.8vw,23px);font-weight:800!important;line-height:1.6!important;white-space:nowrap}
+html[lang="ar"] .topbar{min-width:0}
+html[lang="ar"] .topbar .header-tools{min-width:0}
+html[lang="ar"] .nav{gap:clamp(8px,1.4vw,20px)}
+html[lang="ar"] .nav a{font-size:clamp(11px,1.05vw,14px);font-weight:700!important;white-space:nowrap}
+html[lang="ar"] .preference-button{font-size:12px;min-height:40px}
+html[lang="ar"] .hero h1{font-size:clamp(43px,5.1vw,76px)!important;line-height:1.63!important;letter-spacing:0!important;max-width:100%;margin-block-end:18px}
+html[lang="ar"] .hero h1 span{line-height:1.56!important;letter-spacing:0!important}
+html[lang="ar"] .hero h1>span:not(.hero-lead){margin-inline-start:clamp(0px,3vw,38px)!important}
+html[lang="ar"] .hero .eyebrow{font-size:12px;line-height:1.9;text-transform:none!important;letter-spacing:0!important}
+html[lang="ar"] .hero-name{font-size:clamp(20px,2.3vw,27px)!important;line-height:1.65!important}
+html[lang="ar"] .hero-copy>p:not(.hero-name):not(.hero-proof){font-size:clamp(15px,1.45vw,18px)!important;line-height:1.95!important;max-width:620px}
+html[lang="ar"] .hero-proof{font-size:13px!important;line-height:1.9!important}
+html[lang="ar"] .home-overline,html[lang="ar"] .about-issue{font-size:11px!important;line-height:1.9!important;text-transform:none!important;letter-spacing:0!important}
+html[lang="ar"] .hero-photo-stamp{font-size:11px!important;line-height:1.65!important;text-align:center}
+html[lang="ar"] .float-note b{line-height:1.7}
+html[lang="ar"] .home-ticker-group{font-size:clamp(16px,2vw,22px)!important;line-height:1.8!important;letter-spacing:0!important}
+html[lang="ar"] .home-featured .home-tracks-title h2{font-size:clamp(29px,3.8vw,47px)!important;line-height:1.6!important}
+html[lang="ar"] .home-editorial-note h2{font-size:clamp(29px,3.8vw,50px)!important;line-height:1.7!important}
+html[lang="ar"] .home-editorial-note h2 em{line-height:inherit}
+html[lang="ar"] .home-editorial-note .home-note-label{letter-spacing:0!important;font-size:12px}
+html[lang="ar"] .home-page .home-tracks-title h2{font-size:clamp(26px,3vw,35px)!important;line-height:1.6!important}
+html[lang="ar"] .home-page .skill{min-width:0}
+html[lang="ar"] .home-page .skill span{font-size:12px!important;line-height:1.8!important;white-space:normal}
+html[lang="ar"] .home-final-invite h2{font-size:clamp(28px,3.8vw,47px)!important;line-height:1.65!important}
+html[lang="ar"] .home-final-invite .primary{white-space:normal}
+html[lang="ar"] .about-editorial .about-intro-copy h1{font-size:clamp(39px,5.1vw,68px)!important;line-height:1.7!important}
+html[lang="ar"] .about-editorial .about-deck{font-size:clamp(15px,1.55vw,18px)!important;line-height:2.05!important}
+html[lang="ar"] .about-motto-band{min-width:0;gap:clamp(8px,1.8vw,28px);flex-wrap:wrap}
+html[lang="ar"] .about-motto-band strong{font-size:clamp(16px,3vw,40px)!important;line-height:1.65!important;letter-spacing:0!important}
+html[lang="ar"] .about-editorial .about-story h2{font-size:clamp(28px,3.9vw,49px)!important;line-height:1.78!important}
+html[lang="ar"] .about-editorial .about-disciplines h2,html[lang="ar"] .about-editorial .about-process>h2{font-size:clamp(27px,3.6vw,44px)!important;line-height:1.72!important}
+html[lang="ar"] .about-editorial .discipline-card h3{font-size:clamp(19px,2vw,25px)!important;line-height:1.75!important}
+html[lang="ar"] .about-editorial .discipline-card .discipline-index{font-size:11px;letter-spacing:0!important}
+html[lang="ar"] .about-statement-band blockquote{font-size:clamp(24px,3.2vw,42px)!important;line-height:1.85!important}
+html[lang="ar"] .about-editorial .about-process h3{font-size:clamp(18px,2vw,23px)!important;line-height:1.8!important}
+html[lang="ar"] .about-editorial .about-invite h2{font-size:clamp(27px,4vw,48px)!important;line-height:1.8!important}
+html[lang="ar"] .page-heading h1,html[lang="ar"] .detail-header h1,html[lang="ar"] .contact-panel h2,html[lang="ar"] .social-page h1{
+ font-size:clamp(31px,4.2vw,53px)!important;line-height:1.72!important;letter-spacing:0!important
+}
+html[lang="ar"] .page-heading>p{font-size:clamp(14px,1.5vw,17px)!important;line-height:2!important}
+html[lang="ar"] .cms-card,html[lang="ar"] .cms-card .cms-card-body{min-width:0}
+html[lang="ar"] .cms-card .cms-card-body{gap:11px}
+html[lang="ar"] .cms-card h3{font-size:clamp(17px,1.55vw,21px)!important;line-height:1.78!important;-webkit-line-clamp:2;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+html[lang="ar"] .cms-category{font-size:11px!important;font-weight:800!important;line-height:1.8!important}
+html[lang="ar"] .cms-summary{font-size:13px!important;line-height:1.9!important}
+html[lang="ar"] .cms-card .cms-role{font-size:12px!important;line-height:1.9!important}
+html[lang="ar"] .cms-card .card-format{font-size:10px!important;line-height:1.65!important}
+html[lang="ar"] .cms-card .cms-card-footer{font-size:12px!important;line-height:1.8!important}
+html[lang="ar"] .cover-art-title{font-size:clamp(17px,2vw,27px)!important;line-height:1.7!important;letter-spacing:0!important;max-width:100%}
+html[lang="ar"] .cover-series{font-size:9px!important;letter-spacing:0!important}
+html[lang="ar"] .portfolio-overview .overview-pill{font-size:12px;line-height:1.8}
+html[lang="ar"] .track-heading h3{font-size:clamp(23px,2.6vw,33px)!important;line-height:1.72!important}
+html[lang="ar"] .track-description{font-size:13px!important;line-height:1.95!important}
+html[lang="ar"] .cms-controls,html[lang="ar"] .cms-groups{overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:thin}
+html[lang="ar"] .cms-controls button,html[lang="ar"] .cms-groups button{min-height:44px;padding:10px 16px;white-space:nowrap;font-size:12px!important;line-height:1.65}
+html[lang="ar"] :is(.work-highlights .highlights-header h2,.certificate-body h2,.detail-info h3){
+ letter-spacing:0!important;line-height:1.7!important
+}
+html[lang="ar"] .detail-info dt,html[lang="ar"] .detail-info dd{line-height:1.8!important}
+html[lang="ar"] :is(.social-platform,.social-handle,.social-visit,.certificate-open){line-height:1.8!important;letter-spacing:0!important}
+html[lang="ar"] .contact-page .contact-panel h2{line-height:1.8!important}
+html[lang="ar"] .contact-quicklinks a{font-size:12px!important}
+html[lang="ar"] .mobile-nav a{font-size:clamp(8.7px,2.4vw,11px)!important;line-height:1.5!important;letter-spacing:0!important}
+html[lang="ar"] .mobile-nav a span{white-space:normal!important;text-align:center;overflow-wrap:normal!important}
+html[lang="ar"] .mobile-nav a[href="/certificates/"] span{font-size:clamp(8.5px,2.3vw,10px)!important}
+html[lang="ar"] .footer-links a{line-height:1.7}
+html[lang="ar"] :is(.page-main,.about-editorial,.contact-panel,.cms-card) :is(a,button):focus-visible{outline:3px solid var(--violet);outline-offset:4px}
+html[lang="ar"] :is(.cms-card-body,.about-story,.about-intro-copy,.home-editorial-note,.detail-header){min-width:0}
+html[lang="ar"] :is(.about-story,.home-editorial-note,.contact-panel) p{overflow-wrap:anywhere}
+html[lang="ar"] :is(.cms-card,.certificate-card,.detail-info) [dir="auto"]{unicode-bidi:plaintext}
+@media(max-width:900px){
+ html[lang="ar"] .hero h1{font-size:clamp(43px,8vw,65px)!important}
+ html[lang="ar"] .about-editorial .about-intro-copy h1{font-size:clamp(40px,7vw,57px)!important}
+}
+@media(max-width:700px){
+ html[lang="ar"] .hero h1{font-size:clamp(37px,9vw,52px)!important;line-height:1.62!important}
+ html[lang="ar"] .hero h1>span:not(.hero-lead){margin-inline-start:0!important}
+ html[lang="ar"] .hero-name{font-size:21px!important}
+ html[lang="ar"] .home-overline{flex-wrap:wrap;gap:7px}
+ html[lang="ar"] .home-ticker-group{font-size:15px!important}
+ html[lang="ar"] .home-editorial-note h2{font-size:clamp(27px,7vw,38px)!important}
+ html[lang="ar"] .home-final-invite h2{font-size:clamp(26px,7vw,39px)!important}
+ html[lang="ar"] .about-editorial .about-intro-copy h1{font-size:clamp(35px,8.1vw,49px)!important}
+ html[lang="ar"] .about-editorial .about-story h2{font-size:clamp(25px,7vw,35px)!important}
+ html[lang="ar"] .about-statement-band blockquote{font-size:clamp(22px,6.4vw,32px)!important}
+ html[lang="ar"] .page-heading h1{font-size:clamp(29px,7.3vw,42px)!important}
+ html[lang="ar"] .cms-card h3{font-size:19px!important}
+ html[lang="ar"] .mobile-nav a{padding:4px 1px!important}
+}
+@media(prefers-reduced-motion:reduce){html[lang="ar"] .home-ticker-track{animation:none!important}}

@@ -37,8 +37,13 @@
   const section = document.getElementById('featured-work');
   if (!section || !Array.isArray(projects)) return;
   const byId = new Map(projects.map(project => [project.id, project]));
-  const selected = window.portfolioI18n.featuredIds.map(id => byId.get(id)).filter(Boolean);
+  const selected = projects.filter(project => project.featured === true && project.hidden !== true).slice(0,3);
   const used = new Set(selected.map(project => project.id));
+  for (const id of window.portfolioI18n.featuredIds) {
+   if (selected.length >= 3) break;
+   const work = byId.get(id);
+   if (work && !used.has(id)) { selected.push(work); used.add(id); }
+  }
   for (const category of ['content','video','voice']) {
    if (selected.length >= 3) break;
    const alternate = projects.find(project => project.category === category && project.media?.length && !used.has(project.id));

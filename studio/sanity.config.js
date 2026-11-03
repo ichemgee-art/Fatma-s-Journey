@@ -1,3 +1,4 @@
+import './studio-arabic.css'
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {portfolioProject, legacyProject, siteSettings, portfolioMedia, certificate, socialSettings} from './schemaTypes/index.js'

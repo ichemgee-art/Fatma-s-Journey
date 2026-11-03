@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800;900&display=swap');
+/* Keep Sanity Studio readable in Arabic without interfering with SVG icons. */
+html body,html body :is(button,input,textarea,select,option,label,p,h1,h2,h3,h4,span,div,a,li),
+html body [data-ui],html body [data-ui] *:not(svg):not(svg *){font-family:"Alexandria",Tahoma,sans-serif!important}
+html body [dir="rtl"]{line-height:1.9}
+html body [dir="rtl"] :is(input,textarea){direction:rtl;text-align:right;line-height:1.9}
+html body [dir="ltr"] :is(input,textarea){direction:ltr;text-align:left}
+html body :is(input,textarea){font-size:clamp(13px,1.2vw,15px)!important}
+html body :is(button,[role="button"]){min-height:35px}
+html body :is(h1,h2,h3,h4){line-height:1.7;letter-spacing:0;overflow-wrap:anywhere}
+html body :is([data-ui="Text"],[data-ui="Label"]){line-height:1.75!important}
+html body :is(code,pre){font-family:ui-monospace,SFMono-Regular,Consolas,monospace!important}

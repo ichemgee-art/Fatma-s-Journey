@@ -44,13 +44,13 @@ function projectType(name,title){return defineType({
 export const portfolioProject=projectType('portfolioProject','Portfolio project')
 export const legacyProject=projectType('project','Project (compatible)')
 export const siteSettings=defineType({name:'siteSettings',title:'Portfolio settings',type:'document',fields:[
- defineField({name:'name',title:'Display name',type:'string',initialValue:'Fatma'}),
- defineField({name:'headline',title:'Main headline',type:'string',initialValue:'Ideas into Impact.'}),
- defineField({name:'tagline',title:'Tagline',type:'string'}),
- defineField({name:'about',title:'About Fatma',type:'text',rows:7}),
+ defineField({name:'name',title:'الاسم التعريفي / Display name',description:'مرجع تحريري للاسم. نصوص القوائم والعناوين العربية والإنجليزية يتم تعريبها من إعدادات الموقع.',type:'string',initialValue:'Fatma'}),
+ defineField({name:'headline',title:'العنوان الرئيسي (مرجع تحريري)',description:'حقل مرجعي؛ عنوان الواجهة الحالي مترجم ومصمم بشكل منفصل.',type:'string',initialValue:'Ideas into Impact.'}),
+ defineField({name:'tagline',title:'الجملة التعريفية (مرجع تحريري)',description:'يمكن استخدامها لتجميع الأفكار التحريرية؛ نص الواجهة المترجم محفوظ منفصلًا.',type:'string'}),
+ defineField({name:'about',title:'نبذة فاطمة (مرجع تحريري)',description:'قيمة مرجعية لا تستبدل النصين العربي والإنجليزي في واجهة About تلقائيًا.',type:'text',rows:7}),
  defineField({name:'heroImage',title:'صورة الصفحة الرئيسية / Home photo',type:'image',options:{hotspot:true}}),
  defineField({name:'aboutImage',title:'صورة صفحة عن فاطمة / About photo',type:'image',options:{hotspot:true}}),
- defineField({name:'contactEmail',title:'Public professional contact email',type:'email'}),
+ defineField({name:'contactEmail',title:'البريد المهني الظاهر للزائر',description:'عند إضافة بريد صحيح ونشر الإعدادات، يظهر زر مراسلة بالإيميل في صفحة التواصل.',type:'email'}),
 ]})
 
 export const certificate=defineType({

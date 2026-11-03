@@ -1,7 +1,7 @@
 import {sections} from './sections.js'
 
 export function validateMedia(value,document={}){
- if(value?.asset?._ref||[document.text,document.textEn,document.textAr].some(v=>typeof v==='string'&&v.trim()))return true
+ if(value?.asset?._ref||document.sourceDriveId&&document.sourceDriveUrl||[document.text,document.textEn,document.textAr].some(v=>typeof v==='string'&&v.trim()))return true
  if(document.cover?.asset?._ref&&(!document.type||document.type==='image'))return true
  return 'ارفع ملف العمل في هذه الخانة، أو اكتب السكريبت في خانة النص الكامل. انتظر اكتمال الرفع قبل النشر.'
 }
@@ -14,6 +14,9 @@ const localizedFields=['titleAr','titleEn','summaryAr','summaryEn','textAr','tex
 export function validateLocalized(value,document={},field=''){
  const valid=typeof value==='string'&&value.trim().length>=2
  if(valid)return true
+ // Existing imported Drive work remains editable without inventing translations.
+ // The Studio audit clearly tracks untranslated titles and descriptions.
+ if(document.importedFromDrive&&['titleAr','titleEn','summaryAr','summaryEn'].includes(field))return true
  const legacy=typeof document.title==='string'&&document.title.trim()&&!localizedFields.some(k=>typeof document[k]==='string'&&document[k].trim())
  if(legacy)return true
  const labels={titleAr:'عنوان العمل بالعربية',titleEn:'عنوان العمل بالإنجليزية',summaryAr:'الوصف المختصر بالعربية',summaryEn:'الوصف المختصر بالإنجليزية'}

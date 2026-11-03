@@ -1,5 +1,7 @@
 import {categories, sections} from './sections.js'
 import {StudioGuide} from './components/StudioGuide.js'
+import {StudioAudit} from './components/StudioAudit.js'
+import {LegacyMigration} from './components/LegacyMigration.js'
 
 export const structure = (S) => {
  const templateItems = specs => specs.map(s=>S.initialValueTemplateItem('work-'+s.id).title('إضافة '+s.title))
@@ -16,9 +18,13 @@ export const structure = (S) => {
  }
  return S.list().id('portfolio').title('إدارة أعمال فاطمة').items([
   S.listItem().id('start').title('ابدئي هنا — طريقة الاستخدام').child(S.component().id('guide').title('دليل بسيط').component(StudioGuide)),
+  S.listItem().id('quality-audit').title('فحص المحتوى والتعريب')
+   .child(S.component().id('contentAudit').title('مراجعة جودة المحتوى').component(StudioAudit)),
+  S.listItem().id('drive-migration').title('نقل 260 عمل إلى Sanity')
+   .child(S.component().id('driveImport').title('الاستيراد والرفع الجماعي').component(LegacyMigration)),
   S.divider(),
   S.documentTypeListItem('certificate').title('الشهادات / Certificates'),
-  S.documentTypeListItem('siteSettings').title('صور الموقع / Site photos'),
+  S.documentTypeListItem('siteSettings').title('إعدادات وصور الموقع / Site settings'),
   S.listItem().id('social-settings').title('روابط التواصل الاجتماعي / Social links')
    .child(S.document().schemaType('socialSettings').documentId('socialSettings')),
   S.divider(),

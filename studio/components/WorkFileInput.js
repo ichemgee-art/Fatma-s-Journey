@@ -8,7 +8,7 @@ export function WorkCoverInput(props){return AssetInput(props,'image')}
 export function CertificateFileInput(props){return AssetInput(props,'file',true)}
 function AssetInput({value,onChange,readOnly,elementProps},kind,certificate=false) {
  const client=useClient({apiVersion:'2025-02-19'}),picker=useRef(null),lock=useRef(false),mounted=useRef(true)
- const documentId=useFormValue(['_id']),image=kind==='image'
+ const documentId=useFormValue(['_id']),sourceDriveUrl=useFormValue(['sourceDriveUrl']),image=kind==='image'
  const [busy,setBusy]=useState(false),[error,setError]=useState(''),[asset,setAsset]=useState(null)
  useEffect(()=>{mounted.current=true;return()=>{mounted.current=false}},[])
  const reference=value?.asset?._ref
@@ -37,6 +37,10 @@ function AssetInput({value,onChange,readOnly,elementProps},kind,certificate=fals
   React.createElement('input',{ref:picker,type:'file',accept:certificate?'image/*,application/pdf,.pdf':image?'image/jpeg,image/png,image/webp':'.pdf,.doc,.docx,image/*,video/*,audio/*',onChange:upload,disabled:busy||readOnly,style:{display:'none'}}),
   React.createElement('button',{...elementProps,type:'button',disabled:busy||readOnly,onClick:()=>picker.current?.click(),style:buttonStyle},busy?'جارٍ الرفع…':reference?image?'استبدال الغلاف':'استبدال الملف':image?'اختيار غلاف ورفعه':'اختيار ملف ورفعه'),
   React.createElement('p',{role:'status','aria-live':'polite',style:{fontSize:13,margin:'12px 0 0'}},busy?'انتظري اكتمال الرفع قبل النشر أو مغادرة الصفحة.':reference?'تم الرفع ✓ '+(asset?.originalFilename||''):image?'اختياري: لو لم تضيفي غلافًا، سيستخدم الموقع المعاينة التلقائية.':certificate?'ارفعي صورة الشهادة أو ملف PDF.':'PDF، صور، فيديو، صوت أو مستند Word.'),
+  !image&&!reference&&typeof sourceDriveUrl==='string'&&/^https:\/\//.test(sourceDriveUrl)&&React.createElement('a',{
+   href:sourceDriveUrl,target:'_blank',rel:'noopener noreferrer',
+   style:{display:'inline-block',marginTop:12,color:'#d6b2ff',fontSize:13,fontWeight:700}
+  },'فتح الملف الأصلي على Google Drive ↗'),
   error&&React.createElement('p',{role:'alert',style:{color:'#ffb6bc',fontSize:13}},error),
   reference&&React.createElement('div',{style:{display:'flex',alignItems:'center',gap:18,marginTop:12}},
    asset?.url&&React.createElement('a',{href:asset.url,target:'_blank',rel:'noopener noreferrer',style:{color:'#d5b5ff'}},'فتح الملف ↗'),

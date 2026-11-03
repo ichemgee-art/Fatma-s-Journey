@@ -33,8 +33,13 @@
  function renderHighlights(){
   if(!highlights||!highlightsGrid)return;
   const byId=new Map(list.map(project=>[project.id,project]));
-  const picks=window.portfolioI18n.featuredIds.map(id=>byId.get(id)).filter(Boolean);
+  const picks=list.filter(project=>project.featured===true&&project.hidden!==true).slice(0,3);
   const seen=new Set(picks.map(project=>project.id));
+  for(const id of window.portfolioI18n.featuredIds){
+   if(picks.length>=3)break;
+   const work=byId.get(id);
+   if(work&&!seen.has(id)){picks.push(work);seen.add(id);}
+  }
   for(const category of ['content','video','voice']){
    if(picks.length>=3)break;
    const fallback=list.find(project=>project.category===category&&project.media?.length&&!seen.has(project.id));
