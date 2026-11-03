@@ -79,6 +79,57 @@
   section_ai:'تجارب إبداعية وحكايات بصرية باستخدام أدوات الذكاء الاصطناعي.',
   section_photo:'صور بتعتمد على التكوين وزاوية الرؤية.'
  });
+
+ Object.assign(strings.en,{
+  homeOverline:'A personal creative portfolio / 2026',
+  homeStamp:'Stories with purpose',
+  homeScrollCue:'Scroll to explore',
+  homeCraftEyebrow:'The creative process',
+  homeCraftTitle:'The idea is the beginning.',
+  homeCraftAccent:'The story is everything.',
+  homeCraftBody:'From understanding a brand to finding the right words and shaping the final visual or voice, every creative choice serves one clear message.',
+  homeCraftLink:'Discover my approach ↗',
+  homeInviteEyebrow:'The next chapter',
+  homeInviteTitle:'Have a story worth telling?',
+  homeInviteText:'Let’s find its voice, shape its visuals and make every word count.',
+  aboutIssue:'The person behind the ideas',
+  aboutPhotoLabel:'Ideas into impact.',
+  aboutMottoWords:'WORDS',
+  aboutMottoVoice:'VOICE',
+  aboutMottoVisuals:'VISUALS',
+  aboutMottoAria:'Words, voice and visuals',
+  aboutStoryIndex:'The thinking behind the work',
+  aboutDisciplineOne:'01 / STRATEGY',
+  aboutDisciplineTwo:'02 / VOICE',
+  aboutDisciplineThree:'03 / VISUALS',
+  aboutQuoteAria:'Creative statement',
+  aboutQuote:'A good story should be felt, not just seen.'
+ });
+ Object.assign(strings.ar,{
+  homeOverline:'بورتفوليو إبداعي شخصي / ٢٠٢٦',
+  homeStamp:'حكايات لها معنى',
+  homeScrollCue:'انزل واستكشف',
+  homeCraftEyebrow:'وراء كل فكرة',
+  homeCraftTitle:'كل حاجة بتبدأ بفكرة.',
+  homeCraftAccent:'والحكاية هي اللي بتفرق.',
+  homeCraftBody:'من فهم البراند واختيار الكلمات المناسبة لحد الصوت أو الصورة النهائية، كل تفصيلة بتخدم رسالة واضحة.',
+  homeCraftLink:'اتعرّف على طريقتي ↗',
+  homeInviteEyebrow:'الفصل اللي جاي',
+  homeInviteTitle:'عندك حكاية تستحق تتقال؟',
+  homeInviteText:'نلاقي صوتها، ونرسم صورتها، ونخلّي كل كلمة فيها لها معنى.',
+  aboutIssue:'صاحبة الأفكار والحكايات',
+  aboutPhotoLabel:'أفكار بتصنع أثر',
+  aboutMottoWords:'كلمات',
+  aboutMottoVoice:'صوت',
+  aboutMottoVisuals:'صورة',
+  aboutMottoAria:'كلمات وصوت وصورة',
+  aboutStoryIndex:'الفكرة اللي ورا كل شغل',
+  aboutDisciplineOne:'٠١ / استراتيجية',
+  aboutDisciplineTwo:'٠٢ / صوت',
+  aboutDisciplineThree:'٠٣ / صورة',
+  aboutQuoteAria:'فلسفتي الإبداعية',
+  aboutQuote:'الحكاية الحلوة مش بس بتتشاف... دي كمان بتتحس.'
+ });
  let language=document.documentElement.lang==='ar'?'ar':'en';
  let theme=document.documentElement.dataset.theme==='dark'?'dark':'light';
  const t=key=>strings[language][key]||strings.en[key]||key;

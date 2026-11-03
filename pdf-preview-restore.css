@@ -1,0 +1,20 @@
+/* Restore first-page previews for PDFs until a custom cover is uploaded. */
+.cms-card.preview-pdf:not(.has-custom-cover) .cover-art,
+.cms-card.preview-pdf:not(.has-custom-cover) .cover-wave,
+.cms-card.preview-pdf:not(.has-custom-cover) .cover-play-indicator{display:none!important}
+.cms-card.preview-pdf:not(.has-custom-cover) .cms-cover{background:#e9e4e8!important}
+.cms-card.preview-pdf:not(.has-custom-cover) .pdf-first-page{position:absolute!important;inset:0!important;z-index:2;display:grid!important;place-items:center;width:100%!important;height:100%!important;min-height:0!important;background:#e9e4e8!important;overflow:hidden}
+.cms-card.preview-pdf:not(.has-custom-cover) .pdf-first-page>img{
+ position:absolute!important;inset:0!important;display:none;width:100%!important;height:100%!important;
+ max-width:100%!important;object-fit:contain!important;object-position:center!important;
+ padding:12px!important;background:#f6f3f4!important;filter:none!important;transform:none!important
+}
+.cms-card.preview-pdf:not(.has-custom-cover) .pdf-first-page.is-ready>img{display:block!important}
+.cms-card.preview-pdf:not(.has-custom-cover) .pdf-placeholder{display:block;opacity:.5!important;color:#6d6078!important;letter-spacing:-1px}
+.cms-card.preview-pdf:not(.has-custom-cover) .pdf-first-page.is-ready .pdf-placeholder{display:none!important}
+.cms-card.preview-pdf:not(.has-custom-cover) .card-format,
+.cms-card.preview-pdf:not(.has-custom-cover) .card-open{z-index:5}
+.cms-card.preview-pdf:not(.has-custom-cover) .cms-cover:after{display:none!important}
+@media(max-width:700px){
+ .cms-card.preview-pdf:not(.has-custom-cover) .pdf-first-page>img{padding:10px!important}
+}
