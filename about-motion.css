@@ -1,0 +1,42 @@
+.about-story {
+ position:relative;
+ isolation:isolate;
+ overflow:hidden;
+}
+.about-monogram {
+ position:absolute;
+ z-index:-1;
+ inset-inline-end:0;
+ inset-block-start:50%;
+ width:min(34%,320px);
+ height:1em;
+ perspective:700px;
+ pointer-events:none;
+ font:900 clamp(78px,15vw,220px)/1 Manrope,sans-serif;
+ opacity:.28;
+ transform:translateY(-50%);
+}
+.about-monogram-model {
+ position:absolute;
+ inset:0;
+ transform-style:preserve-3d;
+ transform:translate3d(0,var(--fj-shift,0px),0) rotateX(var(--fj-x,-12deg)) rotateY(var(--fj-y,-24deg)) rotateZ(-12deg);
+}
+.about-monogram-model span {
+ position:absolute;
+ inset:0;
+ display:grid;
+ place-items:center;
+ color:#7652a8;
+ letter-spacing:-.12em;
+ transform:translateZ(calc(var(--layer) * 2px));
+}
+.about-monogram-model span:last-child {
+ color:#ba83e8;
+ -webkit-text-stroke:1px #e9c8ff;
+}
+html[data-theme=dark] .about-monogram {opacity:.34}
+@media (max-width:760px) {
+ .about-monogram {inset-block-start:27%;opacity:.18}
+ html[data-theme=dark] .about-monogram {opacity:.23}
+}
