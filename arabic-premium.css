@@ -168,3 +168,150 @@ html:lang(ar) :is(.cms-card h3,.cover-art-title,.about-editorial h2,.home-page h
  html:lang(ar) :is(.nav a,.mobile-nav a,.cms-controls button){font-weight:700!important}
  html:lang(ar) :is(.cms-card h3,.track-heading h3){line-height:1.85!important}
 }
+
+/* RTL HOME HERO FIX: keep circular stamp, white caption, and portrait
+   in separate zones at all viewport widths. */
+html[dir="rtl"] .home-page .hero-art{position:relative;min-width:0;isolation:isolate}
+html[dir="rtl"] .home-page .hero-art .hero-photo-stamp{
+ position:absolute!important;
+ inset-inline-start:auto!important;
+ inset-inline-end:auto!important;
+ inset-block-start:18px!important;
+ inset-block-end:auto!important;
+ left:auto!important;
+ right:12px!important;
+ top:18px!important;
+ bottom:auto!important;
+ z-index:5!important;
+ width:clamp(88px,8.5vw,112px)!important;
+ height:auto!important;
+ aspect-ratio:1!important;
+ box-sizing:border-box!important;
+ padding:16px 10px 23px!important;
+ display:flex!important;
+ flex-direction:column!important;
+ justify-content:center!important;
+ align-items:center!important;
+ gap:0!important;
+ border-radius:50%!important;
+ transform:rotate(8deg)!important;
+ text-align:center!important;
+ font-size:clamp(9px,.9vw,11px)!important;
+ font-weight:800!important;
+ line-height:1.65!important;
+ overflow:hidden!important;
+ overflow-wrap:break-word!important;
+ white-space:normal!important;
+}
+html[dir="rtl"] .home-page .hero-art .hero-photo-stamp::after{
+ inset:auto auto 8px!important;
+ bottom:8px!important;
+ font-size:12px!important;
+}
+html[dir="rtl"] .home-page .hero-art .float-note{
+ position:absolute!important;
+ inset-inline-start:auto!important;
+ inset-inline-end:auto!important;
+ left:0!important;
+ right:auto!important;
+ top:auto!important;
+ bottom:5px!important;
+ z-index:6!important;
+ width:min(330px,calc(100% - 24px))!important;
+ max-width:calc(100% - 24px)!important;
+ min-width:0!important;
+ min-height:88px!important;
+ box-sizing:border-box!important;
+ padding:15px 18px!important;
+ display:flex!important;
+ flex-direction:row!important;
+ align-items:center!important;
+ justify-content:flex-start!important;
+ gap:13px!important;
+ transform:rotate(-1.5deg)!important;
+ border-radius:22px!important;
+ overflow:visible!important;
+}
+html[dir="rtl"] .home-page .hero-art .float-note>span:last-child{
+ display:block!important;
+ flex:1 1 auto!important;
+ min-width:0!important;
+ max-width:100%!important;
+ text-align:right!important;
+}
+html[dir="rtl"] .home-page .hero-art .float-note [data-i18n="note"]{
+ display:block!important;
+ font-size:clamp(11px,1.2vw,13px)!important;
+ font-weight:650!important;
+ line-height:1.65!important;
+ white-space:normal!important;
+ overflow-wrap:break-word!important;
+}
+html[dir="rtl"] .home-page .hero-art .float-note b{
+ display:block!important;
+ margin-top:3px!important;
+ font-size:clamp(15px,1.65vw,20px)!important;
+ font-weight:800!important;
+ line-height:1.6!important;
+ white-space:normal!important;
+ overflow-wrap:break-word!important;
+}
+html[dir="rtl"] .home-page .hero-art .float-note .mini{
+ flex:0 0 43px!important;
+ width:43px!important;
+ height:43px!important;
+ border-radius:14px!important;
+ display:grid!important;
+ place-items:center!important;
+}
+html[dir="rtl"] .home-page .hero-art .hero-photo-index{
+ inset-inline-start:auto!important;
+ inset-inline-end:auto!important;
+ left:20px!important;
+ right:auto!important;
+ top:35px!important;
+ bottom:auto!important;
+}
+@media(max-width:800px){
+ html[dir="rtl"] .home-page .hero-art .hero-photo-stamp{
+  width:94px!important;right:14px!important;top:15px!important;bottom:auto!important;
+  padding:13px 8px 21px!important;font-size:10px!important
+ }
+ html[dir="rtl"] .home-page .hero-art .float-note{
+  left:2px!important;bottom:0!important;
+  width:min(300px,calc(100% - 14px))!important;
+  max-width:calc(100% - 14px)!important;
+  min-height:80px!important;
+ }
+}
+@media(max-width:700px){
+ html[dir="rtl"] .home-page .hero-art .hero-photo-stamp{
+  width:82px!important;top:10px!important;right:8px!important;
+  padding:10px 6px 18px!important;
+  font-size:9px!important;
+ }
+ html[dir="rtl"] .home-page .hero-art .hero-photo-stamp::after{
+  bottom:4px!important;font-size:10px!important;
+ }
+ html[dir="rtl"] .home-page .hero-art .float-note{
+  left:0!important;right:auto!important;bottom:0!important;
+  width:min(255px,calc(100% - 14px))!important;
+  max-width:calc(100% - 14px)!important;
+  padding:11px 12px!important;min-height:70px!important;
+  gap:10px!important;border-radius:18px!important;
+  transform:rotate(-1deg)!important;
+ }
+ html[dir="rtl"] .home-page .hero-art .float-note .mini{
+  flex-basis:33px!important;width:33px!important;height:33px!important;
+  border-radius:10px!important;font-size:20px!important
+ }
+ html[dir="rtl"] .home-page .hero-art .float-note [data-i18n="note"]{
+  font-size:10px!important;line-height:1.7!important;
+ }
+ html[dir="rtl"] .home-page .hero-art .float-note b{
+  font-size:14px!important;line-height:1.6!important;margin-top:2px!important;
+ }
+ html[dir="rtl"] .home-page .hero-art .hero-photo-index{
+  left:15px!important;top:21px!important;
+ }
+}
