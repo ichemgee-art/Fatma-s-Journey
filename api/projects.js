@@ -3,7 +3,7 @@ const categories = ['content','photo','voice','video','dubbing','ai'];
 const projectId = process.env.SANITY_PROJECT_ID || 'q3zqgei4';
 const dataset = process.env.SANITY_DATASET || 'production';
 const projection = '_type,kind,title,caption,alt,"url":coalesce(asset->url,image.asset->url,file.asset->url,url,externalUrl,videoUrl),"mimeType":coalesce(asset->mimeType,file.asset->mimeType),"poster":poster.asset->url';
-const query = '{"projects":*[_type in ["work","portfolioProject","project","portfolioItem","caseStudy"] && !(_id in path("drafts.**"))] | order(coalesce(order,priority,999) asc,_createdAt desc,_id asc){_id,_type,title,name,titleAr,titleEn,summaryAr,summaryEn,textAr,textEn,clientAr,clientEn,roleAr,roleEn,category,group,type,hidden,order,summary,description,text,client,role,year,"coverUrl":coalesce(cover.asset->url,coverImage.asset->url,image.asset->url),"singleMedia":select(_type=="work"=>media{'+projection+'}),"media":select(_type!="work"=>media[]{'+projection+'}),"gallery":gallery[]{'+projection+'},"images":images[]{'+projection+'},"files":files[]{'+projection+'},"audio":audio[]{'+projection+'},"videos":videos[]{'+projection+'},videoUrl},"settings":*[_type in ["siteSettings","portfolioSettings"]][0]{name,headline,tagline,about,contactEmail,"heroImage":heroImage.asset->url,socials[]{label,url}}}';
+const query = '{"projects":*[_type in ["work","portfolioProject","project","portfolioItem","caseStudy"] && !(_id in path("drafts.**"))] | order(coalesce(order,priority,999) asc,_createdAt desc,_id asc){_id,_type,title,name,titleAr,titleEn,summaryAr,summaryEn,textAr,textEn,clientAr,clientEn,roleAr,roleEn,category,group,type,hidden,order,summary,description,text,client,role,year,"coverUrl":coalesce(cover.asset->url,coverImage.asset->url,image.asset->url),"singleMedia":select(_type=="work"=>media{'+projection+'}),"media":select(_type!="work"=>media[]{'+projection+'}),"gallery":gallery[]{'+projection+'},"images":images[]{'+projection+'},"files":files[]{'+projection+'},"audio":audio[]{'+projection+'},"videos":videos[]{'+projection+'},videoUrl},"settings":*[_type in ["siteSettings","portfolioSettings"] && !(_id in path("drafts.**")) && !(_id in path("versions.**"))] | order(_updatedAt desc,_id asc)[0]{name,headline,tagline,about,contactEmail,"heroImage":heroImage.asset->url,"aboutImage":aboutImage.asset->url,socials[]{label,platform,url}},"certificates":*[_type=="certificate" && !(_id in path("drafts.**")) && !(_id in path("versions.**"))] | order(_createdAt desc,_id asc){titleAr,titleEn,descriptionAr,descriptionEn,"url":attachment.asset->url,"mimeType":attachment.asset->mimeType}}';
 function text(v){return typeof v==='string'?v.trim():'';}
 function safeUrl(v){try{const u=new URL(v);return u.protocol==='https:'?u.href:'';}catch{return '';}}
 function category(v){const aliases={plans:'content',reels:'video',photography:'photo'};return categories.includes(v)?v:aliases[v]||'';}
@@ -39,7 +39,15 @@ function assemble(raw={}){
  }
  const added=[];for(const p of docs){if(!used.has(p._id)&&p.hidden!==true){const n=normalize(p);if(n.title&&n.category)added.push(n);}}
  const s=raw.settings||{};
- return {projects:[...added,...projects],count:added.length+projects.length,mediaLibrary:[],settings:{name:text(s.name),headline:text(s.headline),tagline:text(s.tagline),about:text(s.about),heroImage:safeUrl(s.heroImage),contactEmail:/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(s.contactEmail||'')?s.contactEmail:'',socials:s.socials||[]}};
+ const certificates=(raw.certificates||[]).map(c=>({
+  titleAr:text(c.titleAr),titleEn:text(c.titleEn),
+  descriptionAr:text(c.descriptionAr),descriptionEn:text(c.descriptionEn),
+  url:safeUrl(c.url),mimeType:text(c.mimeType)
+ })).filter(c=>c.url&&(c.titleAr||c.titleEn)&&(c.mimeType==='application/pdf'||c.mimeType.startsWith('image/')));
+ const socials=(s.socials||[]).filter(Boolean).map(link=>({
+  label:text(link.label),platform:text(link.platform),url:safeUrl(link.url)
+ })).filter(link=>link.url);
+ return {projects:[...added,...projects],count:added.length+projects.length,mediaLibrary:[],certificates,settings:{name:text(s.name),headline:text(s.headline),tagline:text(s.tagline),about:text(s.about),heroImage:safeUrl(s.heroImage),contactEmail:/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(s.contactEmail||'')?s.contactEmail:'',aboutImage:safeUrl(s.aboutImage),socials}};
 }
 async function handler(req,res){
  if(req.method!=='GET'){res.setHeader('Allow','GET');return res.status(405).json({error:'Method not allowed'});}

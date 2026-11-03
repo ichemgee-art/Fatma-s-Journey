@@ -17,6 +17,9 @@ export const structure = (S) => {
  return S.list().id('portfolio').title('إدارة أعمال فاطمة').items([
   S.listItem().id('start').title('ابدئي هنا — طريقة الاستخدام').child(S.component().id('guide').title('دليل بسيط').component(StudioGuide)),
   S.divider(),
+  S.documentTypeListItem('certificate').title('الشهادات / Certificates'),
+  S.documentTypeListItem('siteSettings').title('صور الموقع وروابط التواصل'),
+  S.divider(),
   ...categories.map(category=>{
    const specs=sections.filter(s=>s.category===category.value)
    return S.listItem().id(category.value).title(category.title).child(

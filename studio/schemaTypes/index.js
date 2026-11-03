@@ -47,7 +47,20 @@ export const siteSettings=defineType({name:'siteSettings',title:'Portfolio setti
  defineField({name:'headline',title:'Main headline',type:'string',initialValue:'Ideas into Impact.'}),
  defineField({name:'tagline',title:'Tagline',type:'string'}),
  defineField({name:'about',title:'About Fatma',type:'text',rows:7}),
- defineField({name:'heroImage',title:'Homepage hero image',type:'image',options:{hotspot:true}}),
+ defineField({name:'heroImage',title:'صورة الصفحة الرئيسية / Home photo',type:'image',options:{hotspot:true}}),
+ defineField({name:'aboutImage',title:'صورة صفحة عن فاطمة / About photo',type:'image',options:{hotspot:true}}),
  defineField({name:'contactEmail',title:'Public professional contact email',type:'email'}),
- defineField({name:'socials',title:'Social links',type:'array',of:[{type:'object',fields:[defineField({name:'label',type:'string',title:'Label'}),defineField({name:'url',type:'url',title:'URL'})]}]})
+ defineField({name:'socials',title:'روابط التواصل الإضافية / Additional social links',type:'array',of:[{type:'object',fields:[defineField({name:'label',type:'string',title:'Label'}),defineField({name:'platform',type:'string',title:'المنصة / Platform',options:{list:[{title:'Facebook',value:'facebook'},{title:'Instagram',value:'instagram'},{title:'TikTok',value:'tiktok'},{title:'LinkedIn',value:'linkedin'},{title:'Other',value:'other'}]}}),defineField({name:'url',type:'url',title:'URL',validation:r=>r.required().uri({scheme:['https']})})]}]})
 ]})
+
+export const certificate=defineType({
+ name:'certificate',title:'شهادة / Certificate',type:'document',
+ fields:[
+  defineField({name:'titleAr',title:'اسم الشهادة بالعربي',type:'string',validation:r=>r.required().min(1)}),
+  defineField({name:'titleEn',title:'Certificate title in English',type:'string',validation:r=>r.required().min(1)}),
+  defineField({name:'descriptionAr',title:'الوصف بالعربي (اختياري)',type:'text',rows:3}),
+  defineField({name:'descriptionEn',title:'English description (optional)',type:'text',rows:3}),
+  defineField({name:'attachment',title:'صورة الشهادة أو PDF',type:'file',options:{accept:'image/*,application/pdf'},validation:r=>r.required().assetRequired()}),
+ ],
+ preview:{select:{title:'titleAr',subtitle:'titleEn'}},
+})
