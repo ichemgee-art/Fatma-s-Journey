@@ -1,7 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800;900&display=swap');
 /* Alexandria 2026 — premium Arabic typography and fully considered RTL layouts.
    Loaded LAST: do not alter English-mode typography. */
-:root{--arabic-display:"Alexandria","Cairo",Tahoma,sans-serif}
+:root{--arabic-display:"Alexandria",Tahoma,sans-serif}
 html[lang="ar"]{font-synthesis:none}
 html[lang="ar"] body,
 html[lang="ar"] body *:not(svg):not(svg *):not(code):not(pre){
@@ -109,3 +108,63 @@ html[lang="ar"] :is(.cms-card,.certificate-card,.detail-info) [dir="auto"]{unico
  html[lang="ar"] .mobile-nav a{padding:4px 1px!important}
 }
 @media(prefers-reduced-motion:reduce){html[lang="ar"] .home-ticker-track{animation:none!important}}
+
+/* Match the Alexandria type system used in Fatma's Sanity Studio, RTL only. */
+html:lang(ar){font-synthesis:none;font-optical-sizing:auto}
+html:lang(ar) body{
+ font-family:"Alexandria",Tahoma,sans-serif!important;
+ font-weight:500!important;
+ line-height:1.9!important;
+}
+html:lang(ar) :is(.brand,.brand-name,.nav a,.mobile-nav a,.page-tabs a,.footer-links a,
+ .cms-controls button,.cms-groups button,.portfolio-more,.track-heading>span,
+ .home-overline,.about-issue,.section-kicker,.home-note-label,.cms-category,
+ .card-format,.cms-card-footer,.contact-quicklinks a,.social-visit,.certificate-open){
+ font-family:"Alexandria",Tahoma,sans-serif!important;
+ font-weight:700!important;
+ letter-spacing:0!important;
+}
+html:lang(ar) :is(h1,h2,h3,h4,h5,h6,.home-ticker-group,.cover-art-title,.brand-name){
+ font-family:"Alexandria",Tahoma,sans-serif!important;
+ font-weight:800!important;
+ letter-spacing:0!important;
+ font-synthesis:none;
+}
+html:lang(ar) :is(.hero h1,.about-intro-copy h1,.page-heading h1,.detail-header h1,
+ .home-editorial-note h2,.about-story h2,.about-disciplines h2,
+ .about-statement-band blockquote,.home-final-invite h2,.contact-panel h2){
+ font-weight:800!important;
+ line-height:1.7!important;
+}
+html:lang(ar) :is(p,.cms-summary,.about-deck,.about-story-columns p,
+ .about-process p,.home-editorial-note p,.contact-note,.details-description){
+ font-family:"Alexandria",Tahoma,sans-serif!important;
+ font-weight:500!important;
+ line-height:1.95!important;
+}
+html:lang(ar) :is(.cms-card h3,.discipline-card h3,.track-heading h3,.certificate-card h3,
+ .social-platform,.project-title,.home-tracks-title h2){
+ font-weight:800!important;
+ line-height:1.8!important;
+}
+html:lang(ar) :is(button,.primary,.secondary,.cv-download,.contact-actions a,.action-button){
+ font-family:"Alexandria",Tahoma,sans-serif!important;
+ font-weight:700!important;
+ letter-spacing:0!important;
+}
+html:lang(ar) :is(input,select,textarea){
+ font-family:"Alexandria",Tahoma,sans-serif!important;
+ font-weight:500!important;
+ line-height:1.85!important;
+}
+html:lang(ar) :is(strong,b,.cms-role-label,.detail-info dt,.detail-info dd){
+ font-family:"Alexandria",Tahoma,sans-serif!important;
+}
+html:lang(ar) :is(.cms-card h3,.cover-art-title,.about-editorial h2,.home-page h2){
+ overflow-wrap:anywhere;
+}
+@media(max-width:700px){
+ html:lang(ar) :is(.brand,.brand-name){font-weight:800!important}
+ html:lang(ar) :is(.nav a,.mobile-nav a,.cms-controls button){font-weight:700!important}
+ html:lang(ar) :is(.cms-card h3,.track-heading h3){line-height:1.85!important}
+}
