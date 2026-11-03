@@ -47,7 +47,7 @@ function assemble(raw={}){
  const socials=((raw.socialSettings ? raw.socialSettings.socials : s.socials)||[]).filter(Boolean).map(link=>({
   label:text(link.label),platform:text(link.platform),url:safeUrl(link.url)
  })).filter(link=>link.url);
- return {projects:[...added,...projects],count:added.length+projects.length,mediaLibrary:[],certificates,settings:{name:text(s.name),headline:text(s.headline),tagline:text(s.tagline),about:text(s.about),heroImage:safeUrl(s.heroImage),contactEmail:/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(s.contactEmail||'')?s.contactEmail:'',aboutImage:safeUrl(s.aboutImage),socials}};
+ return {projects:[...added,...projects],count:added.length+projects.length,mediaLibrary:[],certificates,settings:{name:text(s.name),headline:text(s.headline),tagline:text(s.tagline),about:text(s.about),heroImage:safeUrl(s.heroImage),contactEmail:/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(s.contactEmail||'')?s.contactEmail:'',aboutImage:safeUrl(s.aboutImage),socialsManaged:!!raw.socialSettings,socials}};
 }
 async function handler(req,res){
  if(req.method!=='GET'){res.setHeader('Allow','GET');return res.status(405).json({error:'Method not allowed'});}

@@ -40,7 +40,8 @@
   if (!data) return;
   const portraitUrl = portrait && data.settings?.[portrait.dataset.portrait];
   if (portraitUrl) portrait.src = portraitUrl;
-  const existingLinks = new Set(Array.from(socials?.querySelectorAll('a') || [], link => link.href));
+  const originalCards = Array.from(socials?.querySelectorAll('a') || []);
+  const descriptions = new Map(originalCards.map(card => [card.href, card.querySelector('[data-i18n]')?.dataset.i18n]));
 
   function render() {
    const ar = document.documentElement.lang === 'ar';
@@ -108,6 +109,8 @@
       handle.dir = 'auto';
       link.append(handle);
      }
+     const descriptionKey = descriptions.get(social.url);
+     if (descriptionKey) link.append(element('p', window.portfolioI18n.t(descriptionKey)));
      link.append(element('span', ar ? 'افتح الحساب ↗' : 'Visit profile ↗', 'social-visit'));
      socials.append(link);
     }
