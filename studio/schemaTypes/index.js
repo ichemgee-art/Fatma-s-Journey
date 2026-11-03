@@ -50,7 +50,6 @@ export const siteSettings=defineType({name:'siteSettings',title:'Portfolio setti
  defineField({name:'heroImage',title:'صورة الصفحة الرئيسية / Home photo',type:'image',options:{hotspot:true}}),
  defineField({name:'aboutImage',title:'صورة صفحة عن فاطمة / About photo',type:'image',options:{hotspot:true}}),
  defineField({name:'contactEmail',title:'Public professional contact email',type:'email'}),
- defineField({name:'socials',title:'روابط التواصل الإضافية / Additional social links',type:'array',of:[{type:'object',fields:[defineField({name:'label',type:'string',title:'Label'}),defineField({name:'platform',type:'string',title:'المنصة / Platform',options:{list:[{title:'Facebook',value:'facebook'},{title:'Instagram',value:'instagram'},{title:'TikTok',value:'tiktok'},{title:'LinkedIn',value:'linkedin'},{title:'Other',value:'other'}]}}),defineField({name:'url',type:'url',title:'URL',validation:r=>r.required().uri({scheme:['https']})})]}]})
 ]})
 
 export const certificate=defineType({
@@ -63,4 +62,11 @@ export const certificate=defineType({
   defineField({name:'attachment',title:'صورة الشهادة أو PDF',type:'file',options:{accept:'image/*,application/pdf'},validation:r=>r.required().assetRequired()}),
  ],
  preview:{select:{title:'titleAr',subtitle:'titleEn'}},
+})
+
+export const socialSettings=defineType({
+ name:'socialSettings',title:'روابط التواصل الاجتماعي / Social links',type:'document',
+ fields:[
+ defineField({name:'socials',title:'روابط الحسابات الإضافية / Additional profiles',type:'array',of:[{type:'object',fields:[defineField({name:'label',type:'string',title:'اسم الحساب / Profile name'}),defineField({name:'platform',type:'string',title:'المنصة / Platform',options:{list:[{title:'Facebook',value:'facebook'},{title:'Instagram',value:'instagram'},{title:'TikTok',value:'tiktok'},{title:'LinkedIn',value:'linkedin'},{title:'Other',value:'other'}]}}),defineField({name:'url',type:'url',title:'رابط الحساب / Profile URL',validation:r=>r.required().uri({scheme:['https']})})]}]}),
+ ],
 })

@@ -1,6 +1,7 @@
 (() => {
  const portrait = document.querySelector('[data-portrait]');
- const certificates = document.getElementById('certificates');
+ const certificates = document.getElementById('certificate-list');
+ const status = document.getElementById('certificate-status');
  const socials = document.querySelector('.social-grid');
  const platforms = {facebook:'Facebook', instagram:'Instagram', tiktok:'TikTok', linkedin:'LinkedIn'};
 
@@ -19,8 +20,21 @@
   return link;
  }
 
+ function setStatus(key) {
+  if (!status) return;
+  status.dataset.i18n = key;
+  status.textContent = window.portfolioI18n.t(key);
+ }
+
+ function platformKey(social) {
+  if (Object.hasOwn(platforms, social.platform)) return social.platform;
+  const host = new URL(social.url).hostname.toLowerCase();
+  const domains = {facebook:['facebook.com','fb.com','fb.me','fb.watch'],instagram:['instagram.com'],tiktok:['tiktok.com'],linkedin:['linkedin.com','lnkd.in']};
+  return Object.keys(domains).find(key => domains[key].some(domain => host === domain || host.endsWith('.' + domain)));
+ }
+
  fetch('/api/projects').then(response => {
-  if (!response.ok) return null;
+  if (!response.ok) throw Error('Site content unavailable');
   return response.json();
  }).then(data => {
   if (!data) return;
@@ -30,30 +44,35 @@
 
   function render() {
    const ar = document.documentElement.lang === 'ar';
-   if (certificates && data.certificates?.length) {
-    document.getElementById('certificates-title').textContent = ar ? 'الشهادات' : 'Certificates';
-    const cards = data.certificates.map(certificate => {
+   if (certificates) {
+    const cards = (data.certificates || []).map(certificate => {
      const title = ar ? certificate.titleAr || certificate.titleEn : certificate.titleEn || certificate.titleAr;
      const description = ar ? certificate.descriptionAr : certificate.descriptionEn;
-     const card = element('article', '', 'social-card');
-     const link = externalLink(certificate.url, '', 'social-visit');
-     if (certificate.mimeType.startsWith('image/')) {
+     const isPdf = certificate.mimeType === 'application/pdf';
+     const label = isPdf ? (ar ? 'افتح ملف PDF ↗' : 'Open PDF ↗') : (ar ? 'اعرض الشهادة ↗' : 'View certificate ↗');
+     const card = element('article', '', 'certificate-card');
+     const preview = externalLink(certificate.url, '', 'certificate-preview');
+     preview.setAttribute('aria-label', label + ' ' + title);
+     if (isPdf) {
+      preview.append(window.createPDFPreview({url:certificate.url}, title, '', true));
+     } else {
       const image = element('img');
       image.src = certificate.url;
-      image.alt = '';
+      image.alt = title;
       image.loading = 'lazy';
-      image.style.cssText = 'display:block;width:100%;aspect-ratio:16/10;object-fit:contain';
-      link.append(image);
+      image.decoding = 'async';
+      preview.append(image);
      }
-     link.append(element('span', certificate.mimeType === 'application/pdf' ? (ar ? 'افتح PDF ↗' : 'Open PDF ↗') : (ar ? 'اعرض الشهادة ↗' : 'View certificate ↗')));
-     link.setAttribute('aria-label', link.textContent + ' ' + title);
-     card.append(element('h3', title));
-     if (description) card.append(element('p', description));
-     card.append(link);
+     const body = element('div', '', 'certificate-body');
+     body.append(element('h2', title));
+     if (description) body.append(element('p', description));
+     body.append(externalLink(certificate.url, label, 'certificate-open'));
+     card.append(preview, body);
      return card;
     });
-    document.getElementById('certificate-list').replaceChildren(...cards);
-    certificates.hidden = false;
+    certificates.replaceChildren(...cards);
+    status.hidden = cards.length > 0;
+    if (!cards.length) setStatus('certificateEmpty');
    }
 
    if (document.body.dataset.page === 'social' && socials) {
@@ -62,12 +81,33 @@
     for (const social of data.settings?.socials || []) {
      if (seen.has(social.url)) continue;
      seen.add(social.url);
-     const platform = Object.hasOwn(platforms, social.platform) ? platforms[social.platform] : '';
+     const key = platformKey(social);
+     const platform = platforms[key];
      const link = externalLink(social.url, '', 'social-card');
      link.dataset.cmsSocial = '';
-     if (platform) link.classList.add(social.platform);
-     link.append(element('strong', social.label || platform || new URL(social.url).hostname, 'social-handle'));
-     if (social.label && platform) link.append(element('span', platform, 'social-platform'));
+     if (key) link.classList.add(key);
+     const top = element('span', '', 'social-card-top');
+     const icon = element('span', key ? '' : '↗', 'social-icon');
+     icon.setAttribute('aria-hidden', 'true');
+     if (key) {
+      const logo = element('img');
+      logo.src = '/assets/social/' + key + '.svg';
+      logo.alt = '';
+      logo.width = logo.height = 30;
+      logo.loading = 'lazy';
+      icon.append(logo);
+     }
+     const arrow = element('span', '↗', 'social-arrow');
+     arrow.setAttribute('aria-hidden', 'true');
+     top.append(icon, arrow);
+     const heading = element('span', platform || new URL(social.url).hostname, 'social-platform');
+     heading.dir = 'ltr';
+     link.append(top, heading);
+     if (social.label) {
+      const handle = element('strong', social.label, 'social-handle');
+      handle.dir = 'auto';
+      link.append(handle);
+     }
      link.append(element('span', ar ? 'افتح الحساب ↗' : 'Visit profile ↗', 'social-visit'));
      socials.append(link);
     }
@@ -75,5 +115,8 @@
   }
   render();
   window.addEventListener('portfolio:language', render);
- }).catch(error => console.error('Portfolio site content:', error));
+ }).catch(error => {
+  setStatus('certificateError');
+  console.error('Portfolio site content:', error);
+ });
 })();

@@ -18,7 +18,9 @@ export const structure = (S) => {
   S.listItem().id('start').title('ابدئي هنا — طريقة الاستخدام').child(S.component().id('guide').title('دليل بسيط').component(StudioGuide)),
   S.divider(),
   S.documentTypeListItem('certificate').title('الشهادات / Certificates'),
-  S.documentTypeListItem('siteSettings').title('صور الموقع وروابط التواصل'),
+  S.documentTypeListItem('siteSettings').title('صور الموقع / Site photos'),
+  S.listItem().id('social-settings').title('روابط التواصل الاجتماعي / Social links')
+   .child(S.document().schemaType('socialSettings').documentId('socialSettings')),
   S.divider(),
   ...categories.map(category=>{
    const specs=sections.filter(s=>s.category===category.value)
