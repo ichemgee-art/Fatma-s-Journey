@@ -55,7 +55,7 @@
      const preview = externalLink(certificate.url, '', 'certificate-preview');
      preview.setAttribute('aria-label', label + ' ' + title);
      if (isPdf) {
-      preview.append(window.createPDFPreview({url:certificate.url}, title, '', true));
+      preview.append(window.createPDFPreview({url:certificate.url}, title));
      } else {
       const image = element('img');
       image.src = certificate.url;
