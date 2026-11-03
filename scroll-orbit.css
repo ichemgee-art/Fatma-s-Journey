@@ -1,0 +1,53 @@
+.scroll-orbit {
+ position:fixed;
+ inset-inline-end:clamp(9px,2vw,30px);
+ inset-block-end:clamp(18px,5vh,52px);
+ z-index:90;
+ width:clamp(48px,7vw,86px);
+ aspect-ratio:1;
+ perspective:360px;
+ pointer-events:none;
+ opacity:0;
+ transition:opacity 280ms ease;
+}
+.scroll-orbit.is-active {opacity:.86}
+.scroll-orbit-drift,.scroll-orbit-model,.scroll-orbit-core,.scroll-orbit-band {
+ position:absolute;
+ inset:0;
+}
+.scroll-orbit-drift {
+ transform:translate3d(0,var(--orbit-lift,0px),0);
+ transform-style:preserve-3d;
+}
+.scroll-orbit-model {
+ transform:rotateX(var(--orbit-x,25deg)) rotateY(var(--orbit-y,0deg)) rotateZ(-21deg);
+ transform-style:preserve-3d;
+}
+.scroll-orbit-core {
+ inset:28%;
+ border-radius:50%;
+ background:radial-gradient(circle at 30% 26%,#fff 0%,#f3d9ff 11%,#b77de8 38%,#7046b4 70%,#38235e 100%);
+ box-shadow:0 0 14px #a977e678;
+ transform:rotateY(var(--orbit-counter-y,0deg)) rotateX(var(--orbit-counter-x,-25deg));
+}
+.scroll-orbit-band {
+ inset:10%;
+ border:1px solid #a574d9;
+ border-block-start-color:#ead1ff;
+ border-radius:50%;
+ box-shadow:0 0 7px #a76fe43b,inset 0 0 6px #b17ae038;
+ transform:rotateX(59deg) rotateY(-18deg);
+}
+.scroll-orbit-band:last-child {
+ inset:5%;
+ border-color:#ad87d899;
+ border-inline-end-color:#f5dfff;
+ transform:rotateY(63deg) rotateX(-21deg);
+}
+@media (max-width:760px) {
+ .scroll-orbit {inset-block-end:calc(82px + env(safe-area-inset-bottom,0px));width:44px}
+ .scroll-orbit.is-active {opacity:.66}
+}
+@media (prefers-reduced-motion:reduce), print {
+ .scroll-orbit {display:none}
+}
