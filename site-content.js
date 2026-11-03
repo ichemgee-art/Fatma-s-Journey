@@ -33,6 +33,15 @@
   return Object.keys(domains).find(key => domains[key].some(domain => host === domain || host.endsWith('.' + domain)));
  }
 
+ function renderFeatured(projects) {
+  const section = document.getElementById('featured-work');
+  if (!section || !Array.isArray(projects)) return;
+  const byId = new Map(projects.map(project => [project.id, project]));
+  const cards = window.portfolioI18n.featuredIds.map(id => byId.get(id)).filter(Boolean).map(window.portfolioCard);
+  document.getElementById('featured-grid').replaceChildren(...cards);
+  section.hidden = !cards.length;
+ }
+
  fetch('/api/projects').then(response => {
   if (!response.ok) throw Error('Site content unavailable');
   return response.json();
@@ -44,6 +53,7 @@
   const descriptions = new Map(originalCards.map(card => [card.href, card.querySelector('[data-i18n]')?.dataset.i18n]));
 
   function render() {
+   renderFeatured(data.projects);
    const ar = document.documentElement.lang === 'ar';
    if (certificates) {
     const cards = (data.certificates || []).map(certificate => {

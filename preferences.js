@@ -11,6 +11,44 @@
  Object.assign(strings.ar,{certificates:'الشهادات',certificateIntro:'مجموعة الشهادات اللي حصلت عليها خلال رحلتي.',certificateLoading:'جاري تحميل الشهادات…',certificateEmpty:'هتظهر الشهادات هنا بعد نشرها.',certificateError:'الشهادات غير متاحة حاليًا.'});
  Object.assign(strings.en,{brandName:'Fatma’s Journey',certificatesNav:'Certificates',disciplinesLabel:'Creative disciplines',projectFilterLabel:'Filter live projects',sectionFilterLabel:'Filter sections',breadcrumbLabel:'Breadcrumb',mediaLabel:'Media',platformLinkedIn:'LinkedIn',platformTikTok:'TikTok',platformFacebook:'Facebook',platformInstagram:'Instagram'});
  Object.assign(strings.ar,{brandName:'رحلة فاطمة',certificatesNav:'الشهادات',disciplinesLabel:'المجالات الإبداعية',projectFilterLabel:'تصفية الأعمال',sectionFilterLabel:'تصفية الأقسام',breadcrumbLabel:'مسار التنقل',mediaLabel:'الوسائط',platformLinkedIn:'لينكدإن',platformTikTok:'تيك توك',platformFacebook:'فيسبوك',platformInstagram:'إنستجرام'});
+ const featuredWork={
+  "work-3aaf5d2856af": {
+    "en": {
+      "title": "249 Content Strategy",
+      "summary": "A content strategy document from Fatma’s portfolio. Open the PDF to explore the planning work.",
+      "role": "Content strategy"
+    },
+    "ar": {
+      "title": "استراتيجية محتوى 249",
+      "summary": "وثيقة استراتيجية محتوى من أعمال فاطمة. افتح ملف الـPDF للاطّلاع على التخطيط.",
+      "role": "استراتيجية المحتوى"
+    }
+  },
+  "work-6e0255a72c27": {
+    "en": {
+      "title": "Short-form reel",
+      "summary": "A sample from Fatma’s short-form video portfolio. Open the project to watch the reel."
+    },
+    "ar": {
+      "title": "ريل قصير",
+      "summary": "عينة من أعمال فاطمة في الفيديوهات القصيرة. افتح المشروع لمشاهدة الريل."
+    }
+  },
+  "work-c5cb6a6b8016": {
+    "en": {
+      "title": "RBG Restaurant Voice-over",
+      "summary": "A restaurant voice-over sample from Fatma’s portfolio. Listen to the recording on the project page.",
+      "role": "Voice-over"
+    },
+    "ar": {
+      "title": "تعليق صوتي لمطعم RBG",
+      "summary": "عينة تعليق صوتي لمطعم من أعمال فاطمة. اسمع التسجيل من صفحة المشروع.",
+      "role": "التعليق الصوتي"
+    }
+  }
+};
+ Object.assign(strings.en,{featuredWork:'Selected work',featuredIntro:'Three samples across strategy, video and voice.'});
+ Object.assign(strings.ar,{featuredWork:'أعمال مختارة',featuredIntro:'ثلاث عينات من الاستراتيجية والفيديو والتعليق الصوتي.'});
  let language=document.documentElement.lang==='ar'?'ar':'en';
  let theme=document.documentElement.dataset.theme==='dark'?'dark':'light';
  const t=key=>strings[language][key]||strings.en[key]||key;
@@ -25,8 +63,8 @@
   const pageKey={certificates:'certificates',details:'detailsLabel',projects:'work',about:'about',social:'social',contact:'contactNav'}[document.body.dataset.page];document.title=(pageKey?t(pageKey)+' — ':'')+t('pageTitle');document.querySelector('meta[name="description"]').content=t('description');
   applyTheme(theme,false);window.dispatchEvent(new CustomEvent('portfolio:language'));
  }
- function localizeProject(project){const result={...project},local=project.translations?.[language]||{};for(const key of ['title','summary','text','client','role'])result[key]=typeof local[key]==='string'&&local[key].trim()?local[key].trim():(project.legacyText?project.legacyText[key]||'':project[key]||'');return result;}
- window.portfolioI18n={t,localizeProject,get language(){return language;},group(g){const key=({'content plans':'plans','scripts':'scripts','advertising':'advertising','reels':'reels','ai designs':'aiImages','ai images':'aiImages','ai videos':'aiVideos','ai videos / engineering':'aiEngineering','ai songs':'aiMusic','ai music':'aiMusic'})[(g||'').trim().toLowerCase()];return key?t(key):g;}};
+ function localizeProject(project){const result={...project},featured=featuredWork[project.id]?.[language],local=project.translations?.[language]||{};for(const key of ['title','summary','text','client','role'])result[key]=typeof local[key]==='string'&&local[key].trim()?local[key].trim():(featured?.[key]||(project.legacyText?project.legacyText[key]||'':project[key]||''));return result;}
+ window.portfolioI18n={t,localizeProject,featuredIds:Object.keys(featuredWork),get language(){return language;},group(g){const key=({'content plans':'plans','scripts':'scripts','advertising':'advertising','reels':'reels','ai designs':'aiImages','ai images':'aiImages','ai videos':'aiVideos','ai videos / engineering':'aiEngineering','ai songs':'aiMusic','ai music':'aiMusic'})[(g||'').trim().toLowerCase()];return key?t(key):g;}};
  document.getElementById('languageToggle').addEventListener('click',()=>applyLanguage(language==='en'?'ar':'en'));
  document.getElementById('themeToggle').addEventListener('click',()=>applyTheme(theme==='light'?'dark':'light'));
  const menu=document.getElementById('menu'),nav=document.getElementById('nav');

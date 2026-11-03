@@ -1,0 +1,5 @@
+.home-featured {margin-block:clamp(36px,6vw,78px) clamp(30px,5vw,58px)}
+.home-featured .home-tracks-title {gap:14px;flex-wrap:wrap}
+.home-featured .home-tracks-title p {margin:7px 0 0;color:var(--muted);line-height:1.7}
+.home-featured .cms-grid {grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:760px){.home-featured .cms-grid {grid-template-columns:minmax(0,1fr)}}
