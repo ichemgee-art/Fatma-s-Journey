@@ -77,8 +77,9 @@
    }
 
    if (document.body.dataset.page === 'social' && socials) {
-    socials.querySelectorAll('[data-cms-social]').forEach(link => link.remove());
-    const seen = new Set(existingLinks);
+    const managed = data.settings?.socialsManaged;
+    socials.replaceChildren(...(managed ? [] : originalCards));
+    const seen = new Set(managed ? [] : originalCards.map(card => card.href));
     for (const social of data.settings?.socials || []) {
      if (seen.has(social.url)) continue;
      seen.add(social.url);
