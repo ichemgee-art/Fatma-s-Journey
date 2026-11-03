@@ -1,20 +1,55 @@
-/* Restore first-page previews for PDFs until a custom cover is uploaded. */
-.cms-card.preview-pdf:not(.has-custom-cover) .cover-art,
-.cms-card.preview-pdf:not(.has-custom-cover) .cover-wave,
-.cms-card.preview-pdf:not(.has-custom-cover) .cover-play-indicator{display:none!important}
-.cms-card.preview-pdf:not(.has-custom-cover) .cms-cover{background:#e9e4e8!important}
-.cms-card.preview-pdf:not(.has-custom-cover) .pdf-first-page{position:absolute!important;inset:0!important;z-index:2;display:grid!important;place-items:center;width:100%!important;height:100%!important;min-height:0!important;background:#e9e4e8!important;overflow:hidden}
-.cms-card.preview-pdf:not(.has-custom-cover) .pdf-first-page>img{
- position:absolute!important;inset:0!important;display:none;width:100%!important;height:100%!important;
- max-width:100%!important;object-fit:contain!important;object-position:center!important;
- padding:12px!important;background:#f6f3f4!important;filter:none!important;transform:none!important
+/* Universal PDF preview repair. Every PDF card attempts its actual first page.
+   Only a verified, manually uploaded Sanity cover may replace the PDF preview. */
+.cms-card.is-pdf .cms-cover{background:#eee8eb!important}
+.cms-card.is-pdf .cover-art,
+.cms-card.is-pdf .cover-wave,
+.cms-card.is-pdf .cover-play-indicator{display:none!important}
+.cms-card.is-pdf .cms-cover::before,.cms-card.is-pdf .cms-cover::after{display:none!important}
+.cms-card.is-pdf .pdf-first-page{
+ position:absolute!important;inset:0!important;display:grid!important;place-items:center;
+ width:100%!important;height:100%!important;min-height:0!important;
+ background:#f1edf0!important;border-radius:inherit;overflow:hidden;z-index:2!important
 }
-.cms-card.preview-pdf:not(.has-custom-cover) .pdf-first-page.is-ready>img{display:block!important}
-.cms-card.preview-pdf:not(.has-custom-cover) .pdf-placeholder{display:block;opacity:.5!important;color:#6d6078!important;letter-spacing:-1px}
-.cms-card.preview-pdf:not(.has-custom-cover) .pdf-first-page.is-ready .pdf-placeholder{display:none!important}
-.cms-card.preview-pdf:not(.has-custom-cover) .card-format,
-.cms-card.preview-pdf:not(.has-custom-cover) .card-open{z-index:5}
-.cms-card.preview-pdf:not(.has-custom-cover) .cms-cover:after{display:none!important}
-@media(max-width:700px){
- .cms-card.preview-pdf:not(.has-custom-cover) .pdf-first-page>img{padding:10px!important}
+.cms-card.is-pdf .pdf-first-page>img{
+ position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+ max-width:100%!important;padding:10px!important;box-sizing:border-box!important;
+ object-fit:contain!important;object-position:center!important;
+ background:#f8f5f6!important;filter:none!important;transform:none!important;
+ display:none;z-index:2!important
 }
+.cms-card.is-pdf .pdf-first-page.is-ready>img{display:block!important}
+.cms-card.is-pdf .pdf-first-page .pdf-placeholder{
+ display:grid;place-items:center;font:900 32px/1 Manrope,sans-serif;
+ color:#786789;opacity:.6!important;letter-spacing:-1.5px
+}
+.cms-card.is-pdf .pdf-first-page.is-ready .pdf-placeholder,
+.cms-card.is-pdf .pdf-first-page.has-embed .pdf-placeholder{display:none!important}
+.cms-card.is-pdf .pdf-embed-fallback{
+ position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+ display:block!important;z-index:2!important;border:0!important;
+ background:#f8f5f6!important;pointer-events:none!important
+}
+.cms-card.is-pdf .cover-media{
+ position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+ object-fit:cover!important;object-position:center!important;padding:0!important;
+ z-index:4!important;opacity:0!important;display:block!important
+}
+.cms-card.is-pdf.cover-loaded .cover-media{opacity:1!important}
+.cms-card.is-pdf .card-format,.cms-card.is-pdf .card-open{z-index:6!important}
+.cms-card.is-pdf .card-format{background:rgba(255,250,251,.96);color:#513468}
+.cms-card.is-pdf .card-open{display:grid!important}
+.cms-card.is-pdf .cms-cover:has(.pdf-first-page) .pdf-page-label{display:none!important}
+html[data-theme=dark] .cms-card.is-pdf .cms-cover{background:#373142!important}
+@media(max-width:700px){.cms-card.is-pdf .pdf-first-page>img{padding:8px!important}}
+
+/* Image and video thumbnails from Drive can be blocked by browser cookie rules.
+   Fall back to the Drive file viewer rather than a decorative card. */
+.cms-card .cms-cover.has-media-embed .cover-art{opacity:0!important;visibility:hidden!important}
+.cms-card .cms-cover.has-media-embed::after{display:none!important}
+.cms-card .media-embed-fallback{
+ position:absolute!important;inset:0!important;z-index:3!important;
+ display:block!important;width:100%!important;height:100%!important;
+ border:0!important;overflow:hidden!important;pointer-events:none!important;
+ background:#f4eef2!important
+}
+.cms-card .cms-cover.has-media-embed .card-format,.cms-card .cms-cover.has-media-embed .card-open{z-index:5!important}

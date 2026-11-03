@@ -2,7 +2,11 @@
  let library;const pending=[],cache=new Map();let active=0;
  const prepared=new Set(['1asnYxL5Ns6UDgtnENtDEMzILLpRJ0Ryt','1rBCtVQGzhLAVWvYGj7i0KGLOheL_Rhvd','1orkSTjBWfLa9461sFjxhbN5ofPa21gwi']);
  const base='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/';
- const load=()=>library||(library=import(base+'pdf.min.mjs').then(pdf=>{pdf.GlobalWorkerOptions.workerSrc=base+'pdf.worker.min.mjs';return pdf;}));
+ const load=()=>library||(library=import(base+'pdf.min.mjs').then(pdf=>{
+   pdf.GlobalWorkerOptions.workerSrc=base+'pdf.worker.min.mjs';return pdf;
+  }).catch(()=>import('https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.min.mjs').then(pdf=>{
+   pdf.GlobalWorkerOptions.workerSrc='https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.worker.min.mjs';return pdf;
+  })));
  async function pdfSource(pdf,source){
   const asset=new URL(source).pathname.split('/').pop();
   const chunk=async(begin,end)=>{const response=await fetch('/api/pdf?asset='+encodeURIComponent(asset)+'&start='+begin+'&end='+end);if(!response.ok)throw Error('PDF unavailable');return {data:new Uint8Array(await response.arrayBuffer()),length:Number(response.headers.get('x-pdf-length'))};};
@@ -15,7 +19,15 @@
  async function pageImage(source,width){
   const key=source+'|'+width;if(cache.has(key))return cache.get(key);
   const task=(async()=>{const pdf=await load();let document;
-   try{const options=await pdfSource(pdf,source),task=pdf.getDocument({...options,isEvalSupported:false,cMapUrl:'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/cmaps/',cMapPacked:true,standardFontDataUrl:'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/standard_fonts/'});options.setTask?.(task);document=await task.promise;
+   try{
+    const common={isEvalSupported:false,cMapUrl:'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/cmaps/',cMapPacked:true,standardFontDataUrl:'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/standard_fonts/'};
+    try{
+     const options=await pdfSource(pdf,source),task=pdf.getDocument({...options,...common});
+     options.setTask?.(task);document=await task.promise;
+    }catch{
+     const task=pdf.getDocument({url:source,withCredentials:false,rangeChunkSize:131072,...common});
+     document=await task.promise;
+    }
     const page=await document.getPage(1),original=page.getViewport({scale:1}),viewport=page.getViewport({scale:Math.min(width/original.width,2)}),canvas=window.document.createElement('canvas');
     canvas.width=Math.ceil(viewport.width);canvas.height=Math.ceil(viewport.height);
     await page.render({canvasContext:canvas.getContext('2d'),viewport}).promise;
@@ -32,11 +44,28 @@
   const placeholder=document.createElement('span');placeholder.className='pdf-placeholder';placeholder.textContent='PDF';placeholder.setAttribute('aria-hidden','true');host.append(placeholder);
   const show=source=>new Promise((resolve,reject)=>{image.onload=()=>{host.classList.add('is-ready');resolve();};image.onerror=()=>reject(Error('Preview unavailable'));image.src=source;});
   if(cover)show(cover).catch(()=>{});
-  const render=async()=>{try{
-   if(local)await show(local);
-   else if(media.provider==='drive'&&/^[\w-]+$/.test(media.driveId||''))await show('https://drive.google.com/thumbnail?id='+encodeURIComponent(media.driveId)+'&sz=w'+(large?1200:640));
-   else if(/^https:\/\/cdn\.sanity\.io\/files\//.test(media.url))await show(await pageImage(media.url,large?1200:600));
-  }catch{host.classList.add('preview-unavailable');}};
+  const render=async()=>{
+   if(local){try{await show(local);return;}catch{}}
+   const sanityPdf=typeof media.url==='string'&&/^https:\/\/cdn\.sanity\.io\/files\//.test(media.url);
+   if(sanityPdf){
+    try{await show(await pageImage(media.url,large?1200:700));return;}catch{}
+   }
+   const id=String(media.driveId||'');
+   if(/^[A-Za-z0-9_-]{10,100}$/.test(id)){
+    try{await show('https://drive.google.com/thumbnail?id='+encodeURIComponent(id)+'&sz=w'+(large?1200:800));return;}catch{}
+    const frame=document.createElement('iframe');
+    frame.className='pdf-embed-fallback';
+    frame.src='https://drive.google.com/file/d/'+encodeURIComponent(id)+'/preview';
+    frame.title=title+' — PDF first-page preview';
+    frame.loading='lazy';frame.tabIndex=-1;
+    frame.setAttribute('aria-hidden','true');
+    frame.setAttribute('scrolling','no');
+    host.append(frame);
+    host.classList.add('has-embed');
+    return;
+   }
+   host.classList.add('preview-unavailable');
+  };
   host.pdfWork={host,render};if(observer)observer.observe(host);else{pending.push(host.pdfWork);setTimeout(run,0);}return host;
  };
 })();
