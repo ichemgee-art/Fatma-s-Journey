@@ -17,3 +17,20 @@
  0%,100% {transform:translateY(0)}
  50% {transform:translateY(-9px)}
 }
+
+.home-page .orb {
+ width:94px;
+ height:94px;
+}
+.home-page .ring,
+html[data-theme=dark] .home-page .ring {
+ width:110px;
+ height:110px;
+ border:2px solid #b58bdb80;
+ box-shadow:0 0 16px #a56cdb26;
+}
+@media (max-width:760px) {
+ .home-page .orb {width:48px;height:48px}
+ .home-page .ring,
+ html[data-theme=dark] .home-page .ring {width:55px;height:55px}
+}
