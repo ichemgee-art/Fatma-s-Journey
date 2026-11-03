@@ -37,9 +37,23 @@
   const section = document.getElementById('featured-work');
   if (!section || !Array.isArray(projects)) return;
   const byId = new Map(projects.map(project => [project.id, project]));
-  const cards = window.portfolioI18n.featuredIds.map(id => byId.get(id)).filter(Boolean).map(window.portfolioCard);
+  const selected = window.portfolioI18n.featuredIds.map(id => byId.get(id)).filter(Boolean);
+  const used = new Set(selected.map(project => project.id));
+  for (const category of ['content','video','voice']) {
+   if (selected.length >= 3) break;
+   const alternate = projects.find(project => project.category === category && project.media?.length && !used.has(project.id));
+   if (alternate) { selected.push(alternate); used.add(alternate.id); }
+  }
+  const cards = selected.slice(0,3).map((project,index) => {
+   const card = window.portfolioCard(project);
+   const cover = card.querySelector('.cms-cover');
+   const order = element('span',String(index+1).padStart(2,'0')+' / '+String(Math.min(selected.length,3)).padStart(2,'0'),'featured-order');
+   order.setAttribute('aria-hidden','true');
+   cover?.append(order);
+   return card;
+  });
   document.getElementById('featured-grid').replaceChildren(...cards);
-  section.hidden = !cards.length;
+  section.hidden = cards.length === 0;
  }
 
  fetch('/api/projects').then(response => {

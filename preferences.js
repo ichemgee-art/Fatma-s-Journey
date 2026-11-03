@@ -52,6 +52,33 @@
 
  Object.assign(strings.en,{heroProof:'From the first idea to the final frame.',contactLinkedIn:'Message Fatma on LinkedIn ↗',contactLinkedInShort:'LinkedIn ↗',contactInstagramShort:'Instagram ↗',contactEmailCta:'Send an email ↗'});
  Object.assign(strings.ar,{heroProof:'من أول فكرة لآخر كادر.',contactLinkedIn:'ابعت لفاطمة على لينكدإن ↗',contactLinkedInShort:'لينكدإن ↗',contactInstagramShort:'إنستجرام ↗',contactEmailCta:'ابعت إيميل ↗'});
+
+ Object.assign(strings.en,{
+  portfolioHighlightsKicker:'Selected work',
+  portfolioHighlights:'Start with these stories.',
+  portfolioHighlightsBody:'A closer look at selected planning, video and voice projects. Explore the full collection below.',
+  overviewWorks:'works to explore',
+  overviewDisciplines:'creative disciplines',
+  section_content:'Ideas, editorial planning, content calendars and written scripts.',
+  section_video:'Video edits, reels and stories told in motion.',
+  section_voice:'Voice-over performances and narration samples.',
+  section_dubbing:'Dubbing, character voices and expressive delivery.',
+  section_ai:'Visual storytelling and creative experiments using AI tools.',
+  section_photo:'Photography and visual composition.'
+ });
+ Object.assign(strings.ar,{
+  portfolioHighlightsKicker:'أعمال مختارة',
+  portfolioHighlights:'ابدأ بالحكايات دي.',
+  portfolioHighlightsBody:'مجموعة مختارة من التخطيط والفيديو والتعليق الصوتي، وباقي الأعمال موجودة تحت.',
+  overviewWorks:'عمل تقدر تستكشفه',
+  overviewDisciplines:'مجالات إبداعية',
+  section_content:'أفكار، وخطط محتوى، وتقويمات نشر، وسكريبتات.',
+  section_video:'مونتاج، وريلز، وحكايات تتحكي بالصورة.',
+  section_voice:'نماذج تعليق صوتي وأداء يحكي بإحساس.',
+  section_dubbing:'دبلجة وأداء للشخصيات بنبرات مختلفة.',
+  section_ai:'تجارب إبداعية وحكايات بصرية باستخدام أدوات الذكاء الاصطناعي.',
+  section_photo:'صور بتعتمد على التكوين وزاوية الرؤية.'
+ });
  let language=document.documentElement.lang==='ar'?'ar':'en';
  let theme=document.documentElement.dataset.theme==='dark'?'dark':'light';
  const t=key=>strings[language][key]||strings.en[key]||key;

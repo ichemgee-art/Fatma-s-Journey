@@ -23,8 +23,20 @@ function normalize(p){
  for(const key of ['title','summary','text','client','role'])for(const [lang,suffix] of [['en','En'],['ar','Ar']])translations[lang][key]=text(p[key+suffix]);
  return {id:p._id,title:text(p.titleEn||p.titleAr||p.title||p.name),type:text(p.type)||((p.text||p.textEn||p.textAr)?'document':''),category:category(p.category),group:text(p.group),summary:text(p.summaryEn||p.summaryAr||p.summary||p.description),text:text(p.textEn||p.textAr||p.text),client:text(p.clientEn||p.clientAr||p.client),role:text(p.roleEn||p.roleAr||p.role),translations,legacyText,year:text(p.year),customCover:!!safeUrl(p.coverUrl),cover:safeUrl(p.coverUrl)||items.find(m=>m?.type==='image')?.url||'',media:items.filter(Boolean),hidden:p.hidden===true};
 }
+function displayTitle(f){
+ const original=text(f.title);
+ const clean=original.replace(/^Copy of\s+/i,'').replace(/\.(?:pdf|docx?|mp4|mov|jpg|jpeg|png|webm)$/i,'').trim();
+ const machine=/^(?:(?:IMG|VID|DSC|MVI)[_ -]*[0-9٠-٩]|v[0-9a-z]{23,}$|[a-f0-9]{24,}$)/i.test(clean);
+ if(!machine)return {en:clean||original,ar:clean||original};
+ const index=catalog.files.filter(x=>x.category===f.category).findIndex(x=>x.id===f.id)+1;
+ const count=String(Math.max(1,index)).padStart(2,'0');
+ const en={photo:'Photography sample',video:'Video sample',dubbing:'Dubbing sample',voice:'Voice sample',ai:'Creative AI sample',content:'Content sample'}[f.category]||'Portfolio sample';
+ const ar={photo:'نموذج تصوير',video:'نموذج فيديو',dubbing:'نموذج دبلجة',voice:'نموذج صوتي',ai:'نموذج ذكاء اصطناعي',content:'نموذج محتوى'}[f.category]||'نموذج عمل';
+ return {en:en+' '+count,ar:ar+' '+count};
+}
 function fromDrive(f){
- return {id:'drive-'+f.id,driveId:f.id,title:f.title,category:f.category,group:f.group,summary:'',text:'',sourceUrl:f.sourceUrl,
+ const display=displayTitle(f);
+ return {id:'drive-'+f.id,driveId:f.id,title:display.en,translations:{en:{title:display.en},ar:{title:display.ar}},sourceTitle:f.title,category:f.category,group:f.group,summary:'',text:'',sourceUrl:f.sourceUrl,
  cover:['image','video','pdf'].includes(f.type)?'https://drive.google.com/thumbnail?id='+f.id+'&sz=w640':'',
  media:[{type:f.type,provider:'drive',driveId:f.id,url:'https://drive.google.com/file/d/'+f.id+'/preview',title:f.title}]};
 }
