@@ -8,7 +8,6 @@
  const grid=document.getElementById('cmsGrid'),status=document.getElementById('cmsStatus');
  const controls=document.getElementById('cmsControls'),groups=document.getElementById('cmsGroups');
  const overview=document.getElementById('portfolioOverview');
- const highlights=document.getElementById('work-highlights'),highlightsGrid=document.getElementById('workHighlightsGrid');
  let loaded=false,failed=false,list=[],active=new URLSearchParams(location.search).get('category')||'all',group='all',limit=12;
  if(!Object.hasOwn(labels,active))active='all';
  const node=(tag,cls,value)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(value!==undefined)e.textContent=value;return e;};
@@ -29,24 +28,6 @@
   disciplines.append(node('strong','',number(count)+' '),document.createTextNode(t('overviewDisciplines')));
   overview.replaceChildren(work,disciplines);
   overview.hidden=!list.length;
- }
- function renderHighlights(){
-  if(!highlights||!highlightsGrid)return;
-  const byId=new Map(list.map(project=>[project.id,project]));
-  const picks=list.filter(project=>project.featured===true&&project.hidden!==true).slice(0,3);
-  const seen=new Set(picks.map(project=>project.id));
-  for(const id of window.portfolioI18n.featuredIds){
-   if(picks.length>=3)break;
-   const work=byId.get(id);
-   if(work&&!seen.has(id)){picks.push(work);seen.add(id);}
-  }
-  for(const category of ['content','video','voice']){
-   if(picks.length>=3)break;
-   const fallback=list.find(project=>project.category===category&&project.media?.length&&!seen.has(project.id));
-   if(fallback){picks.push(fallback);seen.add(fallback.id);}
-  }
-  highlightsGrid.replaceChildren(...picks.slice(0,3).map(window.portfolioCard));
-  highlights.hidden=active!=='all'||!picks.length;
  }
  function draw(){
   const scroll=controls.scrollLeft;
@@ -79,7 +60,7 @@
    }
    grid.append(section);
   }
-  renderOverview();renderHighlights();
+  renderOverview();
  }
  window.addEventListener('portfolio:language',()=>{
   refreshLabels();group='all';
