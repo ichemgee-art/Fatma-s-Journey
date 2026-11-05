@@ -130,6 +130,55 @@
   aboutQuoteAria:'فلسفتي الإبداعية',
   aboutQuote:'الحكاية الحلوة مش بس بتتشاف... دي كمان بتتحس.'
  });
+
+ Object.assign(strings.en,{
+  studioNav_projects:'Creative work / archive',
+  studioNav_social:'Beyond the portfolio',
+  studioNav_certificates:'Practice, progress and learning',
+  studioNav_contact:'Your next chapter starts here',
+  studioMetaLeft_projects:'A growing collection',
+  studioMetaRight_projects:'Explore by creative discipline',
+  studioMetaLeft_social:'Across the platforms',
+  studioMetaRight_social:'Connect and follow',
+  studioMetaLeft_certificates:'Learning in progress',
+  studioMetaRight_certificates:'Professional development',
+  studioMetaLeft_contact:'Open to ideas',
+  studioMetaRight_contact:'Let’s connect',
+  studioEndKicker:'THE NEXT CHAPTER',
+  studioEndTitle_projects:'Every project starts with a conversation.',
+  studioEndText_projects:'Have a new idea in mind? Share the brief and let’s find the right creative direction for it.',
+  studioEndCTA_projects:'Start a conversation ↗',
+  studioEndTitle_social:'More than a portfolio.',
+  studioEndText_social:'Get to know the person, process and ideas behind the work.',
+  studioEndCTA_social:'Meet Fatma ↗',
+  studioEndTitle_certificates:'The best work keeps evolving.',
+  studioEndText_certificates:'Discover how learning and new skills turn into real creative work.',
+  studioEndCTA_certificates:'Explore the work ↗'
+ });
+ Object.assign(strings.ar,{
+  studioNav_projects:'الأعمال / معرض المشاريع',
+  studioNav_social:'أبعد من البورتفوليو',
+  studioNav_certificates:'التعلّم والتطوّر',
+  studioNav_contact:'حكايتك الجاية تبدأ هنا',
+  studioMetaLeft_projects:'مجموعة أعمال بتكبر باستمرار',
+  studioMetaRight_projects:'استكشف حسب المجال',
+  studioMetaLeft_social:'على منصات مختلفة',
+  studioMetaRight_social:'تابع وتواصل',
+  studioMetaLeft_certificates:'رحلة تعلّم مستمرة',
+  studioMetaRight_certificates:'تطوير المهارات',
+  studioMetaLeft_contact:'جاهزة للأفكار الجديدة',
+  studioMetaRight_contact:'خلّينا نتواصل',
+  studioEndKicker:'الفصل اللي جاي',
+  studioEndTitle_projects:'كل مشروع بيبدأ بحكاية.',
+  studioEndText_projects:'عندك فكرة جديدة؟ شاركني تفاصيلها ونختار مع بعض الاتجاه الإبداعي المناسب.',
+  studioEndCTA_projects:'ابدأ حكايتك ↗',
+  studioEndTitle_social:'أكتر من مجرد بورتفوليو.',
+  studioEndText_social:'اتعرّف على صاحبة الشغل، وطريقة التفكير، والأفكار اللي ورا كل مشروع.',
+  studioEndCTA_social:'اتعرّف على فاطمة ↗',
+  studioEndTitle_certificates:'أفضل شغل دايمًا بيتطوّر.',
+  studioEndText_certificates:'شوف إزاي التعلّم والمهارات الجديدة بيتحوّلوا لشغل إبداعي حقيقي.',
+  studioEndCTA_certificates:'استكشف الأعمال ↗'
+ });
  let language=document.documentElement.lang==='ar'?'ar':'en';
  let theme=document.documentElement.dataset.theme==='dark'?'dark':'light';
  const t=key=>strings[language][key]||strings.en[key]||key;

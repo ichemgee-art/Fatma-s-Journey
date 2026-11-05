@@ -1,0 +1,222 @@
+/*
+ * Fatma's Journey — Studio Edition
+ * A single editorial vocabulary across all public pages.
+ * Last stylesheet by design. No CMS values or media content are overwritten.
+ */
+:root{
+ --fj-edge:color-mix(in srgb,var(--ink) 13%,transparent);
+ --fj-shadow:0 22px 65px rgba(34,25,58,.085);
+ --fj-shadow-hover:0 28px 70px rgba(34,25,58,.15);
+ --fj-ease:cubic-bezier(.2,.75,.18,1);
+}
+.page-main{min-width:0}
+.page-main *{min-width:0}
+.page-main :is(h1,h2,h3,p){overflow-wrap:break-word}
+.page-main :is(a,button){transition-property:background-color,border-color,color,transform,box-shadow;transition-duration:.24s;transition-timing-function:var(--fj-ease)}
+.page-main :is(a,button):focus-visible{outline:3px solid var(--violet);outline-offset:4px}
+.page-main .section-kicker{font-weight:800;letter-spacing:.12em}
+.page-main .section-kicker::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:currentColor;vertical-align:middle;margin-inline-end:10px}
+.fj-page-intro{position:relative;isolation:isolate;display:flex;justify-content:space-between;align-items:center;gap:25px;padding:19px 0 17px;border-bottom:1px solid var(--line);margin-bottom:clamp(26px,4vw,44px)}
+.fj-page-intro .fj-intro-label{display:inline-flex;align-items:center;gap:10px;text-transform:uppercase;letter-spacing:.13em;color:var(--violet);font-size:11px;font-weight:800}
+.fj-page-intro .fj-intro-label::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--violet)}
+.fj-page-intro .fj-intro-index{font-size:11px;font-weight:800;letter-spacing:.16em;color:var(--muted);white-space:nowrap}
+.fj-page-intro .fj-intro-index::before{content:"FJ / ";color:var(--violet)}
+.fj-page-top{position:relative;isolation:isolate;padding:4px 0 50px;min-height:260px}
+.fj-page-top .page-heading{position:relative;z-index:1;max-width:820px;padding:4px 0 5px}
+.fj-page-top .page-heading h1{font:800 clamp(45px,5.3vw,81px)/1.16 Manrope,"Alexandria",sans-serif;letter-spacing:-.066em;margin:13px 0 20px;max-width:900px;text-wrap:balance}
+.fj-page-top .page-heading>p{max-width:630px;font-size:clamp(15px,1.5vw,18px);line-height:1.95}
+.fj-page-top::before{content:attr(data-watermark);position:absolute;z-index:0;inset-inline-end:1%;inset-block-start:-27px;color:color-mix(in srgb,var(--violet) 8%,transparent);font:900 clamp(120px,22vw,310px)/1 Manrope,sans-serif;letter-spacing:-.11em;white-space:nowrap;user-select:none;pointer-events:none}
+.fj-page-top::after{content:"";position:absolute;z-index:0;inset-inline-end:1%;inset-block-start:25px;width:clamp(110px,16vw,220px);aspect-ratio:1;border-radius:50%;border:1px solid color-mix(in srgb,var(--violet) 21%,transparent);box-shadow:0 0 0 30px color-mix(in srgb,var(--violet) 3%,transparent),0 0 0 70px color-mix(in srgb,var(--violet) 2%,transparent);pointer-events:none}
+.fj-page-top .section-kicker{font-size:12px}
+.fj-editorial-section{position:relative}
+.fj-editorial-meta{display:flex;justify-content:space-between;align-items:center;gap:15px;border-block:1px solid var(--line);padding:16px 0;margin-bottom:24px;font-size:11px;font-weight:800;letter-spacing:.1em;color:var(--muted)}
+.fj-editorial-meta strong{color:var(--violet);font-size:12px}
+.fj-editorial-meta .fj-separator{flex:1;height:1px;background:var(--line)}
+.fj-editorial-end{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;padding:clamp(30px,5vw,58px);margin:clamp(40px,5vw,75px) 0 24px;border-radius:30px;background:linear-gradient(120deg,#211d40,#4d2e69);color:#f9efff;position:relative;overflow:hidden;isolation:isolate}
+.fj-editorial-end::before{content:"";position:absolute;inset-inline-end:-95px;top:-140px;width:370px;aspect-ratio:1;border:1px solid rgba(255,255,255,.22);border-radius:50%;box-shadow:0 0 0 65px #ffffff08,0 0 0 125px #ffffff08;pointer-events:none;z-index:-1}
+.fj-editorial-end .fj-end-kicker{font-size:11px;font-weight:800;color:#dbc0f5;letter-spacing:.13em}
+.fj-editorial-end h2{font:800 clamp(27px,3.3vw,45px)/1.32 Manrope,"Alexandria",sans-serif;letter-spacing:-.05em;margin:12px 0 15px}
+.fj-editorial-end p{font-size:14px;line-height:1.85;color:#e2d7ed;max-width:670px;margin:0}
+.fj-editorial-end>a{background:#e9d2f8;border:1px solid #e9d2f8;color:#2a1d45;border-radius:999px;padding:15px 25px;font-size:13px;font-weight:800;text-align:center;white-space:nowrap;position:relative;z-index:1}
+.fj-editorial-end>a:hover{background:#fff;border-color:#fff;transform:translateY(-3px)}
+/* WORK: an organized archive, not another duplicated featured-work module. */
+.projects-page .fj-page-top{min-height:310px}
+.projects-page .work-tools{border:1px solid var(--line);border-radius:23px;padding:16px 19px 9px;margin:15px 0 29px;top:90px;box-shadow:0 14px 30px rgba(32,27,49,.055);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);background:color-mix(in srgb,var(--cream) 92%,transparent)}
+.projects-page .cms-controls{display:flex;gap:9px;align-items:center;flex-wrap:wrap;overflow-x:auto;padding-bottom:7px}
+.projects-page .cms-controls[hidden]{display:none}
+.projects-page .cms-controls button{min-height:43px;border-radius:999px;padding:10px 17px;white-space:nowrap;border:1px solid var(--line);font-size:12px;font-weight:800;box-shadow:none}
+.projects-page .cms-controls button[aria-pressed="true"]{box-shadow:0 10px 20px rgba(75,40,120,.14)}
+.projects-page .portfolio-overview{margin:0 0 15px}
+.projects-page .overview-pill{padding:10px 15px;font-size:12px}
+.projects-page .portfolio-track{margin-block:0 clamp(44px,6vw,78px);scroll-margin-top:240px}
+.projects-page .track-heading{border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:26px;align-items:end}
+.projects-page .track-heading h3{font:800 clamp(28px,3vw,42px)/1.35 Manrope,"Alexandria",sans-serif;letter-spacing:-.045em}
+.projects-page .track-heading .track-description{max-width:640px;font-size:14px;line-height:1.85}
+.projects-page .track-heading>span{font:800 11px/1.5 Manrope,sans-serif;letter-spacing:.08em;border:1px solid var(--line);border-radius:999px;padding:9px 12px;white-space:nowrap}
+.projects-page .cms-grid{gap:clamp(16px,2.4vw,29px)}
+.projects-page .cms-card{border-radius:25px;overflow:hidden;box-shadow:var(--fj-shadow);transition:transform .28s var(--fj-ease),box-shadow .28s var(--fj-ease),border-color .28s}
+.projects-page .cms-card:hover{transform:translateY(-6px);box-shadow:var(--fj-shadow-hover);border-color:color-mix(in srgb,var(--violet) 42%,var(--line))}
+.projects-page .cms-card .cms-cover{border-radius:20px;margin:8px 8px 0;height:clamp(210px,23vw,300px);overflow:hidden}
+.projects-page .cms-card .cms-card-body{padding:19px 23px 23px}
+.projects-page .cms-card h3{font-size:clamp(17px,1.6vw,22px);line-height:1.5}
+.projects-page .cms-card .cms-card-footer{border-top:1px solid var(--line);padding-top:15px}
+.projects-page .portfolio-more{min-height:48px;padding:12px 22px;border-radius:999px}
+.projects-page .cms-status{border-radius:22px;padding:26px}
+/* CERTIFICATES: stronger composition while retaining full, uncropped previews. */
+.certificates-page .fj-page-top{min-height:260px}
+.certificates-page .certificate-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2.6vw,30px);margin:17px 0 35px}
+.certificates-page .certificate-card{border-radius:25px;overflow:hidden;box-shadow:var(--fj-shadow);transition:transform .28s var(--fj-ease),box-shadow .28s var(--fj-ease),border-color .28s}
+.certificates-page .certificate-card:hover{transform:translateY(-6px);box-shadow:var(--fj-shadow-hover);border-color:color-mix(in srgb,var(--violet) 43%,var(--line))}
+.certificates-page .certificate-preview{aspect-ratio:4/3;padding:17px;background:color-mix(in srgb,var(--violet) 6%,var(--cream-2));border-bottom:1px solid var(--line)}
+.certificates-page .certificate-preview :is(img,.pdf-first-page,.pdf-first-page img){object-fit:contain}
+.certificates-page .certificate-body{padding:22px 24px 25px}
+.certificates-page .certificate-body h2{font-size:clamp(17px,1.5vw,21px);font-weight:800;line-height:1.55}
+.certificates-page .certificate-open{font-weight:800}
+.certificates-page #certificate-status{padding:20px 0;color:var(--muted)}
+/* SOCIAL: four editorial destinations with controlled tonal variation. */
+.social-page .fj-page-top{min-height:305px}
+.social-page .social-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(17px,2.4vw,30px);margin:10px 0 28px}
+.social-page .social-card{min-height:340px;border-radius:28px;padding:clamp(25px,3.2vw,40px);gap:12px;box-shadow:var(--fj-shadow);overflow:hidden;transition:transform .28s var(--fj-ease),box-shadow .28s var(--fj-ease)}
+.social-page .social-card:nth-child(2),.social-page .social-card:nth-child(3){transform:translateY(24px)}
+.social-page .social-card:hover,.social-page .social-card:nth-child(2):hover,.social-page .social-card:nth-child(3):hover{transform:translateY(-5px);box-shadow:var(--fj-shadow-hover)}
+.social-page .social-card .social-card-top{margin-bottom:auto}
+.social-page .social-card .social-icon{height:64px;width:64px;border-radius:20px}
+.social-page .social-platform{font:800 clamp(27px,3vw,41px)/1.25 Manrope,"Alexandria",sans-serif;letter-spacing:-.05em}
+.social-page .social-handle{font-size:13px}
+.social-page .social-card>p{font-size:14px;max-width:480px;line-height:1.85}
+.social-page .social-visit{font-size:13px;font-weight:800;border-top:1px solid var(--line);margin-top:10px;padding-top:19px}
+.social-page .home-next{margin-top:65px}
+/* CONTACT: one strong invitation with clearly presented ways to respond. */
+.contact-page .fj-page-top{min-height:235px}
+.contact-page .contact-panel{position:relative;isolation:isolate;max-width:none;margin:8px 0 27px;border:1px solid #f1e6f8;border-radius:35px;background:linear-gradient(123deg,#24213f,#422755 72%,#51316b);padding:clamp(34px,5vw,73px);overflow:hidden;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr);column-gap:clamp(18px,5vw,80px);text-align:start;align-items:center}
+.contact-page .contact-panel::before{content:"";width:440px;aspect-ratio:1;border:1px solid #ffffff31;box-shadow:0 0 0 65px #ffffff08,0 0 0 130px #ffffff07;border-radius:50%;position:absolute;z-index:-1;inset-inline-end:-190px;top:-145px;pointer-events:none}
+.contact-page .contact-panel>.section-kicker{grid-column:1/-1;font-size:12px;color:#dfc1f9}
+.contact-page .contact-panel h2{grid-column:1;max-width:700px;margin:17px 0 10px;color:#fff9ff;font:800 clamp(33px,4.5vw,57px)/1.32 Manrope,"Alexandria",sans-serif;letter-spacing:-.045em;text-align:start}
+.contact-page .contact-panel>p{grid-column:1;max-width:600px;margin:0 0 24px;color:#e6d8f1;line-height:1.9;text-align:start}
+.contact-page .contact-actions{grid-column:1;display:flex;flex-wrap:wrap;flex-direction:row;gap:11px;margin:0}
+.contact-page .contact-actions :is(.primary,.cv-download){min-height:50px;padding:12px 22px;border-radius:999px;font-size:13px;text-align:center}
+.contact-page .contact-actions .primary{background:#eed8fa;color:#2c1d42;border-color:#eed8fa;width:auto}
+.contact-page .contact-actions .primary:hover{background:#fff;border-color:#fff;transform:translateY(-3px)}
+.contact-page .contact-actions .cv-download{border:1px solid #ffffff73;color:#fff;background:#ffffff0d}
+.contact-page .contact-quicklinks{grid-column:2;grid-row:2/span 3;display:grid;align-content:center;gap:13px;padding:17px;border:1px solid #ffffff3f;border-radius:24px;background:#ffffff12;backdrop-filter:blur(11px);-webkit-backdrop-filter:blur(11px)}
+.contact-page .contact-quicklinks a{display:flex;justify-content:space-between;align-items:center;width:100%;min-height:56px;padding:15px 18px;border-radius:15px;color:#fff;background:#ffffff18;border:1px solid #ffffff18;font-size:14px;font-weight:800;text-decoration:none}
+.contact-page .contact-quicklinks a:hover{background:#ffffff2b;transform:translateX(-2px)}
+.contact-page .contact-quicklinks a::before{content:"↗";color:#ead1ff;font-size:18px}
+.contact-page .copy-portfolio{grid-column:2;grid-row:5;justify-self:start;position:relative;z-index:2;margin-top:12px;color:#f7e8ff;border-color:#ffffff55;background:#ffffff16;border-radius:999px;padding:12px 19px}
+.contact-page .copy-portfolio:hover{background:#ffffff28}
+.contact-page .contact-note{grid-column:1;grid-row:5;font-size:12px;color:#d6c8e4;max-width:570px;margin:15px 0 0;line-height:1.85}
+.contact-page .contact-social-link{margin:20px 0 30px;width:fit-content}
+/* PROJECT DETAILS: the work itself is the hero. */
+.detail-page .breadcrumbs{padding:16px 0 24px;border-bottom:1px solid var(--line);margin-bottom:28px}
+.detail-page .detail-header{position:relative;max-width:1020px;margin:0 0 38px;padding:17px 0 30px}
+.detail-page .detail-header::after{content:"";position:absolute;bottom:0;inset-inline-start:0;width:95px;height:3px;border-radius:99px;background:var(--violet)}
+.detail-page .detail-header h1{font-size:clamp(33px,4.6vw,65px);line-height:1.25;letter-spacing:-.055em;text-wrap:balance}
+.detail-page .detail-header>p{font-size:clamp(15px,1.5vw,18px);line-height:1.9;max-width:780px}
+.detail-page .detail-layout{grid-template-columns:minmax(0,1fr) minmax(240px,310px);gap:clamp(20px,3vw,43px)}
+.detail-page .detail-info{top:110px;border-radius:26px;box-shadow:var(--fj-shadow);padding:clamp(22px,2.5vw,32px)}
+.detail-page .detail-info h2{font-size:clamp(18px,1.8vw,24px)}
+.detail-page .detail-info dl>div{padding:17px 0}
+.detail-page .detail-info .detail-contact{min-height:50px;border-radius:999px}
+.detail-page .cms-media{overflow:hidden;border-radius:26px}
+.detail-page .cms-media :is(img,video,iframe){max-width:100%;height:auto}
+.detail-page .related-works{margin-top:clamp(45px,6vw,85px);padding-top:31px;border-top:1px solid var(--line)}
+.detail-page .related-works .track-heading h2{font-size:clamp(25px,2.8vw,38px)}
+/* HOME & ABOUT: polish and alignment instead of duplicating sections. */
+.home-page .home-overline,.about-editorial .about-issue{border-bottom:1px solid var(--line)}
+.home-page .hero h1{text-wrap:balance}
+.home-page .home-editorial-note{border-block:1px solid var(--line)}
+.home-page .home-featured .cms-card{box-shadow:var(--fj-shadow);border-radius:25px}
+.home-page .home-featured .cms-card:hover{box-shadow:var(--fj-shadow-hover);transform:translateY(-4px)}
+.home-page .home-featured .cms-cover{overflow:hidden}
+.home-page .home-final-invite{box-shadow:0 24px 55px rgba(26,22,56,.12)}
+.about-editorial .about-story,.about-editorial .about-statement-band,.about-editorial .about-invite{box-shadow:0 18px 50px rgba(42,28,62,.09)}
+.about-editorial .discipline-card{transition:transform .26s var(--fj-ease),box-shadow .26s var(--fj-ease)}
+/* Site shell: consistent microdetails. */
+.site-header-wrap{backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.topbar .brand:focus-visible,.topbar .nav a:focus-visible{outline:3px solid var(--violet);outline-offset:4px}
+.footer-wrap footer{border-top:1px solid var(--line)}
+.footer-wrap a:hover{color:var(--violet)}
+/* Both directions: logical spacing and the existing Alexandria RTL hierarchy. */
+html[dir=rtl] .fj-page-top .page-heading h1,html[dir=rtl] .fj-editorial-end h2,
+html[dir=rtl] .contact-page .contact-panel h2,html[dir=rtl] .social-page .social-platform{
+ font-family:"Alexandria",Tahoma,sans-serif!important;letter-spacing:0!important;line-height:1.7!important
+}
+html[dir=rtl] .fj-page-top::before{font-family:Manrope,sans-serif}
+html[dir=rtl] .fj-page-intro .fj-intro-label{letter-spacing:0}
+html[dir=rtl] .fj-editorial-end .fj-end-kicker{letter-spacing:0}
+html[dir=rtl] .contact-page .contact-panel{text-align:start}
+html[dir=rtl] .contact-page .contact-quicklinks a:hover{transform:translateX(2px)}
+/* Dark mode: maintain contrast throughout. */
+html[data-theme=dark] .fj-page-top::before{color:color-mix(in srgb,var(--violet) 13%,transparent)}
+html[data-theme=dark] .projects-page .work-tools{background:color-mix(in srgb,var(--cream) 90%,transparent)}
+html[data-theme=dark] .fj-editorial-end{background:linear-gradient(120deg,#36294e,#4b2f62)}
+html[data-theme=dark] .contact-page .contact-panel{border-color:#684a80;background:linear-gradient(125deg,#251b36,#443052)}
+html[data-theme=dark] .social-page .social-card{box-shadow:0 16px 44px rgba(2,1,9,.23)}
+html[data-theme=dark] .detail-page .detail-info{box-shadow:0 20px 40px rgba(0,0,0,.18)}
+/* Device-level composition. */
+@media(max-width:1050px){
+ .contact-page .contact-panel{grid-template-columns:minmax(0,1fr) minmax(230px,.8fr);column-gap:24px}
+ .projects-page .cms-card .cms-cover{height:240px}
+}
+@media(max-width:900px){
+ .fj-page-top{min-height:240px;padding-bottom:24px}
+ .fj-page-top::before{font-size:clamp(100px,26vw,195px);top:-10px}
+ .social-page .social-grid{gap:17px}
+ .social-page .social-card{min-height:305px;padding:24px}
+ .certificates-page .certificate-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .contact-page .contact-panel{grid-template-columns:1fr;display:block;text-align:start}
+ .contact-page .contact-quicklinks{margin-top:25px;max-width:630px}
+ .contact-page .copy-portfolio{margin-top:17px}
+ .contact-page .contact-note{margin-top:19px}
+ .detail-page .detail-layout{grid-template-columns:minmax(0,1fr)}
+ .detail-page .detail-info{position:static}
+}
+@media(max-width:700px){
+ .fj-page-intro{padding:14px 0;gap:12px;margin-bottom:25px}
+ .fj-page-intro .fj-intro-label{font-size:10px;letter-spacing:.05em}
+ .fj-page-intro .fj-intro-index{font-size:10px}
+ .fj-page-top{min-height:auto;padding:0 0 35px}
+ .fj-page-top::before{inset-inline-end:0;top:0;font-size:100px}
+ .fj-page-top::after{width:90px;top:28px}
+ .fj-page-top .page-heading{padding:0 0 8px}
+ .fj-page-top .page-heading h1{font-size:clamp(34px,9vw,49px);line-height:1.4}
+ .fj-page-top .page-heading>p{font-size:14px;line-height:1.9}
+ .fj-editorial-meta{font-size:10px;letter-spacing:0}
+ .fj-editorial-end{grid-template-columns:1fr;gap:22px;padding:30px 25px;border-radius:24px;margin:40px 0 20px}
+ .fj-editorial-end h2{font-size:clamp(26px,7vw,38px)}
+ .fj-editorial-end p{font-size:13px}
+ .fj-editorial-end>a{width:max-content;max-width:100%;white-space:normal;padding:13px 22px}
+ .projects-page .fj-page-top,.social-page .fj-page-top,.certificates-page .fj-page-top,.contact-page .fj-page-top{min-height:0}
+ .projects-page .work-tools{top:65px;margin:7px 0 25px;padding:13px 10px 9px;border-radius:17px}
+ .projects-page .cms-controls{flex-wrap:nowrap;padding-bottom:9px}
+ .projects-page .cms-controls button{font-size:11px;min-height:41px;padding:9px 14px}
+ .projects-page .cms-grid{grid-template-columns:minmax(0,1fr);gap:18px}
+ .projects-page .cms-card .cms-cover{height:auto;aspect-ratio:4/3;margin:7px 7px 0;border-radius:17px}
+ .projects-page .cms-card .cms-card-body{padding:17px 19px 21px}
+ .projects-page .track-heading{align-items:flex-start;gap:10px}
+ .projects-page .track-heading h3{font-size:26px}
+ .projects-page .track-heading .track-description{font-size:12px}
+ .certificates-page .certificate-grid{grid-template-columns:minmax(0,1fr);gap:18px}
+ .certificates-page .certificate-preview{aspect-ratio:16/11}
+ .certificates-page .certificate-body{padding:20px}
+ .social-page .social-grid{grid-template-columns:minmax(0,1fr);gap:18px}
+ .social-page .social-card,.social-page .social-card:nth-child(2),.social-page .social-card:nth-child(3){transform:none!important;min-height:275px;padding:25px;border-radius:24px}
+ .social-page .social-card:hover{transform:translateY(-3px)!important}
+ .social-page .social-platform{font-size:28px}
+ .social-page .home-next{margin-top:32px}
+ .contact-page .contact-panel{padding:30px 25px;border-radius:25px;margin:5px 0 20px}
+ .contact-page .contact-panel h2{font-size:clamp(31px,8vw,43px);line-height:1.55}
+ .contact-page .contact-panel>p{font-size:14px}
+ .contact-page .contact-actions{flex-direction:column;gap:10px}
+ .contact-page .contact-actions :is(.primary,.cv-download){width:100%;min-height:47px}
+ .contact-page .contact-quicklinks{padding:11px;border-radius:18px;margin-top:22px}
+ .contact-page .contact-quicklinks a{min-height:49px;padding:11px 14px;font-size:12px}
+ .contact-page .copy-portfolio{width:100%;text-align:center}
+ .detail-page .detail-header h1{font-size:clamp(30px,8vw,45px)}
+ .detail-page .breadcrumbs{margin-bottom:21px}
+ .detail-page .detail-info{padding:22px;border-radius:20px}
+}
+@media(prefers-reduced-motion:reduce){
+ .page-main :is(a,button),.projects-page .cms-card,.social-page .social-card,.certificates-page .certificate-card{transition:none!important}
+ .social-page .social-card:hover,.projects-page .cms-card:hover,.certificates-page .certificate-card:hover{transform:none!important}
+}
