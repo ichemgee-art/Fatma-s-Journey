@@ -67,7 +67,11 @@
  }).then(data => {
   if (!data) return;
   const portraitUrl = portrait && data.settings?.[portrait.dataset.portrait];
-  if (portraitUrl) portrait.src = portraitUrl;
+  // Portrait pages fetch their current image directly from Sanity on the first
+  // request. Don't replace it later using cached /api/projects settings.
+  if (portraitUrl && !portrait?.getAttribute('src')?.startsWith('/api/portrait?')) {
+   portrait.src = portraitUrl;
+  }
   const originalCards = Array.from(socials?.querySelectorAll('a') || []);
   const descriptions = new Map(originalCards.map(card => [card.href, card.querySelector('[data-i18n]')?.dataset.i18n]));
 
