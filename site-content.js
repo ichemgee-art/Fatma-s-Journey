@@ -66,11 +66,42 @@
   return response.json();
  }).then(data => {
   if (!data) return;
-  const portraitUrl = portrait && data.settings?.[portrait.dataset.portrait];
-  // Portrait pages fetch their current image directly from Sanity on the first
-  // request. Don't replace it later using cached /api/projects settings.
-  if (portraitUrl && !portrait?.getAttribute('src')?.startsWith('/api/portrait?')) {
-   portrait.src = portraitUrl;
+  const portraitKey = portrait?.dataset.portrait;
+  const portraitUrl = portraitKey && data.settings?.[portraitKey];
+  if (portrait && typeof portraitUrl === 'string') {
+   try {
+    const next = new URL(portraitUrl);
+    if (next.protocol === 'https:' && next.hostname === 'cdn.sanity.io' && next.pathname.startsWith('/images/')) {
+     next.searchParams.set('w','1000');
+     next.searchParams.set('q','82');
+     next.searchParams.set('auto','format');
+     const nextUrl = next.href;
+     const cachedUrl = (() => {try {return localStorage.getItem('fatma:portrait:'+portraitKey)} catch {return ''}})();
+     // The visible photo stays on screen while a newer Sanity image downloads.
+     if (cachedUrl !== nextUrl || portrait.getAttribute('src')?.startsWith('/api/portrait?')) {
+      const nextPhoto = new Image();
+      nextPhoto.decoding = 'async';
+      nextPhoto.onload = () => {
+       try {localStorage.setItem('fatma:portrait:'+portraitKey,nextUrl)} catch {}
+       if (portrait.isConnected && portrait.src !== nextUrl) portrait.src = nextUrl;
+      };
+      nextPhoto.src = nextUrl;
+     }
+    }
+   } catch {}
+  }
+  // Prefill the other page's image URL as well, so moving from Home to About
+  // does not add the slow portrait lookup on the very first navigation.
+  for (const otherKey of ['heroImage','aboutImage']) {
+   if (otherKey === portraitKey) continue;
+   const otherValue = data.settings?.[otherKey];
+   if (typeof otherValue !== 'string') continue;
+   try {
+    const u = new URL(otherValue);
+    if (u.protocol !== 'https:' || u.hostname !== 'cdn.sanity.io' || !u.pathname.startsWith('/images/')) continue;
+    u.searchParams.set('w','1000');u.searchParams.set('q','82');u.searchParams.set('auto','format');
+    try {localStorage.setItem('fatma:portrait:'+otherKey,u.href)} catch {}
+   } catch {}
   }
   const originalCards = Array.from(socials?.querySelectorAll('a') || []);
   const descriptions = new Map(originalCards.map(card => [card.href, card.querySelector('[data-i18n]')?.dataset.i18n]));

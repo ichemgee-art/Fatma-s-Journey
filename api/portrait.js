@@ -28,6 +28,9 @@ module.exports=async function portrait(req,res){
    if(typeof candidate==='string'){
     const url=new URL(candidate);
     if(url.protocol==='https:'&&url.hostname==='cdn.sanity.io'&&url.pathname.startsWith('/images/')){
+     url.searchParams.set('w','1000');
+     url.searchParams.set('q','82');
+     url.searchParams.set('auto','format');
      location=url.toString();
     }
    }
@@ -36,7 +39,7 @@ module.exports=async function portrait(req,res){
   }finally{clearTimeout(timer);}
  }
  // The published image is reused briefly; replacing it in Sanity yields a new asset URL.
- res.setHeader('Cache-Control','no-store');
+ res.setHeader('Cache-Control',location===fallback?'no-store':'public, max-age=120, s-maxage=120, stale-while-revalidate=180');
  res.setHeader('Location',location);
  return res.status(302).end();
 };
