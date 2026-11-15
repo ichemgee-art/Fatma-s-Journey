@@ -3,6 +3,7 @@ import {categories, sections, categoryTitle, groupTitle} from '../sections.js'
 import {validateMedia,validateGroup,validateTitle,coverAdvice,validateLocalized} from '../validation.js'
 import {LocalizedInput} from '../components/LocalizedInput.js'
 import {WorkFileInput,WorkCoverInput} from '../components/WorkFileInput.js'
+import {WorkEditorPanel} from '../components/WorkEditorPanel.js'
 
 const fileTypes = [
  {title:'صورة',value:'image'},{title:'فيديو',value:'video'},{title:'ملف صوتي',value:'audio'},
@@ -14,14 +15,15 @@ export const work = defineType({
  name:'work',title:'عمل إبداعي',type:'document',
  description:'اختاري القسم، واكتبي العنوان والوصف بالعربية والإنجليزية، ثم ارفعي ملف العمل. الغلاف اختياري، وملفات PDF تستخدم معاينة الصفحة الأولى تلقائيًا عند توفرها.',
  initialValue:{hidden:false,order:0},
- fieldsets:[{name:'basics',title:'1. القسم ونوع العمل'},{name:'arabic',title:'2. المحتوى بالعربية'},{name:'english',title:'3. المحتوى بالإنجليزية'},{name:'legacy',title:'بيانات قديمة — تُستخدم عند غياب الترجمة',options:{collapsible:true,collapsed:true}},{name:'mediaUpload',title:'4. ملف العمل'},{name:'coverUpload',title:'5. غلاف الكارت — اختياري لكل أنواع الأعمال'},
+ fieldsets:[{name:'basics',title:'① القسم ونوع العمل'},{name:'arabic',title:'② المحتوى بالعربية'},{name:'english',title:'③ المحتوى بالإنجليزية'},{name:'legacy',title:'بيانات قديمة — تُستخدم عند غياب الترجمة',options:{collapsible:true,collapsed:true}},{name:'mediaUpload',title:'④ الملف الأصلي الذي يفتحه الزائر'},{name:'coverUpload',title:'⑤ صورة غلاف الكارت الخارجي — لا تغيّر الفيديو'},
   {name:'details',title:'تفاصيل إضافية — اختياري',options:{collapsible:true,collapsed:true}},
   {name:'visibility',title:'الترتيب وإظهار العمل',options:{collapsible:true,collapsed:true}},
  ],
  fields:[
+  defineField({name:'editorGuide',type:'string',title:'ابدئي هنا — مراجعة العمل قبل النشر',readOnly:true,components:{input:WorkEditorPanel},description:'دليل تفاعلي للحقول المطلوبة وحالة اكتمال العمل.'}),
   defineField({name:'category',fieldset:'basics',type:'string',title:'القسم الرئيسي',description:'يُختار تلقائيًا عندما تضيف العمل من أحد الأقسام. يمكنك تغييره لنقل العمل.',options:{list:categories,layout:'dropdown'},validation:r=>r.required().error('اختَر القسم الذي سيظهر فيه العمل.')}), 
   defineField({name:'group',fieldset:'basics',type:'string',title:'القسم الفرعي — اختياري',description:'يُختار تلقائيًا من القائمة الجانبية. لو غيّرت القسم الرئيسي، غيّر هذا الاختيار أو امسحه.',options:{list:groups},hidden:({document,value})=>['photo','dubbing'].includes(document?.category)&&!value,validation:r=>r.custom((value,context)=>validateGroup(value,context.document)).warning()}),
-  defineField({name:'type',fieldset:'basics',type:'string',title:'نوع الملف — اختياري',description:'يختاره القالب تلقائيًا. الموقع يتعرف أيضًا على نوع الملف المرفوع. للسكريبت المكتوب بدون ملف اختَر «نص أو مستند Word».',options:{list:fileTypes,layout:'radio'}}),
+  defineField({name:'type',fieldset:'basics',type:'string',title:'نوع الملف الأصلي — اختياري',description:'يختاره القالب تلقائيًا. الموقع يتعرف أيضًا على نوع الملف المرفوع. للسكريبت المكتوب بدون ملف اختَر «نص أو مستند Word».',options:{list:fileTypes,layout:'radio'}}),
   defineField({name:'titleAr',components:{input:LocalizedInput},type:'string',fieldset:'arabic',title:'عنوان العمل بالعربية',description:'يظهر على الكارت وصفحة التفاصيل عند اختيار هذه اللغة.',validation:r=>r.custom((value,context)=>validateLocalized(value,context.document,'titleAr'))}),
   defineField({name:'summaryAr',components:{input:LocalizedInput},type:'text',fieldset:'arabic',title:'الوصف المختصر بالعربية',description:'اكتبي سطرًا أو سطرين عن الفكرة ودور فاطمة بهذه اللغة.',rows:3,validation:r=>r.custom((value,context)=>validateLocalized(value,context.document,'summaryAr'))}),
   defineField({name:'textAr',components:{input:LocalizedInput},type:'text',fieldset:'arabic',title:'النص الكامل أو السكريبت — اختياري بالعربية',description:'اكتبي نسخة السكريبت بهذه اللغة، لو مطلوبة. لا يلزم ترجمة كلام التسجيل نفسه؛ أضيفي فقط النص الذي تريدين عرضه للزائر.',rows:9}),
@@ -32,16 +34,21 @@ export const work = defineType({
   defineField({name:'textEn',components:{input:LocalizedInput},type:'text',fieldset:'english',title:'النص الكامل أو السكريبت — اختياري بالإنجليزية',description:'اكتبي نسخة السكريبت بهذه اللغة، لو مطلوبة. لا يلزم ترجمة كلام التسجيل نفسه؛ أضيفي فقط النص الذي تريدين عرضه للزائر.',rows:9}),
   defineField({name:'clientEn',components:{input:LocalizedInput},type:'string',fieldset:'english',title:'اسم العميل — اختياري بالإنجليزية',description:'اسم العلامة التجارية بهذه اللغة، ويمكن كتابة الاسم نفسه باللغتين لو له اسم ثابت.'}),
   defineField({name:'roleEn',components:{input:LocalizedInput},type:'string',fieldset:'english',title:'دور فاطمة — اختياري بالإنجليزية',description:'مثال: كتابة السكريبت، أو التعليق الصوتي، أو المونتاج.'}),
-  defineField({name:'media',fieldset:'mediaUpload',type:'file',title:'ارفع ملف العمل هنا',components:{input:WorkFileInput},description:'يمكن رفع الملف الأصلي مباشرة إلى Sanity. الملفات المستوردة تظل مرتبطة مؤقتًا برابط Drive إلى أن ترفعي الأصل. للسكريبت المكتوب يمكنك الاكتفاء بالنص الكامل.',validation:r=>r.custom((value,context)=>validateMedia(value,context.document))}),
-  defineField({name:'cover',fieldset:'coverUpload',type:'image',title:'غلاف الكارت (اختياري)',components:{input:WorkCoverInput},description:'اختياري لكل أنواع الأعمال؛ ملفات PDF تحاول عرض الصفحة الأولى تلقائيًا بدون غلاف. ارفعي صورة فقط إذا أردتِ استبدال هذه المعاينة. إزالة الغلاف لا تحذف ملف العمل.',validation:r=>r.custom(async(value,context)=>{if(!value?.asset?._ref)return true;try{const asset=await context.getClient({apiVersion:'2025-02-19'}).getDocument(value.asset._ref);return coverAdvice(asset?.metadata?.dimensions)}catch{return true}}).warning()}),
+  defineField({name:'media',fieldset:'mediaUpload',type:'file',title:'الملف الذي سيفتحه الزائر (فيديو / PDF / صوت / صورة)',components:{input:WorkFileInput},description:'يمكن رفع الملف الأصلي مباشرة إلى Sanity. الملفات المستوردة تظل مرتبطة مؤقتًا برابط Drive إلى أن ترفعي الأصل. للسكريبت المكتوب يمكنك الاكتفاء بالنص الكامل.',validation:r=>r.custom((value,context)=>validateMedia(value,context.document))}),
+  defineField({name:'cardCover',fieldset:'coverUpload',type:'image',title:'صورة غلاف الكارت الخارجي — اختيارية',components:{input:WorkCoverInput},
+   description:'الصورة دي تظهر على كارت العمل في Home وWork. مش بتغير الفيديو نفسه ولا صورته أثناء التشغيل. مقاس مناسب 1600×900.',
+   validation:r=>r.custom(async(value,context)=>{if(!value?.asset?._ref)return true;try{const asset=await context.getClient({apiVersion:'2025-02-19'}).getDocument(value.asset._ref);return coverAdvice(asset?.metadata?.dimensions)}catch{return true}}).warning()}),
+  defineField({name:'cover',fieldset:'coverUpload',type:'image',title:'الغلاف القديم للكارت — موجود قبل التحديث',hidden:({value})=>!value,components:{input:WorkCoverInput},
+   description:'غلاف مرفوع من قبل. لو رفعتِ صورة في الخانة الجديدة هتظهر بدل ده. حذفه لا يلمس الفيديو أو الملف الأصلي.',
+   validation:r=>r.custom(async(value,context)=>{if(!value?.asset?._ref)return true;try{const asset=await context.getClient({apiVersion:'2025-02-19'}).getDocument(value.asset._ref);return coverAdvice(asset?.metadata?.dimensions)}catch{return true}}).warning()}),
   defineField({name:'sourceDriveId',type:'string',title:'معرّف ملف Google Drive الأصلي',fieldset:'details',readOnly:true,hidden:({value})=>!value,description:'مرجع آمن لاستيراد الملف القديم، ولا يؤثر على ملف Sanity بعد رفعه.'}),
   defineField({name:'sourceDriveUrl',type:'url',title:'فتح ملف Google Drive القديم',fieldset:'details',readOnly:true,hidden:({value})=>!value,description:'رابط نسخة Drive القديمة. بعد رفع الملف الأصلي إلى Sanity، يتم عرض الملف المرفوع أولًا.'}),
   defineField({name:'sourceFilename',type:'string',title:'عنوان الملف قبل النقل',fieldset:'details',readOnly:true,hidden:({value})=>!value}),
   defineField({name:'importedFromDrive',type:'boolean',title:'مستورد من Google Drive',fieldset:'details',readOnly:true,hidden:true}),
   defineField({name:'year',type:'string',title:'سنة تنفيذ العمل',fieldset:'details'}),
   defineField({name:'order',type:'number',title:'ترتيب العرض',description:'الأرقام الأصغر تظهر أولًا بين الأعمال الجديدة؛ مثال: 10 قبل 20. الأعمال القديمة تحتفظ بترتيبها الأصلي.',fieldset:'visibility',initialValue:0}),
-  defineField({name:'featured',type:'boolean',title:'عرض العمل ضمن الأعمال المميزة',description:'عند تفعيله بعد النشر، يمكن اختيار هذا العمل في قسم «أعمال مختارة» بالصفحة الرئيسية وصفحة الأعمال. يظهر بحد أقصى 3 أعمال مميزة.',fieldset:'visibility',initialValue:false}),
-  defineField({name:'hidden',type:'boolean',title:'إخفاء العمل من الموقع',description:'فعّل هذا الاختيار لإخفائه مع الاحتفاظ به في الاستوديو.',fieldset:'visibility',initialValue:false}),
+  defineField({name:'featured',type:'boolean',title:'إظهار العمل في الأعمال المختارة بالصفحة الرئيسية',description:'عند تفعيله بعد النشر، يمكن اختيار هذا العمل في قسم «أعمال مختارة» بالصفحة الرئيسية وصفحة الأعمال. يظهر بحد أقصى 3 أعمال مميزة.',fieldset:'visibility',initialValue:false}),
+  defineField({name:'hidden',type:'boolean',title:'إخفاء العمل من الموقع (بدون حذفه)',description:'فعّل هذا الاختيار لإخفائه مع الاحتفاظ به في الاستوديو.',fieldset:'visibility',initialValue:false}),
   defineField({name:'title',hidden:({value})=>!value,fieldset:'legacy',type:'string',title:'اسم العمل — نسخة قديمة',description:'هذا هو العنوان الذي سيظهر على كارت العمل وفي صفحة التفاصيل. مثال: إعلان مطعم — تعليق صوتي.'}), 
   defineField({name:'summary',hidden:({value})=>!value,fieldset:'legacy',type:'text',title:'وصف مختصر للعمل — نسخة قديمة',rows:3,description:'اكتب سطرًا أو سطرين عن الفكرة ودور فاطمة. يظهر الوصف تحت العنوان وفي تفاصيل العمل. مثال: تسجيل تعليق صوتي لإعلان مطعم، بأداء مصري حيوي.'}),
   defineField({name:'text',hidden:({value})=>!value,fieldset:'legacy',type:'text',title:'النص الكامل أو السكريبت — اختياري — نسخة قديمة',rows:12,description:'اكتب أو الصق السكريبت هنا ليظهر داخل نافذة تفاصيل العمل. هذه الخانة مختلفة عن الوصف المختصر. يمكن نشر سكريبت مكتوب هنا بدون ملف.'}),
@@ -50,7 +57,7 @@ export const work = defineType({
  ],
  orderings:[{title:'ترتيب العرض',name:'portfolioOrder',by:[{field:'order',direction:'asc'}]}],
  preview:{
-  select:{title:'title',titleAr:'titleAr',titleEn:'titleEn',category:'category',group:'group',type:'type',media:'cover'},
-  prepare({title,titleAr,titleEn,category,group,type,media}){return{title:titleAr||titleEn||title||'عمل جديد بدون عنوان',subtitle:[categoryTitle(category),groupTitle(group),fileTypes.find(t=>t.value===type)?.title].filter(Boolean).join(' / '),media}},
+  select:{title:'title',titleAr:'titleAr',titleEn:'titleEn',category:'category',group:'group',type:'type',newCover:'cardCover',legacyCover:'cover'},
+  prepare({title,titleAr,titleEn,category,group,type,newCover,legacyCover}){return{title:titleAr||titleEn||title||'عمل جديد بدون عنوان',subtitle:[categoryTitle(category),groupTitle(group),fileTypes.find(t=>t.value===type)?.title].filter(Boolean).join(' / '),media:newCover||legacyCover}},
  },
 })

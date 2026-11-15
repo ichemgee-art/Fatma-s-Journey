@@ -35,7 +35,7 @@
   if(m&&url(m.url)){
    const figure=node('figure','media-stage'),u=url(m.url);
    if(m.type==='pdf'){
-    figure.classList.add('pdf-stage');figure.append(window.createPDFPreview(m,current.title,url(current.cover),true));
+    figure.classList.add('pdf-stage');figure.append(window.createPDFPreview(m,current.title,'',true));
    }else if(m.provider==='drive'){
     const frame=node('iframe');frame.src=u;frame.title=current.title;frame.allow='fullscreen; picture-in-picture';frame.setAttribute('allowfullscreen','');frame.className=['document','pdf'].includes(m.type)?'document-preview':'drive-preview';figure.append(frame);
    }else if(m.type==='image'){
@@ -47,7 +47,7 @@
    }else if(m.type==='video'){
     const src=embed(u);
     if(src){const frame=node('iframe');frame.src=src;frame.title=current.title;frame.allow='fullscreen; picture-in-picture';frame.setAttribute('allowfullscreen','');figure.append(frame);}
-    else{const video=node('video');video.controls=true;video.preload='metadata';video.playsInline=true;video.src=u;if(url(m.poster||current.cover))video.poster=m.poster||current.cover;figure.append(video);}
+    else{const video=node('video');video.controls=true;video.preload='metadata';video.playsInline=true;video.src=u;if(url(m.poster))video.poster=m.poster;figure.append(video);}
    }
    if(['document','pdf'].includes(m.type)){const link=node('a','media-action',m.type==='pdf'?t('openPDF'):t('openDocument'));link.href=pSource();link.target='_blank';link.rel='noopener noreferrer';figure.append(link);}
    media.append(figure);

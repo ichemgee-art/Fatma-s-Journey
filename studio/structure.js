@@ -16,21 +16,17 @@ export const structure = (S) => {
    .defaultOrdering([{field:'order',direction:'asc'},{field:'_createdAt',direction:'desc'}])
    .initialValueTemplates(templateItems(specs))
  }
- return S.list().id('portfolio').title('إدارة أعمال فاطمة').items([
-  S.listItem().id('start').title('ابدئي هنا — طريقة الاستخدام').child(S.component().id('guide').title('دليل بسيط').component(StudioGuide)),
-  S.listItem().id('quality-audit').title('فحص المحتوى والتعريب')
-   .child(S.component().id('contentAudit').title('مراجعة جودة المحتوى').component(StudioAudit)),
-  S.listItem().id('drive-migration').title('نقل 260 عمل إلى Sanity')
-   .child(S.component().id('driveImport').title('الاستيراد والرفع الجماعي').component(LegacyMigration)),
-  S.divider(),
-  S.documentTypeListItem('certificate').title('الشهادات / Certificates'),
-  S.documentTypeListItem('siteSettings').title('إعدادات وصور الموقع / Site settings'),
-  S.listItem().id('social-settings').title('روابط التواصل الاجتماعي / Social links')
-   .child(S.document().schemaType('socialSettings').documentId('socialSettings')),
+ return S.list().id('portfolio').title('لوحة إدارة فاطمة — سهلة وواضحة').items([
+  S.listItem().id('start').title('① ابدئي هنا — دليل الاستخدام')
+   .child(S.component().id('guide').title('خطوات سهلة لرفع ونشر الأعمال').component(StudioGuide)),
+  S.listItem().id('all-work').title('② كل أعمالك — بحث وتعديل')
+   .child(S.documentTypeList('work').title('كل الأعمال')
+    .defaultOrdering([{field:'_createdAt',direction:'desc'}])
+    .initialValueTemplates(templateItems(sections))),
   S.divider(),
   ...categories.map(category=>{
    const specs=sections.filter(s=>s.category===category.value)
-   return S.listItem().id(category.value).title(category.title).child(
+   return S.listItem().id(category.value).title('📁 '+category.title).child(
     specs.length===1?list(category,specs[0]):S.list().id(category.value+'-sections').title(category.title).items([
      S.listItem().id(category.value+'-all').title('كل أعمال القسم').child(list(category)),
      S.divider(),
@@ -39,9 +35,18 @@ export const structure = (S) => {
    )
   }),
   S.divider(),
-  S.listItem().id('all-work').title('كل الأعمال — بحث وتعديل').child(
-   S.documentTypeList('work').title('كل الأعمال').defaultOrdering([{field:'_createdAt',direction:'desc'}])
-    .initialValueTemplates(templateItems(sections))
-  ),
+  S.listItem().id('certificates').title('③ الشهادات — إضافة وتعديل')
+   .child(S.documentTypeList('certificate').title('الشهادات')),
+  S.documentTypeListItem('siteSettings').title('④ صور Home وAbout وإعدادات الموقع'),
+  S.listItem().id('social-settings').title('⑤ روابط التواصل الاجتماعي')
+   .child(S.document().schemaType('socialSettings').documentId('socialSettings')),
+  S.divider(),
+  S.listItem().id('advanced').title('⚙ أدوات متقدمة — عند الحاجة فقط')
+   .child(S.list().id('advanced-tools').title('أدوات الفحص والنقل').items([
+    S.listItem().id('quality-audit').title('فحص المحتوى والأخطاء')
+     .child(S.component().id('contentAudit').title('مراجعة جودة المحتوى').component(StudioAudit)),
+    S.listItem().id('drive-migration').title('نقل ملفات Google Drive إلى Sanity')
+     .child(S.component().id('driveImport').title('نقل الملفات القديمة').component(LegacyMigration)),
+   ])),
  ])
 }

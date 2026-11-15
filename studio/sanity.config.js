@@ -6,7 +6,7 @@ import {portfolioProject, legacyProject, siteSettings, portfolioMedia, certifica
 import {work} from './schemaTypes/work.js'
 import {structure} from './structure.js'
 import {templates} from './sections.js'
-import {withUploadGuard} from './actions.js'
+import {withUploadGuard,renameDangerAction} from './actions.js'
 import {FJIcon} from './components/StudioGuide.js'
 
 export default defineConfig({
@@ -17,5 +17,5 @@ export default defineConfig({
   dataset: 'production',
   plugins: [structureTool({title:'إدارة الأعمال',structure})],
   schema: {types: [work, portfolioProject, legacyProject, portfolioMedia, siteSettings, certificate, socialSettings],templates},
-  document: {newDocumentOptions:prev=>prev.filter(item=>['certificate','siteSettings'].includes(item.templateId)||templates.some(template=>template.id===item.templateId)),actions:(prev,context)=>['work','certificate'].includes(context.schemaType)?prev.map(action=>action.action==='publish'?withUploadGuard(action):action):prev},
+  document: {newDocumentOptions:prev=>prev.filter(item=>['certificate','siteSettings'].includes(item.templateId)||templates.some(template=>template.id===item.templateId)),actions:(prev,context)=>['work','certificate'].includes(context.schemaType)?prev.map(action=>action.action==='publish'?withUploadGuard(action):['delete','unpublish','discardChanges'].includes(action.action)?renameDangerAction(action):action):prev},
 })

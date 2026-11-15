@@ -31,12 +31,12 @@ function AssetInput({value,onChange,readOnly,elementProps},kind,certificate=fals
  }
  const buttonStyle={border:'1px solid #8e79b9',borderRadius:8,padding:'11px 16px',background:'#34264c',color:'#fff',cursor:'pointer',font:'inherit',minHeight:44}
  return React.createElement('div',{dir:'rtl',style:{border:'1px solid #55505f',borderRadius:10,padding:18,lineHeight:1.9}},
-  image&&React.createElement('p',{style:{fontSize:13,margin:'0 0 14px',lineHeight:1.9}},'غلاف الكارت لكل أنواع الأعمال. المقاس المقترح 1600 × 900 بكسل، بنسبة 16:9. ضعي العنصر المهم في المنتصف، مع مسافة حول الكلام. JPG أو PNG أو WebP؛ بحد أقصى 10 ميجابايت.'),
-  image&&asset?.url&&React.createElement('img',{src:asset.url+'?w=640&h=480&fit=crop&auto=format',alt:'معاينة غلاف الكارت',style:{display:'block',width:'100%',maxWidth:480,aspectRatio:'16/9',objectFit:'cover',borderRadius:10,marginBottom:16}}),
+  image&&React.createElement('p',{style:{fontSize:13,margin:'0 0 14px',lineHeight:1.9,fontWeight:650}},'ده الغلاف اللي بيظهر خارج الفيديو على كارت الموقع، مش صورة التشغيل داخل الفيديو. اختياري تمامًا. المقاس المقترح 1600 × 900 بنسبة 16:9، JPG/PNG/WebP وبحد أقصى 10 ميجا.'),
+  image&&asset?.url&&React.createElement('img',{src:asset.url+'?w=640&h=480&fit=crop&auto=format',alt:'معاينة غلاف الكارت',style:{display:'block',width:'100%',maxWidth:480,aspectRatio:'16/9',objectFit:'cover',borderRadius:10,marginBottom:16,objectPosition:'center',boxSizing:'border-box'}}),
   image&&asset?.metadata?.dimensions&&React.createElement('p',{style:{fontSize:12,margin:'0 0 14px'}},'مقاس الصورة الحالية: '+asset.metadata.dimensions.width+' × '+asset.metadata.dimensions.height+' بكسل.'),
   React.createElement('input',{ref:picker,type:'file',accept:certificate?'image/*,application/pdf,.pdf':image?'image/jpeg,image/png,image/webp':'.pdf,.doc,.docx,image/*,video/*,audio/*',onChange:upload,disabled:busy||readOnly,style:{display:'none'}}),
-  React.createElement('button',{...elementProps,type:'button',disabled:busy||readOnly,onClick:()=>picker.current?.click(),style:buttonStyle},busy?'جارٍ الرفع…':reference?image?'استبدال الغلاف':'استبدال الملف':image?'اختيار غلاف ورفعه':'اختيار ملف ورفعه'),
-  React.createElement('p',{role:'status','aria-live':'polite',style:{fontSize:13,margin:'12px 0 0'}},busy?'انتظري اكتمال الرفع قبل النشر أو مغادرة الصفحة.':reference?'تم الرفع ✓ '+(asset?.originalFilename||''):image?'اختياري: لو لم تضيفي غلافًا، سيستخدم الموقع المعاينة التلقائية.':certificate?'ارفعي صورة الشهادة أو ملف PDF.':'PDF، صور، فيديو، صوت أو مستند Word.'),
+  React.createElement('button',{...elementProps,type:'button',disabled:busy||readOnly,onClick:()=>picker.current?.click(),style:buttonStyle},busy?'جارٍ الرفع…':reference?image?'تغيير صورة الكارت الخارجية':'استبدال الملف الأصلي':image?'رفع صورة غلاف الكارت الخارجية':'رفع الملف الأصلي للعمل'),
+  React.createElement('p',{role:'status','aria-live':'polite',style:{fontSize:13,margin:'12px 0 0'}},busy?'انتظري اكتمال الرفع قبل النشر أو مغادرة الصفحة.':reference?'✓ الملف اتخزن في Sanity. اضغطي «نشر على الموقع» لإظهار التغيير. '+(asset?.originalFilename||''):image?'اختياري: لو لم تضيفي غلافًا، سيستخدم الموقع المعاينة التلقائية.':certificate?'ارفعي صورة الشهادة أو ملف PDF.':'PDF، صور، فيديو، صوت أو مستند Word.'),
   !image&&!reference&&typeof sourceDriveUrl==='string'&&/^https:\/\//.test(sourceDriveUrl)&&React.createElement('a',{
    href:sourceDriveUrl,target:'_blank',rel:'noopener noreferrer',
    style:{display:'inline-block',marginTop:12,color:'#d6b2ff',fontSize:13,fontWeight:700}
@@ -44,6 +44,6 @@ function AssetInput({value,onChange,readOnly,elementProps},kind,certificate=fals
   error&&React.createElement('p',{role:'alert',style:{color:'#ffb6bc',fontSize:13}},error),
   reference&&React.createElement('div',{style:{display:'flex',alignItems:'center',gap:18,marginTop:12}},
    asset?.url&&React.createElement('a',{href:asset.url,target:'_blank',rel:'noopener noreferrer',style:{color:'#d5b5ff'}},'فتح الملف ↗'),
-   React.createElement('button',{type:'button',disabled:busy||readOnly,onClick:()=>onChange(PatchEvent.from(unset())),style:{...buttonStyle,background:'transparent',fontSize:12}},image?'إزالة الغلاف فقط':certificate?'إزالة ملف الشهادة':'إزالة الملف من العمل')),
+   React.createElement('button',{type:'button',disabled:busy||readOnly,onClick:()=>{if(window.confirm(image?'إزالة صورة غلاف الكارت فقط؟ الفيديو أو الملف الأصلي لن يتأثر.':'إزالة الملف من هذا العمل؟ سيتم حفظ التغيير كمسودة، ولن يظهر على الموقع إلا بعد النشر.'))onChange(PatchEvent.from(unset()))},style:{...buttonStyle,background:'transparent',fontSize:12}},image?'إزالة الغلاف فقط':certificate?'إزالة ملف الشهادة':'إزالة الملف من العمل')),
  )
 }

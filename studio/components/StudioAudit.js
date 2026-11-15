@@ -8,7 +8,7 @@ const groq=`{
  "works":*[_type=="work" && !(_id in path("drafts.**")) && !(_id in path("versions.**"))][0...5000]{
   _id,_updatedAt,category,group,type,title,titleAr,titleEn,summary,summaryAr,summaryEn,text,textAr,textEn,
   roleAr,roleEn,year,order,featured,hidden,sourceDriveId,sourceDriveUrl,importedFromDrive,"hasMedia":defined(media.asset._ref),
-  "mimeType":media.asset->mimeType,"hasCover":defined(cover.asset._ref)
+  "mimeType":media.asset->mimeType,"hasCover":defined(cardCover.asset._ref)||defined(cover.asset._ref)
  },
  "legacy":count(*[_type in ["portfolioProject","project","portfolioItem","caseStudy"] && !(_id in path("drafts.**"))]),
  "settings":*[_type=="siteSettings" && !(_id in path("drafts.**"))]{_id,_updatedAt,name,headline,tagline,about,contactEmail,"hero":defined(heroImage.asset._ref),"aboutPhoto":defined(aboutImage.asset._ref)},
@@ -40,7 +40,7 @@ function buildReport(raw){
  add('file-titles','warning','عنوان يشبه اسم ملف تلقائي',visible.filter(w=>/^(?:copy of )?(?:IMG|VID|DSC|MVI)[\s_-]*[0-9٠-٩]|^v[0-9a-z]{23,}$|^untitled|^بدون عنوان/i.test(title(w))),'استبدلي أسماء الملفات بعناوين مفهومة للعمل.')
  add('role-ar','info','دور فاطمة بالعربية غير مذكور',missing('roleAr'),'أضيفي دورها الحقيقي فقط إن كان معروفًا.')
  add('role-en','info','دور فاطمة بالإنجليزية غير مذكور',missing('roleEn'),'أضيفي ترجمة الدور عند توفره.')
- add('cover','info','أعمال من دون غلاف اختياري',visible.filter(w=>!w.hasCover),'دي معلومة فقط، مش مشكلة: ملفات PDF تُعرض معاينة صفحتها الأولى تلقائيًا.')
+ add('cover','info','أعمال من دون غلاف كارت خارجي (اختياري)',visible.filter(w=>!w.hasCover),'دي معلومة فقط، مش مشكلة: غلاف الكارت اختياري، والفيديو الأصلي منفصل عنه، وPDF بيحاول عرض أول صفحة تلقائيًا.')
  const orderZero=visible.filter(w=>typeof w.order!=='number'||w.order===0)
  if(orderZero.length>1)add('order','info','أعمال بترتيب افتراضي متكرر',orderZero,'لتحديد ترتيب العرض من Sanity، اكتبي أرقامًا مختلفة في ترتيب العرض.')
  const cert=raw.certificates||[]
