@@ -79,3 +79,22 @@ html[dir="ltr"] .cms-card .cms-cover{margin-inline:auto!important}
 @media(prefers-reduced-motion:reduce){
  .cms-card .cover-media{transition:none!important}
 }
+
+
+/* FIX: the card root receives preview-ready after the image loads.
+ * Previously only the inner cover was flagged, leaving the uploaded cover at opacity:0. */
+.cms-card.preview-ready .cms-cover>.cover-media,
+.cms-card .cms-cover.preview-ready>.cover-media{
+ opacity:1!important;
+ visibility:visible!important;
+ z-index:4!important;
+}
+.cms-card.preview-ready .cms-cover>.cover-art,
+.cms-card .cms-cover.preview-ready>.cover-art{
+ opacity:0!important;
+ visibility:hidden!important;
+}
+.cms-card.preview-failed:not(.is-pdf) .cms-cover>.cover-art{
+ opacity:1;
+ visibility:visible;
+}

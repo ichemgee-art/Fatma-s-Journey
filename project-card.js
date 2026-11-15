@@ -60,8 +60,8 @@
   }else if(cover){
    const img=node('img','cover-media');
    img.alt='';img.loading='lazy';img.decoding='async';
-   img.addEventListener('load',()=>visual.classList.add('preview-ready'),{once:true});
-   img.addEventListener('error',()=>{visual.classList.add('preview-failed');img.remove();driveEmbedFallback();},{once:true});
+   img.addEventListener('load',()=>{visual.classList.add('preview-ready');card.classList.add('preview-ready');card.classList.remove('preview-failed');},{once:true});
+   img.addEventListener('error',()=>{visual.classList.add('preview-failed');card.classList.add('preview-failed');card.classList.remove('preview-ready');img.remove();driveEmbedFallback();},{once:true});
    visual.append(img);img.src=cover;
   }
   if(!cover&&type!=='pdf')driveEmbedFallback();

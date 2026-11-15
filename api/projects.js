@@ -74,7 +74,7 @@ async function handler(req,res){
    const payload=await response.json();if(payload.error)throw Error('Sanity query failed');raw=payload.result||{};sourceStatus='connected';
   }catch(e){console.error('Portfolio content:',e.message);}finally{clearTimeout(timer);}
  }
- res.setHeader('Cache-Control',sourceStatus==='connected'?'s-maxage=30,stale-while-revalidate=120':'no-store');
+ res.setHeader('Cache-Control',sourceStatus==='connected'?'public, max-age=0, s-maxage=5, must-revalidate':'no-store');
  if(sourceStatus!=='connected')return res.status(503).json({error:'The portfolio is temporarily unavailable.'});
  const result=assemble(raw),ids=new URL(req.url||'/','https://portfolio.local').searchParams.getAll('id');
  if(ids.length){
