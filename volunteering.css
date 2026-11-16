@@ -1,0 +1,143 @@
+/* Fatma’s Journey — Volunteering page, backed entirely by Sanity. */
+/* Expanded navigation for the seventh public page. */
+@media(min-width:801px){
+ .topbar .nav{gap:clamp(10px,1.35vw,20px);font-size:clamp(11px,1.05vw,13px)}
+ .topbar .nav a{white-space:nowrap}
+ .topbar .nav-cta{padding:12px 17px}
+ .topbar{gap:clamp(10px,2vw,26px)}
+}
+@media(min-width:801px) and (max-width:1120px){
+ .topbar .brand{font-size:clamp(17px,2vw,23px);gap:7px;white-space:nowrap}
+ .topbar .header-tools{gap:5px}
+ .topbar .preference-button{font-size:11px;padding:9px 11px}
+}
+@media(max-width:800px){
+ .mobile-nav{grid-template-columns:repeat(7,minmax(0,1fr));gap:2px}
+ .mobile-nav a{padding:5px 1px;font-size:9px;white-space:normal;text-align:center}
+ .mobile-nav svg{width:20px;height:20px;flex:none}
+}
+@media(max-width:390px){
+ .mobile-nav{gap:1px;padding:5px}
+ .mobile-nav a{font-size:8px;line-height:1.35;padding:4px 0}
+ .mobile-nav svg{width:19px;height:19px}
+}
+.volunteering-page .fj-page-top{min-height:260px}
+.volunteering-page .volunteer-grid{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:clamp(17px,2.4vw,30px);align-items:stretch;
+ margin:clamp(15px,3vw,30px) 0 clamp(45px,7vw,90px);
+}
+.volunteering-page .volunteer-card{
+ display:flex;flex-direction:column;min-width:0;
+ background:var(--cream-2);border:1px solid var(--line);
+ border-radius:27px;overflow:hidden;
+ box-shadow:0 18px 47px rgba(34,25,58,.08);
+ transition:transform .26s cubic-bezier(.2,.75,.18,1),box-shadow .26s ease,border-color .26s ease;
+}
+.volunteering-page .volunteer-card:hover{
+ transform:translateY(-5px);
+ border-color:color-mix(in srgb,var(--violet) 37%,var(--line));
+ box-shadow:0 27px 60px rgba(34,25,58,.14);
+}
+.volunteering-page .volunteer-photo-wrap{
+ position:relative;isolation:isolate;width:calc(100% - 16px);
+ margin:8px auto 0;aspect-ratio:4/3;border-radius:20px;
+ background:color-mix(in srgb,var(--violet) 9%,var(--cream-2));
+ overflow:hidden;flex-shrink:0;
+}
+.volunteering-page .volunteer-photo-wrap::after{
+ content:"";position:absolute;inset:0;pointer-events:none;
+ border:1px solid rgba(255,255,255,.1);border-radius:inherit;
+}
+.volunteering-page .volunteer-photo{
+ position:absolute;inset:0;width:100%;height:100%;
+ max-width:100%;display:block;object-fit:cover;object-position:center;
+ margin:0;padding:0;transform:none;filter:none;
+}
+.volunteering-page .volunteer-card-body{
+ padding:clamp(21px,2.1vw,27px);flex:1;display:flex;flex-direction:column;gap:12px;
+}
+.volunteering-page .volunteer-kicker{
+ display:flex;align-items:center;gap:9px;
+ font-weight:800;font-size:10px;letter-spacing:.1em;
+ text-transform:uppercase;color:var(--violet);line-height:1.6;
+}
+.volunteering-page .volunteer-kicker::before{
+ content:"";width:7px;height:7px;flex:none;border-radius:50%;background:currentColor;
+}
+.volunteering-page .volunteer-role{
+ margin:0;color:var(--ink);font:800 clamp(20px,1.8vw,25px)/1.45 Manrope,"Alexandria",sans-serif;
+ letter-spacing:-.04em;text-wrap:pretty;overflow-wrap:anywhere;
+}
+.volunteering-page .volunteer-description{
+ margin:0;color:var(--muted);font-size:14px;line-height:1.95;
+ white-space:pre-line;overflow-wrap:anywhere;flex:1;
+}
+.volunteering-page .volunteer-visit{
+ display:flex;align-items:center;justify-content:space-between;gap:14px;
+ border-top:1px solid var(--line);margin-top:10px;padding-top:18px;
+ color:var(--violet);font-weight:800;font-size:12px;line-height:1.6;
+ text-decoration:none;
+}
+.volunteering-page .volunteer-visit:focus-visible{
+ outline:3px solid var(--violet);outline-offset:3px;border-radius:10px;
+}
+.volunteering-page .volunteer-platform{display:inline-flex;align-items:center;gap:11px;min-width:0}
+.volunteering-page .volunteer-platform-icon{
+ display:grid;place-items:center;width:39px;height:39px;flex:none;
+ border-radius:12px;background:color-mix(in srgb,var(--violet) 10%,var(--cream-2));
+ border:1px solid var(--line);overflow:hidden;
+}
+.volunteering-page .volunteer-platform-icon img{width:22px;height:22px;object-fit:contain}
+.volunteering-page .volunteer-platform-icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.volunteering-page .volunteer-arrow{
+ display:grid;place-items:center;flex:none;border-radius:50%;width:35px;height:35px;
+ background:color-mix(in srgb,var(--violet) 13%,var(--cream-2));
+ font-size:20px;transition:transform .22s ease;
+}
+.volunteering-page .volunteer-visit:hover .volunteer-arrow{transform:translate(2px,-2px)}
+html[dir=rtl] .volunteering-page .volunteer-role{font-family:"Alexandria",Tahoma,sans-serif;letter-spacing:0;line-height:1.7}
+html[dir=rtl] .volunteering-page .volunteer-kicker{letter-spacing:0}
+html[dir=rtl] .volunteering-page .volunteer-visit:hover .volunteer-arrow{transform:translate(-2px,-2px)}
+.volunteering-page .volunteer-status{
+ border:1px solid var(--line);background:var(--cream-2);border-radius:20px;
+ padding:30px 25px;color:var(--muted);font-size:14px;line-height:1.8;
+ margin:20px 0 clamp(45px,7vw,85px);
+}
+.volunteering-page .volunteer-status[hidden],.volunteering-page .volunteer-grid[hidden]{display:none!important}
+html[data-theme=dark] .volunteering-page .volunteer-card{box-shadow:0 17px 45px rgba(0,0,0,.19)}
+@media(max-width:920px){
+ .volunteering-page .volunteer-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:19px}
+}
+@media(max-width:620px){
+ .volunteering-page .fj-page-top{min-height:0}
+ .volunteering-page .volunteer-grid{grid-template-columns:minmax(0,1fr);gap:20px;margin:15px 0 50px}
+ .volunteering-page .volunteer-card{border-radius:24px}
+ .volunteering-page .volunteer-photo-wrap{border-radius:19px;margin:7px auto 0;width:calc(100% - 14px)}
+ .volunteering-page .volunteer-card-body{padding:19px 21px 23px}
+ .volunteering-page .volunteer-role{font-size:21px}
+}
+@media(prefers-reduced-motion:reduce){
+ .volunteering-page .volunteer-card,.volunteering-page .volunteer-arrow{transition:none!important}
+ .volunteering-page .volunteer-card:hover,.volunteering-page .volunteer-visit:hover .volunteer-arrow{transform:none!important}
+}
+
+
+/* Seven navigation items need the compact mobile bar on mid-size tablets. */
+@media(min-width:801px) and (max-width:1090px){
+ body{padding-bottom:95px}
+ .topbar .nav{display:none!important}
+ .mobile-nav{
+  display:grid;position:fixed;grid-template-columns:repeat(7,minmax(0,1fr));
+  gap:3px;inset-inline:12px;max-width:690px;margin-inline:auto;
+  bottom:calc(9px + env(safe-area-inset-bottom,0px));min-height:66px;
+  z-index:200;border:1px solid var(--line);border-radius:22px;padding:6px;
+  background:var(--cream-2);box-shadow:0 8px 35px #15102d24
+ }
+ .mobile-nav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:0;min-height:54px;padding:5px 1px;border-radius:16px;font-size:10px;font-weight:800;color:var(--muted);text-decoration:none;text-align:center}
+ .mobile-nav a[aria-current=page]{background:#e9d6ff;color:#54227e}
+ .mobile-nav svg{width:21px;height:21px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+ html[data-theme=dark] .mobile-nav{background:#211d33;box-shadow:0 8px 35px #0005}
+ html[data-theme=dark] .mobile-nav a[aria-current=page]{background:#51336b;color:#f0dfff}
+}
+.volunteering-page .volunteer-image-error{display:grid;place-items:center;width:100%;height:100%;min-height:190px;color:var(--muted);font-size:13px;font-weight:700;text-align:center;padding:15px}

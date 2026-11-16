@@ -4,6 +4,7 @@ import {structureTool} from 'sanity/structure'
 import {portfolioProject, legacyProject, siteSettings, portfolioMedia, certificate, socialSettings} from './schemaTypes/index.js'
 
 import {work} from './schemaTypes/work.js'
+import {volunteering} from './schemaTypes/volunteering.js'
 import {structure} from './structure.js'
 import {templates} from './sections.js'
 import {withUploadGuard,renameDangerAction} from './actions.js'
@@ -16,6 +17,6 @@ export default defineConfig({
   projectId: 'q3zqgei4',
   dataset: 'production',
   plugins: [structureTool({title:'إدارة الأعمال',structure})],
-  schema: {types: [work, portfolioProject, legacyProject, portfolioMedia, siteSettings, certificate, socialSettings],templates},
-  document: {newDocumentOptions:prev=>prev.filter(item=>['certificate','siteSettings'].includes(item.templateId)||templates.some(template=>template.id===item.templateId)),actions:(prev,context)=>['work','certificate'].includes(context.schemaType)?prev.map(action=>action.action==='publish'?withUploadGuard(action):['delete','unpublish','discardChanges'].includes(action.action)?renameDangerAction(action):action):prev},
+  schema: {types: [work, portfolioProject, legacyProject, portfolioMedia, siteSettings, certificate, volunteering, socialSettings],templates},
+  document: {newDocumentOptions:prev=>prev.filter(item=>['certificate','volunteering','siteSettings'].includes(item.templateId)||templates.some(template=>template.id===item.templateId)),actions:(prev,context)=>['work','certificate','volunteering'].includes(context.schemaType)?prev.map(action=>action.action==='publish'?withUploadGuard(action):['delete','unpublish','discardChanges'].includes(action.action)?renameDangerAction(action):action):prev},
 })

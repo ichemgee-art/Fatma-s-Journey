@@ -37,8 +37,10 @@ export const structure = (S) => {
   S.divider(),
   S.listItem().id('certificates').title('③ الشهادات — إضافة وتعديل')
    .child(S.documentTypeList('certificate').title('الشهادات')),
-  S.documentTypeListItem('siteSettings').title('④ صور Home وAbout وإعدادات الموقع'),
-  S.listItem().id('social-settings').title('⑤ روابط التواصل الاجتماعي')
+  S.listItem().id('volunteering').title('④ التطوعات — إضافة وتعديل')
+   .child(S.documentTypeList('volunteering').title('التطوعات').defaultOrdering([{field:'order',direction:'asc'},{field:'_createdAt',direction:'desc'}])),
+  S.documentTypeListItem('siteSettings').title('⑤ صور Home وAbout وإعدادات الموقع'),
+  S.listItem().id('social-settings').title('⑥ روابط التواصل الاجتماعي')
    .child(S.document().schemaType('socialSettings').documentId('socialSettings')),
   S.divider(),
   S.listItem().id('advanced').title('⚙ أدوات متقدمة — عند الحاجة فقط')

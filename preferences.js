@@ -179,6 +179,31 @@
   studioEndText_certificates:'شوف إزاي التعلّم والمهارات الجديدة بيتحوّلوا لشغل إبداعي حقيقي.',
   studioEndCTA_certificates:'استكشف الأعمال ↗'
  });
+
+ Object.assign(strings.en,{
+  volunteering:'Volunteering',
+  volunteerKicker:'CREATIVE WORK. REAL IMPACT.',
+  volunteerIntro:'Meaningful contributions, shared experiences, and the roles I’ve taken on through volunteering.',
+  volunteerMetaLeft:'Experience beyond projects',
+  volunteerMetaRight:'Purposeful contributions',
+  volunteerLoading:'Loading volunteering experiences…',
+  volunteerEmpty:'Volunteering experiences will appear here once they’re published.',
+  volunteerError:'Unable to load volunteering experiences right now. Please try again.',
+  volunteerVisit:'Visit volunteering page',
+  volunteerImageAlt:'Volunteering experience'
+ });
+ Object.assign(strings.ar,{
+  volunteering:'التطوعات',
+  volunteerKicker:'إبداع بيترك أثر',
+  volunteerIntro:'تجارب ومساهمات وأدوار شاركت فيها من خلال العمل التطوعي.',
+  volunteerMetaLeft:'تجارب خارج نطاق المشاريع',
+  volunteerMetaRight:'مساهمات لها أثر',
+  volunteerLoading:'جارٍ تحميل التطوعات…',
+  volunteerEmpty:'لسه مفيش تطوعات منشورة. هتظهر هنا بعد إضافتها من لوحة Sanity.',
+  volunteerError:'تعذّر تحميل التطوعات حاليًا. جرّب تاني بعد شوية.',
+  volunteerVisit:'زيارة صفحة التطوع',
+  volunteerImageAlt:'صورة من تجربة التطوع'
+ });
  let language=document.documentElement.lang==='ar'?'ar':'en';
  let theme=document.documentElement.dataset.theme==='dark'?'dark':'light';
  const t=key=>strings[language][key]||strings.en[key]||key;
@@ -190,7 +215,7 @@
   document.querySelectorAll('[data-i18n-aria]').forEach(e=>e.setAttribute('aria-label',t(e.dataset.i18nAria)));
   document.querySelectorAll('[data-i18n-alt]').forEach(e=>e.alt=t(e.dataset.i18nAlt));
   const b=document.getElementById('languageToggle');b.textContent=value==='ar'?'EN':'العربية';b.setAttribute('aria-label',t('langLabel'));b.lang=value==='ar'?'en':'ar';
-  const pageKey={certificates:'certificates',details:'detailsLabel',projects:'work',about:'about',social:'social',contact:'contactNav'}[document.body.dataset.page];document.title=(pageKey?t(pageKey)+' — ':'')+t('pageTitle');document.querySelector('meta[name="description"]').content=t('description');
+  const pageKey={volunteering:'volunteering',certificates:'certificates',details:'detailsLabel',projects:'work',about:'about',social:'social',contact:'contactNav'}[document.body.dataset.page];document.title=(pageKey?t(pageKey)+' — ':'')+t('pageTitle');document.querySelector('meta[name="description"]').content=t('description');
   applyTheme(theme,false);window.dispatchEvent(new CustomEvent('portfolio:language'));
  }
  function localizeProject(project){const result={...project},featured=featuredWork[project.id]?.[language],local=project.translations?.[language]||{};for(const key of ['title','summary','text','client','role'])result[key]=typeof local[key]==='string'&&local[key].trim()?local[key].trim():(featured?.[key]||(project.legacyText?project.legacyText[key]||'':project[key]||''));return result;}
